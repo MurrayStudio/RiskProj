@@ -112,10 +112,10 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer, OnCl
 		
 		//makes surfaceView transparent
 		//stackOverflow TantanQi
-		SurfaceView sfvTrack = (SurfaceView) myActivity.findViewById(R.id.countriesMapDraw);
-		sfvTrack.setZOrderOnTop(true); // necessary
-		SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
-		sfhTrackHolder.setFormat(PixelFormat.TRANSPARENT);
+		//SurfaceView sfvTrack = (SurfaceView) myActivity.findViewById(R.id.countriesMapDraw);
+		//sfvTrack.setZOrderOnTop(true); // necessary
+		//SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
+		//sfhTrackHolder.setFormat(PixelFormat.TRANSPARENT);
 		
 		Button country1 = (Button) myActivity.findViewById(R.id.russiaButton);
 		final Button attack = (Button) myActivity.findViewById(R.id.Attack);

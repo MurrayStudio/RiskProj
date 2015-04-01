@@ -354,13 +354,13 @@
         android:textColor="@color/Black"
         android:textSize="75dp" />
 
-    <edu.up.cs301.risk.RiskSurfaceView
-        android:id="@+id/countriesMapDraw"
-        android:layout_width="@dimen/surface_width_height"
-        android:layout_height="@dimen/surface_width_height"
-        android:layout_marginLeft="@dimen/surface_margin_left"
-        android:layout_marginTop="@dimen/surface_margin_top"
-        android:background="@color/CustomTransparent"
-        android:gravity="center_vertical" />
+<!--     <edu.up.cs301.risk.RiskSurfaceView -->
+<!--         android:id="@+id/countriesMapDraw" -->
+<!--         android:layout_width="@dimen/surface_width_height" -->
+<!--         android:layout_height="@dimen/surface_width_height" -->
+<!--         android:layout_marginLeft="@dimen/surface_margin_left" -->
+<!--         android:layout_marginTop="@dimen/surface_margin_top" -->
+<!--         android:background="@color/CustomTransparent" -->
+<!--         android:gravity="center_vertical" /> -->
 
 </RelativeLayout>
