@@ -137,17 +137,6 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer, OnCl
 		attack = (Button) myActivity.findViewById(R.id.Attack);
 		attack.setOnClickListener(this);
 		
-/*		final Button country1 = (Button) myActivity.findViewById(R.id.russiaButton);
-		final Button attack = (Button) myActivity.findViewById(R.id.Attack);
-		
-		country1.setOnClickListener(new OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				attack.setBackgroundColor(country1.getContext().getResources().getColor(R.color.Yellow));
-			}
-		});*/
-		
 
 		
 		// if we have a game state, "simulate" that we have just received
