@@ -188,7 +188,7 @@
             android:layout_marginLeft="@dimen/button_left_right"
             android:layout_marginRight="@dimen/button_left_right"
             android:layout_marginTop="@dimen/button_margin_top_bottom"
-            android:background="@drawable/custombuttonshapered"
+            android:background="@drawable/custombuttonshapewhite"
             android:text="@string/attack"
             android:textAllCaps="false"
             android:textColor="@color/Black"
@@ -203,7 +203,7 @@
             android:layout_marginLeft="@dimen/button_left_right"
             android:layout_marginRight="@dimen/button_left_right"
             android:layout_marginTop="@dimen/button_margin_top_bottom"
-            android:background="@drawable/custombuttonshapegrey"
+            android:background="@drawable/custombuttonshapewhite"
             android:text="@string/move"
             android:textAllCaps="false"
             android:textColor="@color/Black"
@@ -218,7 +218,7 @@
             android:layout_marginLeft="@dimen/button_left_right"
             android:layout_marginRight="@dimen/button_left_right"
             android:layout_marginTop="@dimen/button_margin_top_bottom"
-            android:background="@drawable/custombuttonshapeblue"
+            android:background="@drawable/custombuttonshapewhite"
             android:text="@string/place"
             android:textAllCaps="false"
             android:textColor="@color/Black"
@@ -280,10 +280,10 @@
             android:layout_marginLeft="@dimen/button_left_right"
             android:layout_marginRight="@dimen/button_left_right"
             android:layout_marginTop="@dimen/button_margin_top_bottom"
-            android:background="@drawable/custombuttonshapered"
+            android:background="@drawable/custombuttonshapewhite"
             android:text="@string/rollA"
             android:textAllCaps="false"
-            android:textColor="@color/Black"
+            android:textColor="@color/Red"
             android:textSize="@dimen/button_text_size" />
 
         <LinearLayout
@@ -322,7 +322,7 @@
             android:background="@drawable/custombuttonshapewhite"
             android:text="@string/rollD"
             android:textAllCaps="false"
-            android:textColor="@color/Black"
+            android:textColor="@color/Blue"
             android:textSize="@dimen/button_text_size" />
 
         <Button
@@ -347,20 +347,215 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="140dp"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="60dp"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="1"
+        android:text="2"
         android:textColor="@color/Black"
         android:textSize="75dp" />
 
-<!--     <edu.up.cs301.risk.RiskSurfaceView -->
-<!--         android:id="@+id/countriesMapDraw" -->
-<!--         android:layout_width="@dimen/surface_width_height" -->
-<!--         android:layout_height="@dimen/surface_width_height" -->
-<!--         android:layout_marginLeft="@dimen/surface_margin_left" -->
-<!--         android:layout_marginTop="@dimen/surface_margin_top" -->
-<!--         android:background="@color/CustomTransparent" -->
-<!--         android:gravity="center_vertical" /> -->
+    <TextView
+        android:id="@+id/countryCount2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="60dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Black"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="460dp"
+        android:layout_marginTop="60dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Black"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="620dp"
+        android:layout_marginTop="60dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Black"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="210dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Black"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="210dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Black"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="460dp"
+        android:layout_marginTop="210dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Black"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="620dp"
+        android:layout_marginTop="210dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Black"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="380dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Orange"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="380dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Orange"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="460dp"
+        android:layout_marginTop="380dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Orange"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="620dp"
+        android:layout_marginTop="380dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Orange"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="530dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Orange"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="530dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Orange"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="460dp"
+        android:layout_marginTop="530dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Orange"
+        android:textSize="75dp" />
+
+    <TextView
+        android:id="@+id/countryCount16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="620dp"
+        android:layout_marginTop="530dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="2"
+        android:textColor="@color/Orange"
+        android:textSize="75dp" />
+
+    <!-- <edu.up.cs301.risk.RiskSurfaceView -->
+    <!-- android:id="@+id/countriesMapDraw" -->
+    <!-- android:layout_width="@dimen/surface_width_height" -->
+    <!-- android:layout_height="@dimen/surface_width_height" -->
+    <!-- android:layout_marginLeft="@dimen/surface_margin_left" -->
+    <!-- android:layout_marginTop="@dimen/surface_margin_top" -->
+    <!-- android:background="@color/CustomTransparent" -->
+    <!-- android:gravity="center_vertical" /> -->
 
 </RelativeLayout>

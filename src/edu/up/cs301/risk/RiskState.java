@@ -81,7 +81,7 @@ public class RiskState extends GameState {
 		// in top two rows of map
 		for (i = 0; i < COUNTRY_LENGTH - 1; i++) {
 			if (i <= 7) {
-				playerOneTroops[i] = 1;
+				playerOneTroops[i] = 2;
 			} else {
 				playerOneTroops[i] = 0;
 			}
@@ -93,7 +93,7 @@ public class RiskState extends GameState {
 		// in bottom 2 rows of map
 		for (y = 0; y < COUNTRY_LENGTH - 1; y++) {
 			if (y > 7) {
-				playerTwoTroops[i] = 1;
+				playerTwoTroops[i] = 2;
 			}
 			if (y <= 7) {
 				playerTwoTroops[i] = 0;

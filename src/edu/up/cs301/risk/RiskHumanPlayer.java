@@ -28,6 +28,8 @@ import android.view.View.OnClickListener;
 public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer, OnClickListener {
 
 	/* instance variables */
+	Button attack;
+	Button country1;
 	
 	
 	// the most recent game state, as given to us by the RiskLocalGame
@@ -73,6 +75,19 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer, OnCl
 	public void onClick(View button) {
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;
+		
+		if (button.getId() == R.id.russiaButton) {
+			// plus button: create "increment" action
+			attack.setBackgroundColor(country1.getContext().getResources().getColor(R.color.Yellow));
+		}
+		else if (button.getId() == R.id.Attack) {
+			// minus button: create "decrement" action
+			//action = new CounterMoveAction(this, false);
+		}
+		else {
+			// something else was pressed: ignore
+			return;
+		}
 
 		
 		
@@ -117,16 +132,21 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer, OnCl
 		//SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
 		//sfhTrackHolder.setFormat(PixelFormat.TRANSPARENT);
 		
-		Button country1 = (Button) myActivity.findViewById(R.id.russiaButton);
+		country1 = (Button) myActivity.findViewById(R.id.russiaButton);
+		country1.setOnClickListener(this);
+		attack = (Button) myActivity.findViewById(R.id.Attack);
+		attack.setOnClickListener(this);
+		
+/*		final Button country1 = (Button) myActivity.findViewById(R.id.russiaButton);
 		final Button attack = (Button) myActivity.findViewById(R.id.Attack);
 		
 		country1.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				attack.setText("attack disabled");
+				attack.setBackgroundColor(country1.getContext().getResources().getColor(R.color.Yellow));
 			}
-		});
+		});*/
 		
 
 		
