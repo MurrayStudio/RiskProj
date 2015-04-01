@@ -31,7 +31,7 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 	}
 
 	/**
-	 * This ctor should be called when a new counter game is started
+	 * This ctor should be called when a new risk game is started
 	 */
 	public RiskLocalGame() {
 		// initialize the game state
