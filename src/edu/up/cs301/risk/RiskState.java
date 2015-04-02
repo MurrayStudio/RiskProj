@@ -31,6 +31,9 @@ public class RiskState extends GameState {
 
 	// prints victor name
 	private String victor;
+	
+	// have the 3 troops been placed
+	private boolean haveTroopsBeenPlaced;
 
 	// variables to store the value of each of the die
 	private int attack1die;
@@ -373,6 +376,9 @@ public class RiskState extends GameState {
 		} else {
 			playerTwoTroops[countryCode] = playerTwoTroops[countryCode] + 3;
 		}
+		
+		haveTroopsBeenPlaced = true;
+		
 	}
 
 	/**
@@ -426,6 +432,24 @@ public class RiskState extends GameState {
 	 */
 	public boolean getIsGameOver() {
 		return gameOver;
+	}
+	
+	/**
+	 * setHaveTroopBeenPlayedToFalse
+	 *
+	 * sets troops Placed back to false
+	 */
+	public void setHaveTroopBeenPlayedToFalse(){
+		haveTroopsBeenPlaced = false;
+	}
+	
+	/**
+	 * getHaveTroopBeenPlayed
+	 *
+	 * @return haveTroopsBeenPlaced boolean
+	 */
+	public boolean getHaveTroopBeenPlayed(){
+		return haveTroopsBeenPlaced;
 	}
 
 	/**
