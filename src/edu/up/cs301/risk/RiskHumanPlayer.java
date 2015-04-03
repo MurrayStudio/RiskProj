@@ -288,15 +288,33 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		//if place is pressed
 		if (button.getId() == R.id.Place && placeEnabled == true) {
 			RiskPlaceTroopAction action = new RiskPlaceTroopAction(this, true, countrySelectedIndexID);
-			createAlertBox("Place troops in " + countrySelectedName, action);
+			createAlertBox("Place troops in " + countrySelectedName + "?", action);
 			
 			if(yesWasHit == true){
 				deselectEnabled = false;
 				placeEnabled = false;
+				countryPressed = false;
+				country2CanBeSelected = false;
 				deselect.setBackgroundColor(deselect.getContext().getResources()
 						.getColor(R.color.Yellow));
-				place.setBackgroundColor(move.getContext().getResources()
+				deselect2.setBackgroundColor(deselect2.getContext().getResources()
 						.getColor(R.color.Yellow));
+				deselect.setText("Country 1 Not Selected");
+				deselect2.setText("Country 2 Not Selected");
+				place.setBackgroundColor(place.getContext().getResources()
+						.getColor(R.color.Yellow));
+			}
+			else
+			{
+				countryPressed = false;
+				deselectEnabled = false;
+				country2CanBeSelected = false;
+				deselect.setBackgroundColor(deselect.getContext().getResources()
+						.getColor(R.color.Yellow));
+				deselect2.setBackgroundColor(deselect2.getContext().getResources()
+						.getColor(R.color.Yellow));
+				deselect.setText("Country 1 Not Selected");
+				deselect2.setText("Country 2 Not Selected");
 			}
 		}
 
