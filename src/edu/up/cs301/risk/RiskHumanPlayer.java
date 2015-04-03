@@ -5,6 +5,8 @@ import edu.up.cs301.game.GameMainActivity;
 import edu.up.cs301.game.R;
 import edu.up.cs301.game.actionMsg.GameAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.view.SurfaceHolder;
@@ -47,11 +49,13 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 	private boolean countryPressed = false;
 	private boolean country2Pressed = false;
+	private boolean country2CanBeSelected = false;
 	private boolean attackEnabled = false;
 	private boolean moveEnabled = false;
 	private boolean placeEnabled = false;
 	private boolean deselectEnabled = false;
 	private boolean deselect2Enabled = false;
+	private boolean yesWasHit = false;
 
 	private int playerID;
 
@@ -123,12 +127,15 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			// country is no longer pressed
 			countryPressed = false;
 			deselectEnabled = false;
+			country2CanBeSelected = false;
 			deselect.setBackgroundColor(deselect.getContext().getResources()
+					.getColor(R.color.Yellow));
+			deselect2.setBackgroundColor(deselect2.getContext().getResources()
 					.getColor(R.color.Yellow));
 			deselect.setText("Country 1 Not Selected");
 			deselect2.setText("Country 2 Not Selected");
 		}
-		
+
 		// check if deselect country was hit
 		if (button.getId() == R.id.Deselect2 && deselect2Enabled == true) {
 			// country is no longer pressed
@@ -195,12 +202,23 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 				countrySelectedID = button.getId();
 				countrySelectedIndexID = y;
-				countryPressed = true;
-				deselectEnabled = true;
-				deselect.setBackground(deselect.getContext().getResources()
-						.getDrawable(R.drawable.custombuttonshapewhite));
-				deselect.setText("Deselect: " + countrySelectedName);
+				//you can turn on deselect 2
+				if (country2CanBeSelected == true) {
+					country2Pressed = true;
+					deselect2Enabled = true;
+					deselect2.setBackground(deselect2.getContext()
+							.getResources()
+							.getDrawable(R.drawable.custombuttonshapewhite));
+					deselect2.setText("Deselect: " + countrySelectedName);
 
+				} else {
+					//only turn on deselect 1
+					countryPressed = true;
+					deselectEnabled = true;
+					deselect.setBackground(deselect.getContext().getResources()
+							.getDrawable(R.drawable.custombuttonshapewhite));
+					deselect.setText("Deselect: " + countrySelectedName);
+				}
 			}
 		}
 
@@ -245,21 +263,41 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 					.getColor(R.color.Yellow));
 		}
 
+		//if attack is pressed
 		if (button.getId() == R.id.Attack && attackEnabled == true) {
+			deselect2Enabled = true;
+			country2CanBeSelected = true;
+
 			deselect2.setBackground(deselect2.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
-			
-			
-			//GameAction attackAction = new RiskAttackAction(this, true, countrySelectedIndexID, );
+
+			// GameAction attackAction = new RiskAttackAction(this, true,
+			// countrySelectedIndexID, );
 		}
+		
+		//if move is pressed
 		if (button.getId() == R.id.Move && moveEnabled == true) {
+			deselect2Enabled = true;
+			country2CanBeSelected = true;
+
+			deselect2.setBackground(deselect2.getContext().getResources()
+					.getDrawable(R.drawable.custombuttonshapewhite));
 
 		}
+		
+		//if place is pressed
 		if (button.getId() == R.id.Place && placeEnabled == true) {
-
-		}
-		if (button.getId() == R.id.Deselect && deselectEnabled == true) {
+			RiskPlaceTroopAction action = new RiskPlaceTroopAction(this, true, countrySelectedIndexID);
+			createAlertBox("Place troops in " + countrySelectedName, action);
 			
+			if(yesWasHit == true){
+				deselectEnabled = false;
+				placeEnabled = false;
+				deselect.setBackgroundColor(deselect.getContext().getResources()
+						.getColor(R.color.Yellow));
+				place.setBackgroundColor(move.getContext().getResources()
+						.getColor(R.color.Yellow));
+			}
 		}
 
 	}// onClick
@@ -279,6 +317,35 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		// update our state; then update the display
 		this.state = (RiskState) info;
 		updateDisplay();
+	}
+	
+	/**
+	 * creates dialog box confirming action
+	 * 
+	 * @param String question to be asked
+	 * @param String action to be passed if action confirmed 
+	 * @return returns if yes was hit or not
+	 */
+	private void createAlertBox(String question, GameAction action){
+		 AlertDialog.Builder alert = new AlertDialog.Builder(myActivity);
+		    alert.setTitle(question);
+		    // alert.setMessage("Message");
+
+		    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int whichButton) {
+		        	yesWasHit = true;
+		        }
+		    });
+
+		    alert.setNegativeButton("No",
+		        new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int whichButton) {
+		            	yesWasHit = false;
+		            }
+		        });
+
+		    alert.show();
+
 	}
 
 	/**
