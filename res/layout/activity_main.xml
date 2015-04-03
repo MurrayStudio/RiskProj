@@ -249,7 +249,22 @@
             android:layout_marginRight="@dimen/button_left_right"
             android:layout_marginTop="@dimen/button_margin_top_bottom"
             android:background="@drawable/custombuttonshapewhite"
-            android:text="@string/deselect"
+            android:text="Country 1 Not Selected"
+            android:textAllCaps="false"
+            android:textColor="@color/Black"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/Deselect2"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/button_left_right"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/button_margin_top_bottom"
+            android:layout_marginLeft="@dimen/button_left_right"
+            android:layout_marginRight="@dimen/button_left_right"
+            android:layout_marginTop="@dimen/button_margin_top_bottom"
+            android:background="@drawable/custombuttonshapewhite"
+            android:text="Country 2 Not Selected"
             android:textAllCaps="false"
             android:textColor="@color/Black"
             android:textSize="14dp" />

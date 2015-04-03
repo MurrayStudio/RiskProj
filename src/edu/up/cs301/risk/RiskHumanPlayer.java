@@ -36,19 +36,23 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	private Button surrender;
 	private Button endTurn;
 	private Button deselect;
+	private Button deselect2;
 
 	private int[] countryIds = new int[17];
 	private Button[] countries = new Button[17];
 
 	private int countrySelectedID;
+	private int countrySelectedIndexID;
 	private String countrySelectedName;
 
 	private boolean countryPressed = false;
+	private boolean country2Pressed = false;
 	private boolean attackEnabled = false;
 	private boolean moveEnabled = false;
 	private boolean placeEnabled = false;
 	private boolean deselectEnabled = false;
-	
+	private boolean deselect2Enabled = false;
+
 	private int playerID;
 
 	// the most recent game state, as given to us by the RiskLocalGame
@@ -96,36 +100,49 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		// if we are not yet connected to a game, ignore
 		if (game == null)
 			return;
-		
-		//check if you hit disabled button
+
+		// check if you hit disabled button
 		if (button.getId() == R.id.Attack && attackEnabled == false) {
 			flash(Color.RED, 200);
 		}
-		if(button.getId() == R.id.Move && moveEnabled == false) {
+		if (button.getId() == R.id.Move && moveEnabled == false) {
 			flash(Color.RED, 200);
 		}
-		if(button.getId() == R.id.Place && placeEnabled == false) {
+		if (button.getId() == R.id.Place && placeEnabled == false) {
 			flash(Color.RED, 200);
 		}
-		if(button.getId() == R.id.Deselect && deselectEnabled == false) {
+		if (button.getId() == R.id.Deselect && deselectEnabled == false) {
 			flash(Color.RED, 200);
 		}
-		
-		//check if deselect country was hit
+		if (button.getId() == R.id.Deselect2 && deselect2Enabled == false) {
+			flash(Color.RED, 200);
+		}
+
+		// check if deselect country was hit
 		if (button.getId() == R.id.Deselect && deselectEnabled == true) {
-			//country is no longer pressed
+			// country is no longer pressed
 			countryPressed = false;
 			deselectEnabled = false;
 			deselect.setBackgroundColor(deselect.getContext().getResources()
 					.getColor(R.color.Yellow));
-			deselect.setText("No Country Selected");
+			deselect.setText("Country 1 Not Selected");
+			deselect2.setText("Country 2 Not Selected");
+		}
+		
+		// check if deselect country was hit
+		if (button.getId() == R.id.Deselect2 && deselect2Enabled == true) {
+			// country is no longer pressed
+			country2Pressed = false;
+			deselect2Enabled = false;
+			deselect2.setBackgroundColor(deselect.getContext().getResources()
+					.getColor(R.color.Yellow));
+			deselect2.setText("Country 2 Not Selected");
 		}
 
-		
 		int y;
 		for (y = 1; y < 17; y++) {
 			if (button.getId() == countryIds[y]) {
-				switch(button.getId()){
+				switch (button.getId()) {
 				case R.id.russiaButton:
 					countrySelectedName = "Russia";
 					break;
@@ -175,48 +192,51 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 					countrySelectedName = "Ukraine";
 					break;
 				}
-				
+
 				countrySelectedID = button.getId();
+				countrySelectedIndexID = y;
 				countryPressed = true;
 				deselectEnabled = true;
 				deselect.setBackground(deselect.getContext().getResources()
 						.getDrawable(R.drawable.custombuttonshapewhite));
 				deselect.setText("Deselect: " + countrySelectedName);
-				
+
 			}
 		}
 
 		if (state.getHaveTroopBeenPlayed() == false && countryPressed == true) {
-			
+
 			attackEnabled = false;
 			moveEnabled = false;
 			placeEnabled = true;
-			
+
 			attack.setBackgroundColor(attack.getContext().getResources()
 					.getColor(R.color.Yellow));
 			move.setBackgroundColor(move.getContext().getResources()
 					.getColor(R.color.Yellow));
 			place.setBackground(place.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
-			
-		} else if(state.getHaveTroopBeenPlayed() == true && countryPressed == true) {
-			
+
+		} else if (state.getHaveTroopBeenPlayed() == true
+				&& countryPressed == true) {
+
 			attackEnabled = true;
 			moveEnabled = true;
 			placeEnabled = false;
-			
+
 			attack.setBackground(attack.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
 			move.setBackground(move.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
 			place.setBackgroundColor(place.getContext().getResources()
 					.getColor(R.color.Yellow));
-		}else if(state.getHaveTroopBeenPlayed() == false && countryPressed == false){
-			
+		} else if (state.getHaveTroopBeenPlayed() == false
+				&& countryPressed == false) {
+
 			attackEnabled = false;
 			moveEnabled = false;
 			placeEnabled = false;
-			
+
 			attack.setBackgroundColor(attack.getContext().getResources()
 					.getColor(R.color.Yellow));
 			move.setBackgroundColor(move.getContext().getResources()
@@ -225,17 +245,22 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 					.getColor(R.color.Yellow));
 		}
 
-		int i;
-		for (i = 1; i < 17; i++) {
-			if (button.getId() == countryIds[i]) {
-
-
-			} else if (button.getId() == R.id.Attack) {
-				// minus button: create "decrement" action
-				// action = new CounterMoveAction(this, false);
-			}
+		if (button.getId() == R.id.Attack && attackEnabled == true) {
+			deselect2.setBackground(deselect2.getContext().getResources()
+					.getDrawable(R.drawable.custombuttonshapewhite));
+			
+			
+			//GameAction attackAction = new RiskAttackAction(this, true, countrySelectedIndexID, );
 		}
-		
+		if (button.getId() == R.id.Move && moveEnabled == true) {
+
+		}
+		if (button.getId() == R.id.Place && placeEnabled == true) {
+
+		}
+		if (button.getId() == R.id.Deselect && deselectEnabled == true) {
+			
+		}
 
 	}// onClick
 
@@ -318,6 +343,8 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		endTurn.setOnClickListener(this);
 		deselect = (Button) myActivity.findViewById(R.id.Deselect);
 		deselect.setOnClickListener(this);
+		deselect2 = (Button) myActivity.findViewById(R.id.Deselect2);
+		deselect2.setOnClickListener(this);
 
 		attack.setBackgroundColor(attack.getContext().getResources()
 				.getColor(R.color.Yellow));
@@ -327,7 +354,10 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 				.getColor(R.color.Yellow));
 		deselect.setBackgroundColor(deselect.getContext().getResources()
 				.getColor(R.color.Yellow));
-		deselect.setText("No Country Selected");
+		deselect.setText("Country 1 Not Selected");
+		deselect2.setBackgroundColor(deselect2.getContext().getResources()
+				.getColor(R.color.Yellow));
+		deselect2.setText("Country 2 Not Selected");
 
 		// if we have a game state, "simulate" that we have just received
 		// the state from the game so that the GUI values are updated
