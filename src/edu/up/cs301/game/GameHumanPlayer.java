@@ -168,7 +168,8 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 		public void run() {
 			View top = GameHumanPlayer.this.getTopView();
 			if (top == null) return;
-			top.setBackgroundColor(oldColor);
+			top.setBackground(myActivity.getBaseContext().getResources()
+					.getDrawable(R.drawable.wallpaper2));
 		}
 	}
 	

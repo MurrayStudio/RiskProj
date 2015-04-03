@@ -49,19 +49,19 @@ public class RiskMainActivity extends GameMainActivity {
 		// a human player player type (player type 0)
 		playerTypes.add(new GamePlayerType("Local Human Player") {
 			public GamePlayer createPlayer(String name) {
-				return new RiskHumanPlayer(name);
+				return new RiskHumanPlayer(name, RiskState.PLAYER_ONE);
 			}});
 		
 		// a computer player type (player type 1)
 		playerTypes.add(new GamePlayerType("Computer Player") {
 			public GamePlayer createPlayer(String name) {
-				return new RiskComputerPlayer1(name);
+				return new RiskComputerPlayer1(name, RiskState.PLAYER_TWO);
 			}});
 
-		// Create a game configuration class for Counter:
+		// Create a game configuration class for Risk:
 		// - player types as given above
 		// - from 1 to 2 players
-		// - name of game is "Counter Game"
+		// - name of game is "Risk Game"
 		// - port number as defined above
 		GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Risk Game",
 				PORT_NUMBER);

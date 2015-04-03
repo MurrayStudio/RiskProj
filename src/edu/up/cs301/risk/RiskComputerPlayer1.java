@@ -14,15 +14,18 @@ import edu.up.cs301.game.util.Tickable;
  */
 public class RiskComputerPlayer1 extends GameComputerPlayer implements RiskPlayer, Tickable {
 	
+	int playerID;
+	
     /**
      * Constructor for objects of class CounterComputerPlayer1
      * 
      * @param name
      * 		the player's name
      */
-    public RiskComputerPlayer1(String name) {
+    public RiskComputerPlayer1(String name, int playerID) {
         // invoke superclass constructor
         super(name);
+        this.playerID = playerID;
         
       
     }

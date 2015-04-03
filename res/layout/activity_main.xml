@@ -252,7 +252,7 @@
             android:text="@string/deselect"
             android:textAllCaps="false"
             android:textColor="@color/Black"
-            android:textSize="@dimen/button_text_size" />
+            android:textSize="14dp" />
 
         <Button
             android:id="@+id/EndTurn"

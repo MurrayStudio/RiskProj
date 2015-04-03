@@ -30,19 +30,26 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		OnClickListener {
 
 	/* instance variables */
-	Button attack;
-	Button move;
-	Button place;
-	Button surrender;
-	Button endTurn;
-	Button deselect;
+	private Button attack;
+	private Button move;
+	private Button place;
+	private Button surrender;
+	private Button endTurn;
+	private Button deselect;
 
-	int[] countryIds = new int[17];
-	Button[] countries = new Button[17];
+	private int[] countryIds = new int[17];
+	private Button[] countries = new Button[17];
 
-	int countrySelectedID = 0;
+	private int countrySelectedID;
+	private String countrySelectedName;
 
-	boolean countryPressed = false;
+	private boolean countryPressed = false;
+	private boolean attackEnabled = false;
+	private boolean moveEnabled = false;
+	private boolean placeEnabled = false;
+	private boolean deselectEnabled = false;
+	
+	private int playerID;
 
 	// the most recent game state, as given to us by the RiskLocalGame
 	private RiskState state;
@@ -56,8 +63,9 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	 * @param name
 	 *            the player's name
 	 */
-	public RiskHumanPlayer(String name) {
+	public RiskHumanPlayer(String name, int playerID) {
 		super(name);
+		this.playerID = playerID;
 	}
 
 	/**
@@ -89,15 +97,78 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		if (game == null)
 			return;
 		
-		if (button.getId() == R.id.Deselect) {
+		//check if deselect country was hit
+		if (button.getId() == R.id.Deselect && deselectEnabled == true) {
+			//country is no longer pressed
 			countryPressed = false;
+			deselectEnabled = false;
+			deselect.setBackgroundColor(deselect.getContext().getResources()
+					.getColor(R.color.Yellow));
+			deselect.setText("No Country Selected");
 		}
 
+		
 		int y;
 		for (y = 1; y < 17; y++) {
 			if (button.getId() == countryIds[y]) {
+				switch(button.getId()){
+				case R.id.russiaButton:
+					countrySelectedName = "Russia";
+					break;
+				case R.id.icelandButton:
+					countrySelectedName = "Iceland";
+					break;
+				case R.id.italyButton:
+					countrySelectedName = "Italy";
+					break;
+				case R.id.swedenButton:
+					countrySelectedName = "Sweden";
+					break;
+				case R.id.atlantisButton:
+					countrySelectedName = "Atlantis";
+					break;
+				case R.id.hogwartsButton:
+					countrySelectedName = "Hogwarts";
+					break;
+				case R.id.narniaButton:
+					countrySelectedName = "Narnia";
+					break;
+				case R.id.germanyButton:
+					countrySelectedName = "Germany";
+					break;
+				case R.id.mordorButton:
+					countrySelectedName = "Mordor";
+					break;
+				case R.id.gondorButton:
+					countrySelectedName = "Gondor";
+					break;
+				case R.id.shireButton:
+					countrySelectedName = "The Shire";
+					break;
+				case R.id.rohanButton:
+					countrySelectedName = "Rohan";
+					break;
+				case R.id.bulgariaButton:
+					countrySelectedName = "Bulgaria";
+					break;
+				case R.id.israelButton:
+					countrySelectedName = "Israel";
+					break;
+				case R.id.switzerlandButton:
+					countrySelectedName = "Switzerland";
+					break;
+				case R.id.ukraineButton:
+					countrySelectedName = "Ukraine";
+					break;
+				}
+				
 				countrySelectedID = button.getId();
 				countryPressed = true;
+				deselectEnabled = true;
+				deselect.setBackground(deselect.getContext().getResources()
+						.getDrawable(R.drawable.custombuttonshapewhite));
+				deselect.setText("Deselect: " + countrySelectedName);
+				
 			}
 		}
 
@@ -110,6 +181,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 					.getDrawable(R.drawable.custombuttonshapewhite));
 			surrender.setBackground(surrender.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
+			
 		} else if(state.getHaveTroopBeenPlayed() == true && countryPressed == true) {
 			attack.setBackground(attack.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
@@ -131,7 +203,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		}
 		
 		if (button.getId() == R.id.Attack) {
-			attack.setText("you suck");
+			flash(Color.RED, 400);
 		}
 
 		int i;
@@ -234,6 +306,9 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 				.getColor(R.color.Yellow));
 		place.setBackgroundColor(place.getContext().getResources()
 				.getColor(R.color.Yellow));
+		deselect.setBackgroundColor(deselect.getContext().getResources()
+				.getColor(R.color.Yellow));
+		deselect.setText("No Country Selected");
 
 		// if we have a game state, "simulate" that we have just received
 		// the state from the game so that the GUI values are updated
