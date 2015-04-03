@@ -97,6 +97,20 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		if (game == null)
 			return;
 		
+		//check if you hit disabled button
+		if (button.getId() == R.id.Attack && attackEnabled == false) {
+			flash(Color.RED, 200);
+		}
+		if(button.getId() == R.id.Move && moveEnabled == false) {
+			flash(Color.RED, 200);
+		}
+		if(button.getId() == R.id.Place && placeEnabled == false) {
+			flash(Color.RED, 200);
+		}
+		if(button.getId() == R.id.Deselect && deselectEnabled == false) {
+			flash(Color.RED, 200);
+		}
+		
 		//check if deselect country was hit
 		if (button.getId() == R.id.Deselect && deselectEnabled == true) {
 			//country is no longer pressed
@@ -173,37 +187,42 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		}
 
 		if (state.getHaveTroopBeenPlayed() == false && countryPressed == true) {
+			
+			attackEnabled = false;
+			moveEnabled = false;
+			placeEnabled = true;
+			
 			attack.setBackgroundColor(attack.getContext().getResources()
 					.getColor(R.color.Yellow));
 			move.setBackgroundColor(move.getContext().getResources()
 					.getColor(R.color.Yellow));
 			place.setBackground(place.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
-			surrender.setBackground(surrender.getContext().getResources()
-					.getDrawable(R.drawable.custombuttonshapewhite));
 			
 		} else if(state.getHaveTroopBeenPlayed() == true && countryPressed == true) {
+			
+			attackEnabled = true;
+			moveEnabled = true;
+			placeEnabled = false;
+			
 			attack.setBackground(attack.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
 			move.setBackground(move.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
 			place.setBackgroundColor(place.getContext().getResources()
 					.getColor(R.color.Yellow));
-			surrender.setBackground(surrender.getContext().getResources()
-					.getDrawable(R.drawable.custombuttonshapewhite));
 		}else if(state.getHaveTroopBeenPlayed() == false && countryPressed == false){
+			
+			attackEnabled = false;
+			moveEnabled = false;
+			placeEnabled = false;
+			
 			attack.setBackgroundColor(attack.getContext().getResources()
 					.getColor(R.color.Yellow));
 			move.setBackgroundColor(move.getContext().getResources()
 					.getColor(R.color.Yellow));
 			place.setBackgroundColor(place.getContext().getResources()
 					.getColor(R.color.Yellow));
-			surrender.setBackground(surrender.getContext().getResources()
-					.getDrawable(R.drawable.custombuttonshapewhite));
-		}
-		
-		if (button.getId() == R.id.Attack) {
-			flash(Color.RED, 400);
 		}
 
 		int i;
