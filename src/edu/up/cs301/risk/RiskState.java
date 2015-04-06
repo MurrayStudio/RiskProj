@@ -1,12 +1,15 @@
 package edu.up.cs301.risk;
 
+import android.util.Log;
 import edu.up.cs301.game.Game;
 import edu.up.cs301.game.infoMsg.GameState;
 
 /**
- * @authors Shamus Murray, Garrett Becker, Logan Mealy, Lucas Burns, John Will Bryan 
+ * @authors Shamus Murray, Garrett Becker, Logan Mealy, Lucas Burns, John Will
+ *          Bryan
  * 
- * Risk game state that handles updating information and sending it to players. 
+ *          Risk game state that handles updating information and sending it to
+ *          players.
  * 
  * @version March 2015
  */
@@ -24,14 +27,14 @@ public class RiskState extends GameState {
 	private boolean gameOver = false; // whether the game is over
 
 	// stores number of troops in each of the 16 countries
-	public int[] playerOneTroops;
+	public int[] playerOneTroops = new int[17];
 
 	// stores number of troops in each of the 16 countries for player 2
-	public int[] playerTwoTroops;
+	public int[] playerTwoTroops = new int[17];
 
 	// prints victor name
 	private String victor;
-	
+
 	// have the 3 troops been placed
 	private boolean haveTroopsBeenPlaced;
 
@@ -41,33 +44,33 @@ public class RiskState extends GameState {
 	private int attack3die;
 	private int defend1die;
 	private int defend2die;
-	
-	//holds highest roll values
+
+	// holds highest roll values
 	private int attackhighestRoll;
 	private int attack2ndhighestRoll;
 	private int defendhighestRoll;
 	private int defend2ndhighestRoll;
 
 	private static int[] countryList; // array of countries on the board
-	private final static int COUNTRY_LENGTH = 16; // length of array
+	private final static int COUNTRY_LENGTH = 17; // length of array
 
 	// countryConstants
-	final public static int RUSSIA = 0;
-	final public static int ICELAND = 1;
-	final public static int ITALY = 2;
-	final public static int SWEDEN = 3;
-	final public static int ATLANTIS = 4;
-	final public static int HOGWARTS = 5;
-	final public static int NARNIA = 6;
-	final public static int GERMANY = 7;
-	final public static int MORDOR = 8;
-	final public static int GONDOR = 9;
-	final public static int SHIRE = 10;
-	final public static int ROHAN = 11;
-	final public static int BULGARIA = 12;
-	final public static int ISRAEL = 13;
-	final public static int SWITZERLAND = 14;
-	final public static int UKRAINE = 15;
+	final public static int RUSSIA = 1;
+	final public static int ICELAND = 2;
+	final public static int ITALY = 3;
+	final public static int SWEDEN = 4;
+	final public static int ATLANTIS = 5;
+	final public static int HOGWARTS = 6;
+	final public static int NARNIA = 7;
+	final public static int GERMANY = 8;
+	final public static int MORDOR = 9;
+	final public static int GONDOR = 10;
+	final public static int SHIRE = 11;
+	final public static int ROHAN = 12;
+	final public static int BULGARIA = 13;
+	final public static int ISRAEL = 14;
+	final public static int SWITZERLAND = 15;
+	final public static int UKRAINE = 16;
 
 	// player ID numbers
 	public final static int PLAYER_ONE = 100;
@@ -88,8 +91,8 @@ public class RiskState extends GameState {
 
 		// loop through and place troop in every country
 		// in top two rows of map
-		for (i = 0; i < COUNTRY_LENGTH - 1; i++) {
-			if (i <= 7) {
+		for (i = 1; i < COUNTRY_LENGTH; i++) {
+			if (i <= 8) {
 				playerOneTroops[i] = 2;
 			} else {
 				playerOneTroops[i] = 0;
@@ -100,12 +103,12 @@ public class RiskState extends GameState {
 
 		// loop through and place troop in every country
 		// in bottom 2 rows of map
-		for (y = 0; y < COUNTRY_LENGTH - 1; y++) {
-			if (y > 7) {
-				playerTwoTroops[i] = 2;
+		for (y = 1; y < COUNTRY_LENGTH; y++) {
+			if (y > 8) {
+				playerTwoTroops[y] = 2;
 			}
-			if (y <= 7) {
-				playerTwoTroops[i] = 0;
+			if (y <= 8) {
+				playerTwoTroops[y] = 0;
 			}
 		}
 	}
@@ -117,10 +120,17 @@ public class RiskState extends GameState {
 	 *
 	 */
 	public RiskState(RiskState orig) {
-		this.playerTwoTroops = new int[orig.playerTwoTroops.length];
+		
+		this.playerOneTroops = new int[orig.playerOneTroops.length];
 		for (int y = 0; y < orig.playerOneTroops.length; ++y) {
+			this.playerOneTroops[y] = orig.playerOneTroops[y];
+		}
+		
+		this.playerTwoTroops = new int[orig.playerTwoTroops.length];
+		for (int y = 0; y < orig.playerTwoTroops.length; ++y) {
 			this.playerTwoTroops[y] = orig.playerTwoTroops[y];
 		}
+
 	}
 
 	/**
@@ -382,9 +392,9 @@ public class RiskState extends GameState {
 		} else {
 			playerTwoTroops[countryCode] = playerTwoTroops[countryCode] + 3;
 		}
-		
+
 		haveTroopsBeenPlaced = true;
-		
+
 	}
 
 	/**
@@ -439,22 +449,31 @@ public class RiskState extends GameState {
 	public boolean getIsGameOver() {
 		return gameOver;
 	}
-	
+
 	/**
 	 * setHaveTroopBeenPlayedToFalse
 	 *
 	 * sets troops Placed back to false
 	 */
-	public void setHaveTroopBeenPlayedToFalse(){
+	public void setHaveTroopBeenPlayedToFalse() {
 		haveTroopsBeenPlaced = false;
 	}
-	
+
+	/**
+	 * setHaveTroopBeenPlayedToTrue
+	 *
+	 * sets troops Placed back to True
+	 */
+	public void setHaveTroopBeenPlayedToTrue() {
+		haveTroopsBeenPlaced = true;
+	}
+
 	/**
 	 * getHaveTroopBeenPlayed
 	 *
 	 * @return haveTroopsBeenPlaced boolean
 	 */
-	public boolean getHaveTroopBeenPlayed(){
+	public boolean getHaveTroopBeenPlayed() {
 		return haveTroopsBeenPlaced;
 	}
 
@@ -478,32 +497,40 @@ public class RiskState extends GameState {
 	public int getPlayerTurn() {
 		return playerTurn;
 	}
-	
-	//Gets highest and 2nd highest attack roll and defend rolls for use in RISKLOCALGAME
-		public void sethighestattackroll(int roll){
-			this.attackhighestRoll=roll;
-		}
-		public void sethighestdefendroll(int roll){
-			this.defendhighestRoll=roll;
-		}
-		public int gethighestattackroll(){
-			return attackhighestRoll;
-		}
-		public int gethighestdefendroll(){
-			return defendhighestRoll;
-		}
-		public void set2ndhighestattackroll(int roll){
-			this.attack2ndhighestRoll=roll;
-		}
-		public void set2ndhighestdefendroll(int roll){
-			this.defend2ndhighestRoll=roll;
-		}
-		public int get2ndhighestattackroll(){
-			return attack2ndhighestRoll;
-		}
-		public int get2ndhighestdefendroll(){
-			return defend2ndhighestRoll;
-		}
+
+	// Gets highest and 2nd highest attack roll and defend rolls for use in
+	// RISKLOCALGAME
+	public void sethighestattackroll(int roll) {
+		this.attackhighestRoll = roll;
+	}
+
+	public void sethighestdefendroll(int roll) {
+		this.defendhighestRoll = roll;
+	}
+
+	public int gethighestattackroll() {
+		return attackhighestRoll;
+	}
+
+	public int gethighestdefendroll() {
+		return defendhighestRoll;
+	}
+
+	public void set2ndhighestattackroll(int roll) {
+		this.attack2ndhighestRoll = roll;
+	}
+
+	public void set2ndhighestdefendroll(int roll) {
+		this.defend2ndhighestRoll = roll;
+	}
+
+	public int get2ndhighestattackroll() {
+		return attack2ndhighestRoll;
+	}
+
+	public int get2ndhighestdefendroll() {
+		return defend2ndhighestRoll;
+	}
 
 	/**
 	 * init()

@@ -476,7 +476,7 @@
         android:layout_marginTop="530dp"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="2"
+        android:text="9"
         android:textColor="@color/Orange"
         android:textSize="75dp" />
 
@@ -489,7 +489,7 @@
         android:layout_marginTop="530dp"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="2"
+        android:text="5"
         android:textColor="@color/Orange"
         android:textSize="75dp" />
 

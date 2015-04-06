@@ -35,6 +35,15 @@ public class RiskPlaceTroopAction extends GameAction {
 		this.countryID = countryID;
 	}
 
+	public void setcountrySelect(int countryID) {
+		this.countryID = countryID;
+	}
+
+	// returns that countries ID which the user selected to place troops
+	public int getCountryID() {
+		return countryID;
+	}
+
 	public boolean placeTroopTrue() {
 		return placeTroopTrue;
 	}
