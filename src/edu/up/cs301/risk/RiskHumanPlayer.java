@@ -40,6 +40,8 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	private Button endTurn;
 	private Button deselect;
 	private Button deselect2;
+	
+	String tf;
 
 	private int[] countryIds = new int[17];
 	private int[] countryCountIds = new int[17];
@@ -47,22 +49,25 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	private TextView[] countryCount = new TextView[17];
 
 	private int countrySelectedID;
+	private int countrySelectedID2;
 	private int countrySelectedIndexID;
+	private int countrySelectedIndexID2;
 	private String countrySelectedName;
+	private String countrySelectedName2;
 
-	private boolean countryPressed = false;
-	private boolean country2Pressed = false;
-	private boolean country2CanBeSelected = false;
-	private boolean attackEnabled = false;
-	private boolean moveEnabled = false;
-	private boolean placeEnabled = false;
-	private boolean deselectEnabled = false;
-	private boolean deselect2Enabled = false;
-	private boolean yesWasHit = false;
-	
+	private boolean countryPressed;
+	private boolean country2Pressed;
+	private boolean country2CanBeSelected;
+	private boolean attackEnabled;
+	private boolean moveEnabled;
+	private boolean placeEnabled;
+	private boolean deselectEnabled;
+	private boolean deselect2Enabled;
+	private boolean isPlace;
+
 	private GameAction currentAction;
 
-	private int playerID = RiskState.PLAYER_ONE; //default ID is player 1
+	private int playerID = RiskState.PLAYER_ONE; // default ID is player 1
 
 	// the most recent game state, as given to us by the RiskLocalGame
 	private RiskState state;
@@ -96,21 +101,48 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	protected void updateDisplay() {
 
 		int i;
-		for(i = 1; i < 17; i++)
-		{
-			
-			if(this.state.playerInControl(i)==100){
+		for (i = 1; i < 17; i++) {
+
+			if (this.state.playerInControl(i) == 100) {
 				countryCount[i].setTextColor(Color.BLACK);
-				String temp = Integer.toString(this.state.getPlayerTroopsInCountry(100, i));
-				countryCount[i].setText(temp); 
-			}
-			else{
+				String temp = Integer.toString(this.state
+						.getPlayerTroopsInCountry(100, i));
+				countryCount[i].setText(temp);
+			} else {
 				countryCount[i].setTextColor(Color.YELLOW);
-				String temp = Integer.toString(this.state.getPlayerTroopsInCountry(200, i));
-				countryCount[i].setText(temp); 
+				String temp = Integer.toString(this.state
+						.getPlayerTroopsInCountry(200, i));
+				countryCount[i].setText(temp);
 			}
 		}
+
+		if (this.state.getHaveTroopBeenPlaced() == true) {
+			tf = "t";
+		} else {
+			tf = "f";
+		}
+
+		Log.i("troop placed before?", tf);
 		
+		if (state.getHaveTroopBeenPlaced() == true) {
+			place.setBackgroundColor(deselect2.getContext().getResources()
+					.getColor(R.color.Yellow));
+			placeEnabled = false;
+		}
+
+		if (placeEnabled == false) {
+			place.setBackgroundColor(place.getContext().getResources()
+					.getColor(R.color.Yellow));
+		}
+		if (moveEnabled == false) {
+			move.setBackgroundColor(move.getContext().getResources()
+					.getColor(R.color.Yellow));
+		}
+		if (attackEnabled == false) {
+			attack.setBackgroundColor(attack.getContext().getResources()
+					.getColor(R.color.Yellow));
+		}
+
 	}
 
 	/**
@@ -149,6 +181,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			countryPressed = false;
 			deselectEnabled = false;
 			country2CanBeSelected = false;
+
 			deselect.setBackgroundColor(deselect.getContext().getResources()
 					.getColor(R.color.Yellow));
 			deselect2.setBackgroundColor(deselect2.getContext().getResources()
@@ -221,12 +254,14 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 					break;
 				}
 
-				countrySelectedID = button.getId();
-				countrySelectedIndexID = y;
 				// you can turn on deselect 2
 				if (country2CanBeSelected == true) {
 					country2Pressed = true;
 					deselect2Enabled = true;
+
+					countrySelectedID2 = button.getId();
+					countrySelectedIndexID2 = y;
+
 					deselect2.setBackground(deselect2.getContext()
 							.getResources()
 							.getDrawable(R.drawable.custombuttonshapewhite));
@@ -236,6 +271,10 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 					// only turn on deselect 1
 					countryPressed = true;
 					deselectEnabled = true;
+
+					countrySelectedID = button.getId();
+					countrySelectedIndexID = y;
+
 					deselect.setBackground(deselect.getContext().getResources()
 							.getDrawable(R.drawable.custombuttonshapewhite));
 					deselect.setText("Deselect: " + countrySelectedName);
@@ -261,26 +300,20 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 			attackEnabled = true;
 			moveEnabled = true;
-			placeEnabled = false;
 
 			attack.setBackground(attack.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
 			move.setBackground(move.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
-			place.setBackgroundColor(place.getContext().getResources()
-					.getColor(R.color.Yellow));
-		} else if (state.getHaveTroopBeenPlaced() == false
+		} else if (state.getHaveTroopBeenPlaced() == true
 				&& countryPressed == false) {
 
 			attackEnabled = false;
 			moveEnabled = false;
-			placeEnabled = false;
 
 			attack.setBackgroundColor(attack.getContext().getResources()
 					.getColor(R.color.Yellow));
 			move.setBackgroundColor(move.getContext().getResources()
-					.getColor(R.color.Yellow));
-			place.setBackgroundColor(place.getContext().getResources()
 					.getColor(R.color.Yellow));
 		}
 
@@ -310,41 +343,19 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		if (button.getId() == R.id.Place && placeEnabled == true) {
 			Log.i("selected index", Integer.toString(countrySelectedIndexID));
 			Log.i("selected index", Integer.toString(playerID));
-			Log.i("before troop", Integer.toString(this.state.getPlayerTroopsInCountry(playerID, countrySelectedIndexID)));
+			Log.i("before troop",
+					Integer.toString(this.state.getPlayerTroopsInCountry(
+							playerID, countrySelectedIndexID)));
 
 			RiskPlaceTroopAction action = new RiskPlaceTroopAction(this, true,
 					countrySelectedIndexID, playerID);
 			createAlertBox("Place troops in " + countrySelectedName + "?",
 					action);
-			
-			Log.i("after troop", Integer.toString(this.state.getPlayerTroopsInCountry(playerID, countrySelectedIndexID)));
 
-			
+			Log.i("after troop",
+					Integer.toString(this.state.getPlayerTroopsInCountry(
+							playerID, countrySelectedIndexID)));
 
-			if (yesWasHit == true) {
-				deselectEnabled = false;
-				placeEnabled = false;
-				countryPressed = false;
-				country2CanBeSelected = false;
-				deselect.setBackgroundColor(deselect.getContext()
-						.getResources().getColor(R.color.Yellow));
-				deselect2.setBackgroundColor(deselect2.getContext()
-						.getResources().getColor(R.color.Yellow));
-				deselect.setText("Country 1 Not Selected");
-				deselect2.setText("Country 2 Not Selected");
-				place.setBackgroundColor(place.getContext().getResources()
-						.getColor(R.color.Yellow));
-			} else {
-				countryPressed = false;
-				deselectEnabled = false;
-				country2CanBeSelected = false;
-				deselect.setBackgroundColor(deselect.getContext()
-						.getResources().getColor(R.color.Yellow));
-				deselect2.setBackgroundColor(deselect2.getContext()
-						.getResources().getColor(R.color.Yellow));
-				deselect.setText("Country 1 Not Selected");
-				deselect2.setText("Country 2 Not Selected");
-			}
 		}
 
 	}// onClick
@@ -379,17 +390,25 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		AlertDialog.Builder alert = new AlertDialog.Builder(myActivity);
 		alert.setTitle(question);
 		currentAction = action;
+		if (currentAction instanceof RiskPlaceTroopAction) {
+			isPlace = true;
+		}
 
 		alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
-				yesWasHit = true;
 				game.sendAction(currentAction);
+				if (isPlace == true) {
+					//this.state.setHaveTroopBeenPlacedToTrue();
+					deselectEnabled = false;
+					placeEnabled = false;
+					countryPressed = false;
+					country2CanBeSelected = false;
+				}
 			}
 		});
 
 		alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
-				yesWasHit = false;
 			}
 		});
 
@@ -412,14 +431,6 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		// Load the layout resource for our GUI
 		activity.setContentView(R.layout.activity_main);
 
-		// makes surfaceView transparent
-		// stackOverflow TantanQi
-		// SurfaceView sfvTrack = (SurfaceView)
-		// myActivity.findViewById(R.id.countriesMapDraw);
-		// sfvTrack.setZOrderOnTop(true); // necessary
-		// SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
-		// sfhTrackHolder.setFormat(PixelFormat.TRANSPARENT);
-
 		countryIds[0] = 0;
 		countryIds[1] = R.id.russiaButton;
 		countryIds[2] = R.id.icelandButton;
@@ -437,7 +448,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		countryIds[14] = R.id.israelButton;
 		countryIds[15] = R.id.switzerlandButton;
 		countryIds[16] = R.id.ukraineButton;
-		
+
 		countryIds[0] = 0;
 		countryCountIds[1] = R.id.countryCount1;
 		countryCountIds[2] = R.id.countryCount2;
@@ -463,8 +474,9 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 			countries[i] = (Button) myActivity.findViewById(countryIds[i]);
 			countries[i].setOnClickListener(this);
-			
-			countryCount[i] = (TextView) myActivity.findViewById(countryCountIds[i]);
+
+			countryCount[i] = (TextView) myActivity
+					.findViewById(countryCountIds[i]);
 		}
 
 		attack = (Button) myActivity.findViewById(R.id.Attack);
