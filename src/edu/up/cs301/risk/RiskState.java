@@ -184,29 +184,6 @@ public class RiskState extends GameState {
 	}
 
 	/**
-	 * getPlayerInControl()
-	 * 
-	 * returns the player in control of a given country
-	 * 
-	 * @param countryCode
-	 *            : code of the country being tested
-	 */
-	public int getPlayerInControl(int countryCode) {
-
-		if (playerOneTroops[countryCode] >= 1) {
-			// player one has more than 1 troop
-			// so player one is in control
-			return PLAYER_ONE;
-		} else {
-
-			// player two has more than 1 troop
-			// so player two is in control
-			return PLAYER_TWO;
-
-		}
-	}
-
-	/**
 	 * setAttackDieOne()
 	 * 
 	 * sets integer value for the first attack die
@@ -455,7 +432,7 @@ public class RiskState extends GameState {
 	 *
 	 * sets troops Placed back to false
 	 */
-	public void setHaveTroopBeenPlayedToFalse() {
+	public void setHaveTroopBeenPlacedToFalse() {
 		haveTroopsBeenPlaced = false;
 	}
 
@@ -464,7 +441,7 @@ public class RiskState extends GameState {
 	 *
 	 * sets troops Placed back to True
 	 */
-	public void setHaveTroopBeenPlayedToTrue() {
+	public void setHaveTroopBeenPlacedToTrue() {
 		haveTroopsBeenPlaced = true;
 	}
 
@@ -473,7 +450,7 @@ public class RiskState extends GameState {
 	 *
 	 * @return haveTroopsBeenPlaced boolean
 	 */
-	public boolean getHaveTroopBeenPlayed() {
+	public boolean getHaveTroopBeenPlaced() {
 		return haveTroopsBeenPlaced;
 	}
 

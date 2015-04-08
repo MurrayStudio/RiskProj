@@ -42,25 +42,23 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 	 */
 	@Override
 	public boolean makeMove(GameAction action) {
-		
-		if(action instanceof RiskPlaceTroopAction){
-			
-			RiskPlaceTroopAction place = (RiskPlaceTroopAction) action;
-			playerID = gameState.getPlayerTurn();
-			int countrySelected=place.getCountryID();
-			
-			if(gameState.getPlayerInControl(countrySelected)==playerID){
-			
+
+		if (action instanceof RiskPlaceTroopAction) {
+
+			RiskPlaceTroopAction placeAction = (RiskPlaceTroopAction) action;
+			playerID = placeAction.getPlayerID();
+			int countrySelected = placeAction.getCountryID();
+
+			if (gameState.playerInControl(countrySelected) == playerID) {
 				gameState.assignUnits(playerID, countrySelected);
-				gameState.setHaveTroopBeenPlayedToTrue();
-			}
-			else{
+				gameState.setHaveTroopBeenPlacedToTrue();
+				
+				return true;
+			} else {
 				return false;
 			}
 		}
-		
-		
-		
+
 		if (action instanceof RiskAttackAction) {
 
 			// cast so that we Java knows it's a CounterMoveAction

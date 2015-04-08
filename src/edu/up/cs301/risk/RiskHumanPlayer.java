@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -58,8 +59,10 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	private boolean deselectEnabled = false;
 	private boolean deselect2Enabled = false;
 	private boolean yesWasHit = false;
+	
+	private GameAction currentAction;
 
-	private int playerID;
+	private int playerID = RiskState.PLAYER_ONE; //default ID is player 1
 
 	// the most recent game state, as given to us by the RiskLocalGame
 	private RiskState state;
@@ -96,7 +99,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		for(i = 1; i < 17; i++)
 		{
 			
-			if(this.state.getPlayerInControl(i)==100){
+			if(this.state.playerInControl(i)==100){
 				countryCount[i].setTextColor(Color.BLACK);
 				String temp = Integer.toString(this.state.getPlayerTroopsInCountry(100, i));
 				countryCount[i].setText(temp); 
@@ -240,7 +243,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			}
 		}
 
-		if (state.getHaveTroopBeenPlayed() == false && countryPressed == true) {
+		if (state.getHaveTroopBeenPlaced() == false && countryPressed == true) {
 
 			attackEnabled = false;
 			moveEnabled = false;
@@ -253,7 +256,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			place.setBackground(place.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
 
-		} else if (state.getHaveTroopBeenPlayed() == true
+		} else if (state.getHaveTroopBeenPlaced() == true
 				&& countryPressed == true) {
 
 			attackEnabled = true;
@@ -266,7 +269,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 					.getDrawable(R.drawable.custombuttonshapewhite));
 			place.setBackgroundColor(place.getContext().getResources()
 					.getColor(R.color.Yellow));
-		} else if (state.getHaveTroopBeenPlayed() == false
+		} else if (state.getHaveTroopBeenPlaced() == false
 				&& countryPressed == false) {
 
 			attackEnabled = false;
@@ -305,10 +308,18 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 		// if place is pressed
 		if (button.getId() == R.id.Place && placeEnabled == true) {
+			Log.i("selected index", Integer.toString(countrySelectedIndexID));
+			Log.i("selected index", Integer.toString(playerID));
+			Log.i("before troop", Integer.toString(this.state.getPlayerTroopsInCountry(playerID, countrySelectedIndexID)));
+
 			RiskPlaceTroopAction action = new RiskPlaceTroopAction(this, true,
-					countrySelectedIndexID);
+					countrySelectedIndexID, playerID);
 			createAlertBox("Place troops in " + countrySelectedName + "?",
 					action);
+			
+			Log.i("after troop", Integer.toString(this.state.getPlayerTroopsInCountry(playerID, countrySelectedIndexID)));
+
+			
 
 			if (yesWasHit == true) {
 				deselectEnabled = false;
@@ -346,7 +357,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	 */
 	@Override
 	public void receiveInfo(GameInfo info) {
-		// ignore the message if it's not a CounterState message
+		// ignore the message if it's not a RiskState message
 		if (!(info instanceof RiskState))
 			return;
 
@@ -367,11 +378,12 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	private void createAlertBox(String question, GameAction action) {
 		AlertDialog.Builder alert = new AlertDialog.Builder(myActivity);
 		alert.setTitle(question);
-		// alert.setMessage("Message");
+		currentAction = action;
 
 		alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				yesWasHit = true;
+				game.sendAction(currentAction);
 			}
 		});
 

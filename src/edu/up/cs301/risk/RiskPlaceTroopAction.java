@@ -21,6 +21,7 @@ public class RiskPlaceTroopAction extends GameAction {
 	// whether this move is a plus (true) or minus (false)
 	private boolean placeTroopTrue;
 	private int countryID;
+	private int playerID;
 
 	/**
 	 * Constructor for the RiskPlaceTroopAction class.
@@ -29,10 +30,11 @@ public class RiskPlaceTroopAction extends GameAction {
 	 *            the player making the move
 	 */
 	public RiskPlaceTroopAction(GamePlayer player, boolean placeTroopTrue,
-			int countryID) {
+			int countryID, int playerID) {
 		super(player);
 		this.placeTroopTrue = placeTroopTrue;
 		this.countryID = countryID;
+		this.playerID = playerID;
 	}
 
 	public void setcountrySelect(int countryID) {
@@ -41,7 +43,12 @@ public class RiskPlaceTroopAction extends GameAction {
 
 	// returns that countries ID which the user selected to place troops
 	public int getCountryID() {
-		return countryID;
+		return this.countryID;
+	}
+	
+	// returns that player ID who used action
+	public int getPlayerID() {
+		return this.playerID;
 	}
 
 	public boolean placeTroopTrue() {
