@@ -36,7 +36,7 @@ public class RiskState extends GameState {
 	private String victor;
 
 	// have the 3 troops been placed
-	private boolean haveTroopsBeenPlaced = false;
+	private boolean haveTroopsBeenPlaced;
 
 	// variables to store the value of each of the die
 	private int attack1die;
@@ -111,6 +111,8 @@ public class RiskState extends GameState {
 				playerTwoTroops[y] = 0;
 			}
 		}
+		
+		haveTroopsBeenPlaced = false;
 	}
 
 	/**
@@ -130,6 +132,8 @@ public class RiskState extends GameState {
 		for (int y = 0; y < orig.playerTwoTroops.length; ++y) {
 			this.playerTwoTroops[y] = orig.playerTwoTroops[y];
 		}
+		
+		this.haveTroopsBeenPlaced = orig.haveTroopsBeenPlaced;
 
 	}
 

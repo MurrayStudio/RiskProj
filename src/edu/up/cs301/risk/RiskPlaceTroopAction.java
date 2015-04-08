@@ -19,7 +19,6 @@ public class RiskPlaceTroopAction extends GameAction {
 	private static final long serialVersionUID = 28062013L;
 
 	// whether this move is a plus (true) or minus (false)
-	private boolean placeTroopTrue;
 	private int countryID;
 	private int playerID;
 
@@ -29,10 +28,9 @@ public class RiskPlaceTroopAction extends GameAction {
 	 * @param source
 	 *            the player making the move
 	 */
-	public RiskPlaceTroopAction(GamePlayer player, boolean placeTroopTrue,
+	public RiskPlaceTroopAction(GamePlayer player,
 			int countryID, int playerID) {
 		super(player);
-		this.placeTroopTrue = placeTroopTrue;
 		this.countryID = countryID;
 		this.playerID = playerID;
 	}
@@ -51,9 +49,6 @@ public class RiskPlaceTroopAction extends GameAction {
 		return this.playerID;
 	}
 
-	public boolean placeTroopTrue() {
-		return placeTroopTrue;
-	}
 
 }
-// class RiskMoveAction
+// class RiskPlaceTroopAction
