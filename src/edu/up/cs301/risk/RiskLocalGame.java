@@ -61,6 +61,12 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 	@Override
 	public boolean makeMove(GameAction action) {
 
+		if (action instanceof RiskEndTurnAction) {
+
+
+			
+		}
+		
 		if (action instanceof RiskPlaceTroopAction) {
 
 			RiskPlaceTroopAction placeAction = (RiskPlaceTroopAction) action;

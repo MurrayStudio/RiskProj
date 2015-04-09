@@ -17,9 +17,7 @@ public class RiskEndTurnAction extends GameAction {
 	// to satisfy the serializable interface
 	private static final long serialVersionUID = 28062013L;
 
-	// whether this move is a plus (true) or minus (false)
-	private boolean endTurnTrue;
-	private int countryID;
+	private int playerID;
 
 	/**
 	 * Constructor for the RiskEndTurnAction class.
@@ -27,16 +25,15 @@ public class RiskEndTurnAction extends GameAction {
 	 * @param source
 	 *            the player making the move
 	 */
-	public RiskEndTurnAction(GamePlayer player, boolean endTurnTrue,
-			int countryID) {
+	public RiskEndTurnAction(GamePlayer player,
+			int playerID) {
 		super(player);
-		this.endTurnTrue = endTurnTrue;
-		this.countryID = countryID;
+		this.playerID = playerID;
 
 	}
 
-	public boolean endTurnTrue() {
-		return endTurnTrue;
+	public int getPlayerID() {
+		return this.playerID;
 	}
 
 }

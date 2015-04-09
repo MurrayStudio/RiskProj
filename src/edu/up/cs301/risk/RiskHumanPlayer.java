@@ -62,10 +62,12 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	private boolean attackBtnEnabled;
 	private boolean moveBtnEnabled;
 	private boolean placeBtnEnabled;
+	private boolean endTurnBtnEnabled = true;
 	private boolean deselectBtnEnabled;
 	private boolean isPlaceActionReady = false;
 	private boolean isAttackActionReady = false;
 	private boolean isMoveActionReady = false;
+	private boolean isEndTurnActionReady = false;
 
 	private GameAction currentAction;
 
@@ -138,6 +140,10 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			attack.setBackgroundColor(attack.getContext().getResources()
 					.getColor(R.color.Yellow));
 		}
+		if (endTurnBtnEnabled == false) {
+			endTurn.setBackgroundColor(endTurn.getContext().getResources()
+					.getColor(R.color.Yellow));
+		}
 		if (deselectBtnEnabled == false) {
 			deselect.setBackgroundColor(deselect.getContext().getResources()
 					.getColor(R.color.Yellow));
@@ -171,6 +177,49 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		}
 		if (button.getId() == R.id.Deselect && deselectBtnEnabled == false) {
 			flash(Color.RED, 200);
+		}
+		if (button.getId() == R.id.EndTurn && endTurnBtnEnabled == false) {
+			flash(Color.RED, 200);
+		}
+		
+		
+		//do checks for if troops have been placed and enable and disable
+		//buttons accordingly
+		
+		if (this.state.getHaveTroopBeenPlaced() == false
+				&& countryPressed == true) {
+
+			attackBtnEnabled = false;
+			moveBtnEnabled = false;
+			placeBtnEnabled = true;
+
+			attack.setBackgroundColor(attack.getContext().getResources()
+					.getColor(R.color.Yellow));
+			move.setBackgroundColor(move.getContext().getResources()
+					.getColor(R.color.Yellow));
+			place.setBackground(place.getContext().getResources()
+					.getDrawable(R.drawable.custombuttonshapewhite));
+
+		} else if (this.state.getHaveTroopBeenPlaced() == true
+				&& countryPressed == true) {
+
+			attackBtnEnabled = true;
+			moveBtnEnabled = true;
+
+			attack.setBackground(attack.getContext().getResources()
+					.getDrawable(R.drawable.custombuttonshapewhite));
+			move.setBackground(move.getContext().getResources()
+					.getDrawable(R.drawable.custombuttonshapewhite));
+		} else if (this.state.getHaveTroopBeenPlaced() == true
+				&& countryPressed == false) {
+
+			attackBtnEnabled = false;
+			moveBtnEnabled = false;
+
+			attack.setBackgroundColor(attack.getContext().getResources()
+					.getColor(R.color.Yellow));
+			move.setBackgroundColor(move.getContext().getResources()
+					.getColor(R.color.Yellow));
 		}
 
 		// check if deselect country was hit
@@ -328,42 +377,6 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			}
 		}
 
-		if (this.state.getHaveTroopBeenPlaced() == false
-				&& countryPressed == true) {
-
-			attackBtnEnabled = false;
-			moveBtnEnabled = false;
-			placeBtnEnabled = true;
-
-			attack.setBackgroundColor(attack.getContext().getResources()
-					.getColor(R.color.Yellow));
-			move.setBackgroundColor(move.getContext().getResources()
-					.getColor(R.color.Yellow));
-			place.setBackground(place.getContext().getResources()
-					.getDrawable(R.drawable.custombuttonshapewhite));
-
-		} else if (this.state.getHaveTroopBeenPlaced() == true
-				&& countryPressed == true) {
-
-			attackBtnEnabled = true;
-			moveBtnEnabled = true;
-
-			attack.setBackground(attack.getContext().getResources()
-					.getDrawable(R.drawable.custombuttonshapewhite));
-			move.setBackground(move.getContext().getResources()
-					.getDrawable(R.drawable.custombuttonshapewhite));
-		} else if (this.state.getHaveTroopBeenPlaced() == true
-				&& countryPressed == false) {
-
-			attackBtnEnabled = false;
-			moveBtnEnabled = false;
-
-			attack.setBackgroundColor(attack.getContext().getResources()
-					.getColor(R.color.Yellow));
-			move.setBackgroundColor(move.getContext().getResources()
-					.getColor(R.color.Yellow));
-		}
-
 		// if attack is pressed
 		if (button.getId() == R.id.Attack && attackBtnEnabled == true) {
 			country2CanBeSelected = true;
@@ -376,6 +389,15 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		if (button.getId() == R.id.Move && moveBtnEnabled == true) {
 			country2CanBeSelected = true;
 			isMoveActionReady = true;
+		}
+		
+		// if endTurn is pressed
+		if (button.getId() == R.id.EndTurn && endTurnBtnEnabled == true) {
+			
+			isEndTurnActionReady = true;
+			
+			RiskEndTurnAction endAction = new RiskEndTurnAction(this, playerID);
+			createActionAlertBox("Are you sure you want to end your turn?", endAction);
 		}
 
 		// if place is pressed
@@ -431,7 +453,11 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 		alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
+				
+				//send the action to local game
 				game.sendAction(currentAction);
+				
+				
 				if (isPlaceActionReady == true) {
 					deselectBtnEnabled = false;
 					placeBtnEnabled = false;
@@ -460,6 +486,19 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 					
 					//done with action
 					isMoveActionReady = false;
+				}
+				
+				if(isEndTurnActionReady == true){
+					deselectBtnEnabled = false;
+					countryPressed = false;
+					country2CanBeSelected = false;
+					moveBtnEnabled = false;
+					attackBtnEnabled = false;
+					endTurnBtnEnabled = false;
+					placeBtnEnabled = false;
+					
+					//done with action
+					isEndTurnActionReady = false;
 				}
 				updateDisplay();
 			}
