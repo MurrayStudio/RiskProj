@@ -18,7 +18,25 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 	// the game's state
 	private RiskState gameState;
 	private int playerID;
-
+	
+	int defendmax1;
+	int defendmax2;
+	int attackmax1;
+	int attackmax2;
+	int maxAttackDie2;
+	
+	int defenddie1;
+	int defenddie2;
+	int attackdie1;
+	int attackdie2;
+	int attackdie3;
+	int tempdie1;
+	
+	int defendTroops;
+	int attackTroops;
+	
+	int attackcountryID;
+	int defendcountryID;
 	/**
 	 * can this player move
 	 * 
@@ -70,10 +88,9 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 			// gameState.setCounter(result);
 
 			playerID = gameState.getPlayerTurn();// gets player id
-			int attackcountryID = cma.getAttackCountryID();
-			int defendcountryID = cma.getDefendCountryID();
-			int defendTroops;
-			int attackTroops;
+			attackcountryID = cma.getAttackCountryID();
+			defendcountryID = cma.getDefendCountryID();
+			
 			if (playerID == gameState.PLAYER_ONE) {
 				defendTroops = gameState.getPlayerTroopsInCountry(
 						defendcountryID, gameState.PLAYER_TWO);
@@ -102,14 +119,14 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 						gameState.setDefendDieOne();
 						gameState.setDefendDieTwo();
 
-						int defenddie1 = 0;
-						int defenddie2 = 0;
+						defenddie1 = 0;
+						defenddie2 = 0;
 
-						int attackdie1 = gameState.getAttackDieOne();
-						int attackdie2 = gameState.getAttackDieTwo();
-						int attackdie3 = gameState.getAttackDieThree();
+						attackdie1 = gameState.getAttackDieOne();
+						attackdie2 = gameState.getAttackDieTwo();
+						attackdie3 = gameState.getAttackDieThree();
 
-						int maxAttackDie2; // middle value of three dice
+						 // middle value of three dice
 						if (attackdie1 >= attackdie2) {
 							if (attackdie1 >= attackdie3) {
 
@@ -151,22 +168,22 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 
 						if (defendTroops <= 2) {
 							defenddie1 = gameState.getDefendDieOne();
-							int defendmax1 = Math.max(defenddie2, defenddie1);
+							defendmax1 = Math.max(defenddie2, defenddie1);
 							gameState.sethighestdefendroll(defendmax1);
 						} else if (defendTroops > 2) {
 							defenddie1 = gameState.getDefendDieOne();
 							defenddie2 = gameState.getDefendDieTwo();
-							int defendmax1 = Math.max(defenddie2, defenddie1);
-							int defendmax2 = Math.min(defenddie2, defenddie1);
+							defendmax1 = Math.max(defenddie2, defenddie1);
+							defendmax2 = Math.min(defenddie2, defenddie1);
 							gameState.sethighestdefendroll(defendmax1);
 							gameState.set2ndhighestdefendroll(defendmax2);
 						}
-						int tempdie1 = Math.max(attackdie1, attackdie2);// max
+						tempdie1 = Math.max(attackdie1, attackdie2);// max
 																		// of
 																		// first
 																		// two
 
-						int attackmax1 = Math.max(tempdie1, attackdie3);// gets
+						attackmax1 = Math.max(tempdie1, attackdie3);// gets
 																		// the
 																		// greatest
 																		// value
@@ -178,9 +195,22 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 																	// roll for
 																	// attacker
 						gameState.set2ndhighestattackroll(maxAttackDie2);// 2nd
-																			// highest
-																			// roll
-																			// for
+																		// highest
+							
+						// determines winner of attack
+						if(attackmax1>defendmax1){
+							gameState.attackWon(playerID, defendcountryID);
+						}
+						else{
+							gameState.attackLost(playerID, attackcountryID);
+						}
+						if(maxAttackDie2>defendmax2){
+							gameState.attackWon(playerID, defendcountryID);
+						}
+						else{
+							gameState.attackLost(playerID, attackcountryID);
+						}
+						
 																			// attacker
 
 						// add gameState to set2ndhighestattackroll
@@ -193,55 +223,76 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 						gameState.setDefendDieOne();
 						gameState.setDefendDieTwo();
 
-						int defenddie1 = 0;
-						int defenddie2 = 0;
+						defenddie1 = 0;
+						defenddie2 = 0;
 
 						if (defendTroops <= 2) {
 							defenddie1 = gameState.getDefendDieOne();
-							int defendmax1 = Math.max(defenddie2, defenddie1);
+							defendmax1 = Math.max(defenddie2, defenddie1);
 							gameState.sethighestdefendroll(defendmax1);
 
 						} else if (defendTroops > 2) {
 							defenddie1 = gameState.getDefendDieOne();
 							defenddie2 = gameState.getDefendDieTwo();
-							int defendmax1 = Math.max(defenddie2, defenddie1);// highest
-							int defendmax2 = Math.min(defenddie2, defenddie1);// second
+							defendmax1 = Math.max(defenddie2, defenddie1);// highest
+							defendmax2 = Math.min(defenddie2, defenddie1);// second
 																				// highest
 							gameState.sethighestdefendroll(defendmax1);
 							gameState.set2ndhighestdefendroll(defendmax2);
 						}
 
-						int attackdie1 = gameState.getAttackDieOne();
-						int attackdie2 = gameState.getAttackDieTwo();
-						int attackmax1 = Math.max(attackdie1, attackdie2);
-						int attackmax2 = Math.min(attackdie2, attackdie1);
+						attackdie1 = gameState.getAttackDieOne();
+						attackdie2 = gameState.getAttackDieTwo();
+						attackmax1 = Math.max(attackdie1, attackdie2);
+						attackmax2 = Math.min(attackdie2, attackdie1);
 
 						gameState.sethighestattackroll(attackmax1);
 						gameState.set2ndhighestattackroll(attackmax2);
+						
+						
+						if(attackmax1>defendmax1){
+							gameState.attackWon(playerID, defendcountryID);
+						}
+						else{
+							gameState.attackLost(playerID, attackcountryID);
+						}
+						if(attackmax2>defendmax2){
+							gameState.attackWon(playerID, defendcountryID);
+						}
+						else{
+							gameState.attackLost(playerID, attackcountryID);
+						}
 
 						return true;
 					} else if (attackTroops == 2) {
 						gameState.setAttackDieOne();
-						int attackdie1 = gameState.getAttackDieOne();
-						int defenddie1 = 0;
-						int defenddie2 = 0;
+						attackdie1 = gameState.getAttackDieOne();
+						 defenddie1 = 0;
+						 defenddie2 = 0;
 
 						if (defendTroops <= 2) {
 							defenddie1 = gameState.getDefendDieOne();
-							int defendmax1 = Math.max(defenddie2, defenddie1);
+							defendmax1 = Math.max(defenddie2, defenddie1);
 							gameState.sethighestdefendroll(defendmax1);
 
 						} else if (defendTroops > 2) {
 							defenddie1 = gameState.getDefendDieOne();
 							defenddie2 = gameState.getDefendDieTwo();
-							int defendmax1 = Math.max(defenddie2, defenddie1);// highest
-							int defendmax2 = Math.min(defenddie2, defenddie1);// second
+							defendmax1 = Math.max(defenddie2, defenddie1);// highest
+							defendmax2 = Math.min(defenddie2, defenddie1);// second
 																				// highest
 							gameState.sethighestdefendroll(defendmax1);
 							gameState.set2ndhighestdefendroll(defendmax2);
 						}
 
 						gameState.sethighestattackroll(attackdie1);
+						
+						if(attackdie1>defendmax1){
+							gameState.attackWon(playerID, defendcountryID);
+						}
+						else{
+							gameState.attackLost(playerID, attackcountryID);
+						}
 						return true;
 					}
 				}
