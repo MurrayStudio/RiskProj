@@ -15,7 +15,6 @@ import edu.up.cs301.game.actionMsg.GameAction;
  */
 public class RiskAttackAction extends GameAction {
 
-	private boolean attackTrue;
 	private int attackcountryID;
 	private int defendcountryID;
 
@@ -25,16 +24,11 @@ public class RiskAttackAction extends GameAction {
 	 * @param source
 	 *            the player making the move
 	 */
-	public RiskAttackAction(GamePlayer player, boolean attackTrue,
-			int attackcountryID, int defendcountryID) {
+	public RiskAttackAction(GamePlayer player, int attackcountryID,
+			int defendcountryID) {
 		super(player);
-		this.attackTrue = attackTrue;
 		this.attackcountryID = attackcountryID;
 		this.defendcountryID = defendcountryID;
-	}
-
-	public boolean attackTrue() {
-		return attackTrue;
 	}
 
 	public int getAttackCountryID() {

@@ -134,6 +134,7 @@ public class RiskState extends GameState {
 		}
 		
 		this.haveTroopsBeenPlaced = orig.haveTroopsBeenPlaced;
+		this.playerTurn = orig.playerTurn;
 
 	}
 

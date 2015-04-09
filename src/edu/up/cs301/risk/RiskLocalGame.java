@@ -18,7 +18,6 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 	// the game's state
 	private RiskState gameState;
 	private int playerID;
-	private String tf;
 
 	/**
 	 * can this player move
@@ -52,24 +51,8 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 
 			if (gameState.playerInControl(countrySelected) == playerID) {
 				gameState.assignUnits(playerID, countrySelected);
-				
-				if (this.gameState.getHaveTroopBeenPlaced() == true) {
-					tf = "t";
-				} else {
-					tf = "f";
-				}
-
-				Log.i("troop placed state?", tf);
-				
 				gameState.setHaveTroopBeenPlacedToTrue();
-				
-				if (this.gameState.getHaveTroopBeenPlaced() == true) {
-					tf = "t";
-				} else {
-					tf = "f";
-				}
 
-				Log.i("troop placed state?", tf);
 				
 				return true;
 			} else {
