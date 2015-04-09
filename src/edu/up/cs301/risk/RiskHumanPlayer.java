@@ -199,58 +199,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 		int y;
 		for (y = 1; y < 17; y++) {
-			if (button.getId() == countryIds[y]) {
-				switch (button.getId()) {
-				case R.id.russiaButton:
-					countrySelectedName = "Russia";
-					break;
-				case R.id.icelandButton:
-					countrySelectedName = "Iceland";
-					break;
-				case R.id.italyButton:
-					countrySelectedName = "Italy";
-					break;
-				case R.id.swedenButton:
-					countrySelectedName = "Sweden";
-					break;
-				case R.id.atlantisButton:
-					countrySelectedName = "Atlantis";
-					break;
-				case R.id.hogwartsButton:
-					countrySelectedName = "Hogwarts";
-					break;
-				case R.id.narniaButton:
-					countrySelectedName = "Narnia";
-					break;
-				case R.id.germanyButton:
-					countrySelectedName = "Germany";
-					break;
-				case R.id.mordorButton:
-					countrySelectedName = "Mordor";
-					break;
-				case R.id.gondorButton:
-					countrySelectedName = "Gondor";
-					break;
-				case R.id.shireButton:
-					countrySelectedName = "The Shire";
-					break;
-				case R.id.rohanButton:
-					countrySelectedName = "Rohan";
-					break;
-				case R.id.bulgariaButton:
-					countrySelectedName = "Bulgaria";
-					break;
-				case R.id.israelButton:
-					countrySelectedName = "Israel";
-					break;
-				case R.id.switzerlandButton:
-					countrySelectedName = "Switzerland";
-					break;
-				case R.id.ukraineButton:
-					countrySelectedName = "Ukraine";
-					break;
-				}
-				
+			if (button.getId() == countryIds[y]) {				
 				// you can turn on deselect 2
 				if (country2CanBeSelected == true) {
 					country2Pressed = true;
@@ -258,12 +207,64 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 					countrySelectedID2 = button.getId();
 					countrySelectedIndexID2 = y;
+					
+					switch (button.getId()) {
+					case R.id.russiaButton:
+						countrySelectedName2 = "Russia";
+						break;
+					case R.id.icelandButton:
+						countrySelectedName2 = "Iceland";
+						break;
+					case R.id.italyButton:
+						countrySelectedName2 = "Italy";
+						break;
+					case R.id.swedenButton:
+						countrySelectedName2 = "Sweden";
+						break;
+					case R.id.atlantisButton:
+						countrySelectedName2 = "Atlantis";
+						break;
+					case R.id.hogwartsButton:
+						countrySelectedName2 = "Hogwarts";
+						break;
+					case R.id.narniaButton:
+						countrySelectedName2 = "Narnia";
+						break;
+					case R.id.germanyButton:
+						countrySelectedName2 = "Germany";
+						break;
+					case R.id.mordorButton:
+						countrySelectedName2 = "Mordor";
+						break;
+					case R.id.gondorButton:
+						countrySelectedName2 = "Gondor";
+						break;
+					case R.id.shireButton:
+						countrySelectedName2 = "The Shire";
+						break;
+					case R.id.rohanButton:
+						countrySelectedName2 = "Rohan";
+						break;
+					case R.id.bulgariaButton:
+						countrySelectedName2 = "Bulgaria";
+						break;
+					case R.id.israelButton:
+						countrySelectedName2 = "Israel";
+						break;
+					case R.id.switzerlandButton:
+						countrySelectedName2 = "Switzerland";
+						break;
+					case R.id.ukraineButton:
+						countrySelectedName2 = "Ukraine";
+						break;
+					}
 
 					deselect2.setBackground(deselect2.getContext()
 							.getResources()
 							.getDrawable(R.drawable.custombuttonshapewhite));
 					deselect2.setText("Deselect: " + countrySelectedName);
 					
+					//if attack was clicked, send attack action
 					if (isAttackActionReady) {
 						GameAction attackAction = new RiskAttackAction(this,
 								countrySelectedIndexID, countrySelectedIndexID2);
@@ -283,6 +284,57 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 					countrySelectedID = button.getId();
 					countrySelectedIndexID = y;
+					
+					switch (button.getId()) {
+					case R.id.russiaButton:
+						countrySelectedName = "Russia";
+						break;
+					case R.id.icelandButton:
+						countrySelectedName = "Iceland";
+						break;
+					case R.id.italyButton:
+						countrySelectedName = "Italy";
+						break;
+					case R.id.swedenButton:
+						countrySelectedName = "Sweden";
+						break;
+					case R.id.atlantisButton:
+						countrySelectedName = "Atlantis";
+						break;
+					case R.id.hogwartsButton:
+						countrySelectedName = "Hogwarts";
+						break;
+					case R.id.narniaButton:
+						countrySelectedName = "Narnia";
+						break;
+					case R.id.germanyButton:
+						countrySelectedName = "Germany";
+						break;
+					case R.id.mordorButton:
+						countrySelectedName = "Mordor";
+						break;
+					case R.id.gondorButton:
+						countrySelectedName = "Gondor";
+						break;
+					case R.id.shireButton:
+						countrySelectedName = "The Shire";
+						break;
+					case R.id.rohanButton:
+						countrySelectedName = "Rohan";
+						break;
+					case R.id.bulgariaButton:
+						countrySelectedName = "Bulgaria";
+						break;
+					case R.id.israelButton:
+						countrySelectedName = "Israel";
+						break;
+					case R.id.switzerlandButton:
+						countrySelectedName = "Switzerland";
+						break;
+					case R.id.ukraineButton:
+						countrySelectedName = "Ukraine";
+						break;
+					}
 
 					deselect.setBackground(deselect.getContext().getResources()
 							.getDrawable(R.drawable.custombuttonshapewhite));
@@ -405,7 +457,6 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			public void onClick(DialogInterface dialog, int whichButton) {
 				game.sendAction(currentAction);
 				if (isPlaceActionReady == true) {
-					// this.state.setHaveTroopBeenPlacedToTrue();
 					deselectBtnEnabled = false;
 					placeBtnEnabled = false;
 					countryPressed = false;

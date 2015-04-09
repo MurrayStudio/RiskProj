@@ -15,8 +15,8 @@ import edu.up.cs301.game.actionMsg.GameAction;
  */
 public class RiskAttackAction extends GameAction {
 
-	private int attackcountryID;
-	private int defendcountryID;
+	private int attackcountryIndexID;
+	private int defendcountryIndexID;
 
 	/**
 	 * Constructor for the RiskAttackAction class.
@@ -24,19 +24,19 @@ public class RiskAttackAction extends GameAction {
 	 * @param source
 	 *            the player making the move
 	 */
-	public RiskAttackAction(GamePlayer player, int attackcountryID,
-			int defendcountryID) {
+	public RiskAttackAction(GamePlayer player, int attackcountryIndexID,
+			int defendcountryIndexID) {
 		super(player);
-		this.attackcountryID = attackcountryID;
-		this.defendcountryID = defendcountryID;
+		this.attackcountryIndexID = attackcountryIndexID;
+		this.defendcountryIndexID = defendcountryIndexID;
 	}
 
 	public int getAttackCountryID() {
-		return attackcountryID;
+		return attackcountryIndexID;
 	}
 
 	public int getDefendCountryID() {
-		return defendcountryID;
+		return defendcountryIndexID;
 	}
 }
 // class RiskMoveAction
