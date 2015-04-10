@@ -19,24 +19,24 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 	private RiskState gameState;
 	private int playerID;
 
-	int defendmax1;
-	int defendmax2;
-	int attackmax1;
-	int attackmax2;
+	int defendMax1;
+	int defendMax2;
+	int attackMax1;
+	int attackMax2;
 	int maxAttackDie2;
 
-	int defenddie1;
-	int defenddie2;
-	int attackdie1;
-	int attackdie2;
-	int attackdie3;
-	int tempdie1;
+	int defendDie1;
+	int defendDie2;
+	int attackDie1;
+	int attackDie2;
+	int attackDie3;
+	int tempDie;
 
 	int defendTroops;
 	int attackTroops;
 
-	int attackcountryID;
-	int defendcountryID;
+	int attackCountryID;
+	int defendCountryID;
 
 	/**
 	 * can this player move
@@ -106,223 +106,209 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 			}
 		}
 
-		if (action instanceof RiskAttackAction) {
+		if (action instanceof RiskAttackAction) 
+		{
 
 			// cast so that we Java knows it's a CounterMoveAction
 			RiskAttackAction cma = (RiskAttackAction) action;
 
-			// Update the counter values based upon the action
-			// int result = gameState.getCounter() + (cma.isPlus() ? 1 : -1);
-			// gameState.setCounter(result);
-
-			int defendmax1 = 0;
-			int defendmax2 = 0;
-			int attackmax1 = 0;
-			int attackmax2 = 0;
-			int maxAttackDie2 = 0;
-
-			int defenddie1 = 0;
-			int defenddie2 = 0;
-			int attackdie1 = 0;
-			int attackdie2 = 0;
-			int attackdie3 = 0;
-			int tempdie1 = 0;
-
 			playerID = gameState.getPlayerTurn();// gets player id
-			attackcountryID = cma.getAttackCountryID();
-			defendcountryID = cma.getDefendCountryID();
+			attackCountryID = cma.getAttackCountryID();
+			defendCountryID = cma.getDefendCountryID();
 
-			if (playerID == gameState.PLAYER_ONE) {
-				defendTroops = gameState.getPlayerTroopsInCountry(
-						gameState.PLAYER_TWO, defendcountryID);
-				attackTroops = gameState.getPlayerTroopsInCountry(
-						gameState.PLAYER_ONE, attackcountryID);
+			defendMax1 = 0;
+			defendMax2 = 0;
+			attackMax1 = 0;
+			attackMax2 = 0;
 
-			} else {
+			defendDie1 = 0;
+			defendDie2 = 0;
+			attackDie1 = 0;
+			attackDie2 = 0;
+			attackDie3 = 0;
+			tempDie = 0;
+
+			if (playerID == gameState.PLAYER_ONE) 
+			{
 				defendTroops = gameState.getPlayerTroopsInCountry(
-						gameState.PLAYER_ONE, defendcountryID);
+						gameState.PLAYER_TWO, defendCountryID);
 				attackTroops = gameState.getPlayerTroopsInCountry(
-						gameState.PLAYER_TWO, attackcountryID);
+						gameState.PLAYER_ONE, attackCountryID);
+
+			} 
+			else 
+			{
+				defendTroops = gameState.getPlayerTroopsInCountry(
+						gameState.PLAYER_ONE, defendCountryID);
+				attackTroops = gameState.getPlayerTroopsInCountry(
+						gameState.PLAYER_TWO, attackCountryID);
 			}
 
-			if (attackTroops <= 1) {
+			// If the attacker is trying to use one or fewer troops to attack
+			if (attackTroops <= 1) 
+			{
+				// return that the move is invalid
 				return false;
-			} else {
-				if (gameState.isTerritoryAdj(attackcountryID, defendcountryID)) {
-					// get dice information based on number of troops attacker
-					// wants to attack with
-					if (attackTroops >= 4) {
+			} 
+			else 
+			{
+				if (gameState.isTerritoryAdj(attackCountryID, defendCountryID)) 
+				{
+					// Roll the attack dice based on number of attacking troops (2, 3, 4+)
+					attackRoll(attackTroops);
 
-						gameState.setAttackDieOne();
-						gameState.setAttackDieTwo();
-						gameState.setAttackDieThree();
+					// Roll the defense dice based on number of defending troops (1, 2+)
+					defendRoll(defendTroops);
 
-						gameState.setDefendDieOne();
-						gameState.setDefendDieTwo();
+					// FIGHT TO THE DEATH
+					// (determine which player lost the battle)
+					FIGHT(playerID, defendCountryID, attackCountryID);
 
-						attackdie1 = gameState.getAttackDieOne();
-						attackdie2 = gameState.getAttackDieTwo();
-						attackdie3 = gameState.getAttackDieThree();
-
-						// middle value of three dice
-						if (attackdie1 >= attackdie2) {
-							if (attackdie1 >= attackdie3) {
-								if (attackdie2 >= attackdie3) {
-									maxAttackDie2 = attackdie2;
-								} else {
-									maxAttackDie2 = attackdie3;
-								}
-							} else {
-								maxAttackDie2 = attackdie1;
-							}
-						} else if (attackdie2 >= attackdie3) {
-							if (attackdie1 >= attackdie3) {
-								maxAttackDie2 = attackdie1;
-							}
-
-							else {
-								maxAttackDie2 = attackdie3;
-							}
-
-						} else {
-							if (attackdie1 >= attackdie2) {
-								maxAttackDie2 = attackdie1;
-							} else {
-								maxAttackDie2 = attackdie2;
-							}
-						}
-
-						if (defendTroops < 2) {
-							defenddie1 = gameState.getDefendDieOne();
-							defendmax1 = Math.max(defenddie2, defenddie1);
-							gameState.sethighestdefendroll(defendmax1);
-						} else if (defendTroops >= 2) {
-							defenddie1 = gameState.getDefendDieOne();
-							defenddie2 = gameState.getDefendDieTwo();
-							defendmax1 = Math.max(defenddie2, defenddie1);
-							defendmax2 = Math.min(defenddie2, defenddie1);
-							gameState.sethighestdefendroll(defendmax1);
-							gameState.set2ndhighestdefendroll(defendmax2);
-						}
-
-						tempdie1 = Math.max(attackdie1, attackdie2);// max
-																	// of
-																	// first
-																	// two
-
-						attackmax1 = Math.max(tempdie1, attackdie3);// gets
-																	// the
-																	// greatest
-																	// value
-																	// of
-																	// attackers
-																	// dice
-
-						gameState.sethighestattackroll(attackmax1);// highest
-																	// roll for
-																	// attacker
-
-						gameState.set2ndhighestattackroll(maxAttackDie2); // 2nd
-																			// highest
-
-						// determines winner of attack
-						if (attackmax1 > defendmax1) {
-							gameState.attackWon(playerID, defendcountryID,
-									attackcountryID);
-						} else {
-							gameState.attackLost(playerID, attackcountryID);
-						}
-
-						if (maxAttackDie2 > defendmax2) {
-							gameState.attackWon(playerID, defendcountryID,
-									attackcountryID);
-						} else {
-							gameState.attackLost(playerID, attackcountryID);
-						}
-						return true;
-					} else if (attackTroops == 3) {
-						gameState.setAttackDieOne();
-						gameState.setAttackDieTwo();
-
-						gameState.setDefendDieOne();
-						gameState.setDefendDieTwo();
-
-						if (defendTroops < 2) {
-							defenddie1 = gameState.getDefendDieOne();
-							defendmax1 = Math.max(defenddie2, defenddie1);
-							gameState.sethighestdefendroll(defendmax1);
-
-						} else if (defendTroops >= 2) {
-							defenddie1 = gameState.getDefendDieOne();
-							defenddie2 = gameState.getDefendDieTwo();
-							defendmax1 = Math.max(defenddie2, defenddie1);// highest
-							defendmax2 = Math.min(defenddie2, defenddie1);// second
-																			// highest
-							gameState.sethighestdefendroll(defendmax1);
-							gameState.set2ndhighestdefendroll(defendmax2);
-						}
-
-						attackdie1 = gameState.getAttackDieOne();
-						attackdie2 = gameState.getAttackDieTwo();
-						attackmax1 = Math.max(attackdie1, attackdie2);
-						attackmax2 = Math.min(attackdie2, attackdie1);
-
-						gameState.sethighestattackroll(attackmax1);
-						gameState.set2ndhighestattackroll(attackmax2);
-
-						if (attackmax1 > defendmax1) {
-							gameState.attackWon(playerID, defendcountryID,
-									attackcountryID);
-						} else {
-							gameState.attackLost(playerID, attackcountryID);
-						}
-						if (attackmax2 > defendmax2) {
-							gameState.attackWon(playerID, defendcountryID,
-									attackcountryID);
-						} else {
-							gameState.attackLost(playerID, attackcountryID);
-						}
-
-						return true;
-					} else if (attackTroops == 2) {
-						gameState.setAttackDieOne();
-						attackdie1 = gameState.getAttackDieOne();
-
-						if (defendTroops < 2) {
-							defenddie1 = gameState.getDefendDieOne();
-							defendmax1 = Math.max(defenddie2, defenddie1);
-							gameState.sethighestdefendroll(defendmax1);
-
-						} else if (defendTroops >= 2) {
-							defenddie1 = gameState.getDefendDieOne();
-							defenddie2 = gameState.getDefendDieTwo();
-							defendmax1 = Math.max(defenddie2, defenddie1);// highest
-							defendmax2 = Math.min(defenddie2, defenddie1);// second
-																			// highest
-							gameState.sethighestdefendroll(defendmax1);
-							gameState.set2ndhighestdefendroll(defendmax2);
-						}
-
-						gameState.sethighestattackroll(attackdie1);
-
-						if (attackdie1 > defendmax1) {
-							gameState.attackWon(playerID, defendcountryID,
-									attackcountryID);
-						} else {
-							gameState.attackLost(playerID, attackcountryID);
-						}
-						return true;
-					}
+					// return that the move was valid
+					return true;
 				}
 			}
 			// denote that this was a legal/successful move
 			return true;
-		} else {
+		} 
+		else
+		{
 			// denote that this was an illegal move
 			return false;
 		}
 
 	}
+	
+	/**
+	 * defendRoll handles the rolling and setting of defense dice
+	 * 
+	 * @param defendTroops
+	 */
+	public void defendRoll(int defendTroops)
+	{
+		// Roll one die by default
+		gameState.setDefendDieOne();
+		
+		// If the defender has 1 troop in the country
+		if (defendTroops < 2)
+		{
+			// Get the die roll
+			defendDie1 = gameState.getDefendDieOne();
+			
+			// Set max die to the only die rolled
+			defendMax1 = defendDie1;	
+		}
+		// If the defender has more than one troop in the country
+		else if (defendTroops >= 2)
+		{
+			// Roll the second die
+			gameState.setDefendDieTwo();
+
+			// Retrieve both dice values
+			defendDie1 = gameState.getDefendDieOne();
+			defendDie2 = gameState.getDefendDieTwo();
+			
+			// Set the max die to the greater of the two
+			defendMax1 = Math.max(defendDie2, defendDie1);
+			// Set the mid die to the lesser of the two
+			defendMax2 = Math.min(defendDie2, defendDie1);
+		}
+	}
+
+	/**
+	 * attackRoll handles the rolling and setting of attack dice
+	 * 
+	 * @param attackTroops
+	 */
+	public void attackRoll(int attackTroops)
+	{
+		if (attackTroops >= 4) 
+		{
+			// Roll all attack dice
+			gameState.setAttackDieOne();
+			gameState.setAttackDieTwo();
+			gameState.setAttackDieThree();
+
+			// Retreive all attack dice
+			attackDie1 = gameState.getAttackDieOne();
+			attackDie2 = gameState.getAttackDieTwo();
+			attackDie3 = gameState.getAttackDieThree();
+
+			// Find the max of all three attack dice, set it in the gameState
+			attackMax1 = Math.max(attackDie1, Math.max(attackDie2, attackDie3));
+
+			// Find the middle of all three attack dice, set it in the gameState
+			attackMax2 = Math.max(Math.max(Math.min(attackDie1, attackDie2), Math.min(attackDie2, attackDie3)), 
+					(Math.max(Math.min(attackDie2, attackDie3), Math.min(attackDie1, attackDie3))));
+		}
+		else if (attackTroops == 3)
+		{
+			// Only roll two dice for attacker
+			gameState.setAttackDieOne();
+			gameState.setAttackDieTwo();
+
+			// Get results of roll
+			attackDie1 = gameState.getAttackDieOne();
+			attackDie2 = gameState.getAttackDieTwo();
+			
+			// Set max and mid dice for attacker
+			attackMax1 = Math.max(attackDie1, attackDie2);
+			attackMax2 = Math.min(attackDie2, attackDie1);
+		}
+		else if (attackTroops == 2) 
+		{
+			// Roll one die for attacker
+			gameState.setAttackDieOne();
+			
+			// Retrieve the one attacking die
+			attackDie1 = gameState.getAttackDieOne();
+			
+			// Set the max die to the one available
+			attackMax1 = attackDie1;
+		}
+	}
+
+
+	/**
+	 * FIGHT determines whose troops to decrease/who won the battle
+	 * 
+	 * @param playerID
+	 * @param defendCountryID
+	 * @param attackCountryID
+	 */
+	public void FIGHT (int playerID, int defendCountryID, int attackCountryID)
+	{
+		// If the attackers highest die is higher than the defenders highest die
+		if (attackMax1 > defendMax1) 
+		{
+			// Attacker wins
+			gameState.attackWon(playerID, defendCountryID, attackCountryID);
+		} 
+		// If the attackers highest die is NOT higher than the defenders highest die (includes ties)
+		else
+		{
+			// Defender wins
+			gameState.attackLost(playerID, attackCountryID);
+		}
+
+		// If the middle attack and defend dice are not 0 (meaning they have been rolled)
+		if (attackMax2 != 0 && defendMax2 != 0)
+		{
+			// If the attackers middle die is higher than the defenders middle (lowest of two) die
+			if (attackMax2 > defendMax2) 
+			{
+				// Attacker wins
+				gameState.attackWon(playerID, defendCountryID, attackCountryID);
+			}
+			// If the attackers middle die is NOT higher than the defenders middle (lowest of two) die
+			else 
+			{
+				// Defender wins
+				gameState.attackLost(playerID, attackCountryID);
+			}
+		}
+	}
+
 
 	// makeMove
 

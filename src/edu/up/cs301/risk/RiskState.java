@@ -94,7 +94,7 @@ public class RiskState extends GameState {
 		// in top two rows of map
 		for (i = 1; i < COUNTRY_LENGTH; i++) {
 			if (i <= 8) {
-				playerOneTroops[i] = 2;
+				playerOneTroops[i] = 3;
 			} else {
 				playerOneTroops[i] = 0;
 			}
@@ -106,7 +106,7 @@ public class RiskState extends GameState {
 		// in bottom 2 rows of map
 		for (y = 1; y < COUNTRY_LENGTH; y++) {
 			if (y > 8) {
-				playerTwoTroops[y] = 2;
+				playerTwoTroops[y] = 3;
 			}
 			if (y <= 8) {
 				playerTwoTroops[y] = 0;
@@ -543,40 +543,6 @@ public class RiskState extends GameState {
 		else{
 			playerOneTroops[countryMoveTo] = playerOneTroops[countryMoveTo] + 1;
 		}
-	}
-
-	// Gets highest and 2nd highest attack roll and defend rolls for use in
-	// RISKLOCALGAME
-	public void sethighestattackroll(int roll) {
-		this.attackhighestRoll = roll;
-	}
-
-	public void sethighestdefendroll(int roll) {
-		this.defendhighestRoll = roll;
-	}
-
-	public int gethighestattackroll() {
-		return attackhighestRoll;
-	}
-
-	public int gethighestdefendroll() {
-		return defendhighestRoll;
-	}
-
-	public void set2ndhighestattackroll(int roll) {
-		this.attack2ndhighestRoll = roll;
-	}
-
-	public void set2ndhighestdefendroll(int roll) {
-		this.defend2ndhighestRoll = roll;
-	}
-
-	public int get2ndhighestattackroll() {
-		return attack2ndhighestRoll;
-	}
-
-	public int get2ndhighestdefendroll() {
-		return defend2ndhighestRoll;
 	}
 
 	/**
