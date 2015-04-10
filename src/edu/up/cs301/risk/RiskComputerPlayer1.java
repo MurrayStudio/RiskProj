@@ -1,6 +1,7 @@
 package edu.up.cs301.risk;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.TextView;
 import edu.up.cs301.game.GameComputerPlayer;
 import edu.up.cs301.game.GameMainActivity;
@@ -28,10 +29,8 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 
 	// the most recent game state, as given to us by the RiskLocalGame
 	private RiskState state;
-	
+
 	private GameAction currentAction;
-	
-	
 
 	/**
 	 * Constructor for objects of class CounterComputerPlayer1
@@ -43,10 +42,6 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 		// invoke superclass constructor
 		super(name);
 		this.playerID = playerID;
-		
-        // start the timer, ticking 20 times per second
-        getTimer().setInterval(2000);
-        getTimer().start();
 	}
 
 	/**
@@ -54,9 +49,16 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 	 */
 	protected void updateDisplay() {
 
+		Log.i("player turn update", Integer.toString(state.getPlayerTurn()));
+		
 		if (state.getPlayerTurn() == playerID) {
 			isItPlayerTurn = true;
-
+		}
+		
+		if (isItPlayerTurn == true) {
+			// start the timer, ticking 20 times per second
+			getTimer().setInterval(500);
+			getTimer().start();
 		}
 	}
 
@@ -76,31 +78,39 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 		updateDisplay();
 	}
 
-/*	*//**
+	/*	*//**
 	 * Controls the actions that the dumb AI makes
-	 *//*
-	protected void compAction1() {
+	 */
+	/*
+	 * protected void compAction1() {
+	 * 
+	 * // send the move-action to the game game.sendAction(new
+	 * RiskMoveTroopAction(this, false, 0)); }
+	 */
 
-		// send the move-action to the game
-		game.sendAction(new RiskMoveTroopAction(this, false, 0));
-	}*/
-	
 	/**
 	 * callback method: the timer ticked, make a random move
 	 */
 	protected void timerTicked() {
-		
-		
+
 		// send the move-action to the game
-		//game.sendAction(new RiskMoveTroopAction(this, false, 0));
-		
-		//currentAction = new RiskMoveTroopAction(this, false, 0);
-		
-		if(currentAction instanceof RiskEndTurnAction){
+		// game.sendAction(new RiskMoveTroopAction(this, false, 0));
+
+		// currentAction = new RiskMoveTroopAction(this, false, 0);
+
+		currentAction = new RiskEndTurnAction(this, playerID);
+
+		if (currentAction instanceof RiskEndTurnAction) {
 			game.sendAction(currentAction);
 			getTimer().stop();
+			
+			Log.i("player turn b", Integer.toString(state.getPlayerTurn()));
+			
 			state.setPlayerTurn(RiskState.PLAYER_ONE);
+			isItPlayerTurn = false;
+			
+			Log.i("player turn a", Integer.toString(state.getPlayerTurn()));
 		}
 	}
-	
+
 }
