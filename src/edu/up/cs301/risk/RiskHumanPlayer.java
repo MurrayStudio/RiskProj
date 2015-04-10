@@ -332,6 +332,9 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 					// if attack was previously clicked, send attack action
 					if (isAttackActionReady) {
+						
+						
+						
 						GameAction attackAction = new RiskAttackAction(this,
 								countrySelectedIndexID, countrySelectedIndexID2);
 						createActionAlertBox("Attack " + countrySelectedName
@@ -430,12 +433,27 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 		// if attack is pressed
 		if (button.getId() == R.id.Attack && attackBtnEnabled == true) {
-			country2CanBeSelected = true;
-			isAttackActionReady = true;
-
+			
+			int getcurrentPlayer = state.getPlayerTurn();
+			
+			//Make sure no invalid moves in first if statement then give the go to attack
+			if(state.playerInControl(countrySelectedIndexID) == state
+					.getPlayerTurn()&&state.getPlayerTroopsInCountry(getcurrentPlayer, countrySelectedIndexID)!=1){
+				createTextAlertBox("Select 2nd adjacent enemy country to attack");
+				isAttackActionReady = true;
+				country2CanBeSelected = true;
+			}
+			//Other if statements give error messages for those invalid moves
+			if(state.getPlayerTroopsInCountry(getcurrentPlayer, countrySelectedIndexID)==1){
+				createTextAlertBox("Not enough troops for an attack");
+			}
+			else if(state.playerInControl(countrySelectedIndexID) != state
+					.getPlayerTurn()){
+				createTextAlertBox("Not your country");
+			}
+			//createTextAlertBox("Select 2nd adjacent enemy country to attack");
+			
 			updateDisplay();
-
-			createTextAlertBox("Select 2nd adjacent enemy country to attack");
 		}
 
 		// if move is pressed
