@@ -36,7 +36,8 @@ public class RiskState extends GameState {
 	private String victor;
 
 	// have the 3 troops been placed
-	private boolean haveTroopsBeenPlaced;
+	private boolean haveTroopsBeenPlacedPlayer1;
+	private boolean haveTroopsBeenPlacedPlayer2;
 
 	// variables to store the value of each of the die
 	private int attack1die;
@@ -112,7 +113,10 @@ public class RiskState extends GameState {
 			}
 		}
 		
-		haveTroopsBeenPlaced = false;
+		playerTurn = PLAYER_ONE;
+
+		haveTroopsBeenPlacedPlayer1 = false;
+		haveTroopsBeenPlacedPlayer2 = false;
 	}
 
 	/**
@@ -122,18 +126,19 @@ public class RiskState extends GameState {
 	 *
 	 */
 	public RiskState(RiskState orig) {
-		
+
 		this.playerOneTroops = new int[orig.playerOneTroops.length];
 		for (int y = 0; y < orig.playerOneTroops.length; ++y) {
 			this.playerOneTroops[y] = orig.playerOneTroops[y];
 		}
-		
+
 		this.playerTwoTroops = new int[orig.playerTwoTroops.length];
 		for (int y = 0; y < orig.playerTwoTroops.length; ++y) {
 			this.playerTwoTroops[y] = orig.playerTwoTroops[y];
 		}
-		
-		this.haveTroopsBeenPlaced = orig.haveTroopsBeenPlaced;
+
+		this.haveTroopsBeenPlacedPlayer1 = orig.haveTroopsBeenPlacedPlayer1;
+		this.haveTroopsBeenPlacedPlayer2 = orig.haveTroopsBeenPlacedPlayer2;
 		this.playerTurn = orig.playerTurn;
 
 	}
@@ -435,8 +440,13 @@ public class RiskState extends GameState {
 	 *
 	 * sets troops Placed back to false
 	 */
-	public void setHaveTroopBeenPlacedToFalse() {
-		haveTroopsBeenPlaced = false;
+	public void setHaveTroopBeenPlacedToFalse(int playerID) {
+		if (playerID == PLAYER_ONE) {
+			haveTroopsBeenPlacedPlayer1 = false;
+		}
+		else{
+			haveTroopsBeenPlacedPlayer2 = false;
+		}
 	}
 
 	/**
@@ -444,8 +454,13 @@ public class RiskState extends GameState {
 	 *
 	 * sets troops Placed back to True
 	 */
-	public void setHaveTroopBeenPlacedToTrue() {
-		haveTroopsBeenPlaced = true;
+	public void setHaveTroopBeenPlacedToTrue(int playerID) {
+		if (playerID == PLAYER_ONE) {
+			haveTroopsBeenPlacedPlayer1 = true;
+		}
+		else{
+			haveTroopsBeenPlacedPlayer2 = true;
+		}
 	}
 
 	/**
@@ -453,8 +468,13 @@ public class RiskState extends GameState {
 	 *
 	 * @return haveTroopsBeenPlaced boolean
 	 */
-	public boolean getHaveTroopBeenPlaced() {
-		return haveTroopsBeenPlaced;
+	public boolean getHaveTroopBeenPlaced(int playerID) {
+		if (playerID == PLAYER_ONE) {
+			return haveTroopsBeenPlacedPlayer1;
+		}
+		else{
+			return haveTroopsBeenPlacedPlayer2;
+		}
 	}
 
 	/**
