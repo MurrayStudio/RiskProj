@@ -18,10 +18,9 @@ public class RiskMoveTroopAction extends GameAction {
 	// to satisfy the serializable interface
 	private static final long serialVersionUID = 28062013L;
 
-	// whether this move is a plus (true) or minus (false)
-	private boolean moveTroopTrue;
-
 	private int countryID;
+	private int countryID2;
+	private int playerID;
 
 	/**
 	 * Constructor for the RiskMoveTroopAction class.
@@ -29,15 +28,24 @@ public class RiskMoveTroopAction extends GameAction {
 	 * @param source
 	 *            the player making the move
 	 */
-	public RiskMoveTroopAction(GamePlayer player, boolean moveTroopTrue,
-			int countryID) {
+	public RiskMoveTroopAction(GamePlayer player, int playerID, int countryID, int countryID2) {
 		super(player);
-		this.moveTroopTrue = moveTroopTrue;
 		this.countryID = countryID;
+		this.countryID2 = countryID2;
+		this.playerID = playerID;
 	}
 
-	public boolean moveTroopTrue() {
-		return moveTroopTrue;
+	public int getPlayerID() {
+		return playerID;
+	}
+
+
+	public int getCountry1() {
+		return countryID;
+	}
+
+	public int getCountry2() {
+		return countryID2;
 	}
 
 }

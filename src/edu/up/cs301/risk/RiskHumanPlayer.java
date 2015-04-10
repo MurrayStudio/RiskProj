@@ -334,8 +334,8 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 						
 						GameAction attackAction = new RiskAttackAction(this,
 								countrySelectedIndexID, countrySelectedIndexID2);
-						createActionAlertBox("Attack " + countrySelectedName
-								+ " from " + countrySelectedName2, attackAction);
+						createActionAlertBox("Attack " + countrySelectedName2
+								+ " from " + countrySelectedName, attackAction);
 
 						Log.i("countrySelectedIndexID",
 								Integer.toString(countrySelectedIndexID));
@@ -343,7 +343,9 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 								Integer.toString(countrySelectedIndexID2));
 					}
 					if (isMoveActionReady) {
-
+						GameAction moveAction = new RiskMoveTroopAction(this, playerID, countrySelectedIndexID,countrySelectedIndexID2);
+						createActionAlertBox("Move " + countrySelectedName
+								+ " from " + countrySelectedName2, moveAction);
 					}
 
 				} else {

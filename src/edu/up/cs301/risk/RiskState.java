@@ -112,7 +112,7 @@ public class RiskState extends GameState {
 				playerTwoTroops[y] = 0;
 			}
 		}
-		
+
 		playerTurn = PLAYER_ONE;
 
 		haveTroopsBeenPlacedPlayer1 = false;
@@ -154,17 +154,53 @@ public class RiskState extends GameState {
 	 *
 	 * 
 	 */
-	public void attackWon(int playerIDAttacking, int countryIDDefendFrom) {
+	/**
+	 * attackWon()
+	 * 
+	 * When attacking country wins subtract one troop from the losing country
+	 * 
+	 * @param playerIDAttacking
+	 *            : Id of the player attacking
+	 * @param countryIDDefendFrom
+	 *            ID of the defenders country
+	 * @param countryIDAttackFrom
+	 *            ID of the attackers country
+	 */
+	public void attackWon(int playerIDAttacking, int countryIDDefendFrom,
+			int countryIDAttackFrom) {
 
+		// P1 won the attack
 		if (playerIDAttacking == PLAYER_ONE) {
-			// if player1 wins subtract one from player 2 in their country
-			playerTwoTroops[countryIDDefendFrom] = playerTwoTroops[countryIDDefendFrom] - 1;
-		} else {
-			// else player 2 wins and subtract one from player 1 in their
-			// country
-			playerOneTroops[countryIDDefendFrom] = playerOneTroops[countryIDDefendFrom] - 1;
-		}
+			// P2 would have at least 1 troop left (still owned by P2)
+			if (playerTwoTroops[countryIDDefendFrom] - 1 > 0) {
+				// Decrement P2 troops by 1
+				playerTwoTroops[countryIDDefendFrom] = playerTwoTroops[countryIDDefendFrom] - 1;
+			}
+			// P2 would have 0 troops left (now owned by P1)
+			else {
+				// Remove P2 from the country
+				playerTwoTroops[countryIDDefendFrom] = 0;
+				// Take one troop from P1s winning country
+				playerOneTroops[countryIDAttackFrom] = playerOneTroops[countryIDAttackFrom] - 1;
+				// Add that troop to the country P1 won
+				playerOneTroops[countryIDDefendFrom] = 1;
 
+			}
+		}
+		// P2 won the attack
+		else {
+			if (playerOneTroops[countryIDDefendFrom] - 1 > 0) {
+
+				playerOneTroops[countryIDDefendFrom] = playerOneTroops[countryIDDefendFrom] - 1;
+			} else {
+				// Remove P1 from the country
+				playerOneTroops[countryIDDefendFrom] = 0;
+				// Take one troops from P2s winning country
+				playerTwoTroops[countryIDAttackFrom] = playerTwoTroops[countryIDAttackFrom] - 1;
+				// Add that troop to the country P2 won
+				playerTwoTroops[countryIDDefendFrom] = 1;
+			}
+		}
 	}
 
 	/**
@@ -182,15 +218,20 @@ public class RiskState extends GameState {
 	 */
 	public void attackLost(int playerIDAttacking, int countryIDAttackFrom) {
 		if (playerIDAttacking == PLAYER_TWO) {
-
-			// if Player2 loses subtract one troop from player2's country
-			playerTwoTroops[countryIDAttackFrom] = playerTwoTroops[countryIDAttackFrom] - 1;
+			if (playerTwoTroops[countryIDAttackFrom] - 1 > 0) {
+				// if Player2 loses subtract one troop from player2's country
+				playerTwoTroops[countryIDAttackFrom] = playerTwoTroops[countryIDAttackFrom] - 1;
+			} else {
+				playerTwoTroops[countryIDAttackFrom] = 0;
+			}
 		} else {
-
-			// else Player1 loses subtract one troop from player1's country
-			playerOneTroops[countryIDAttackFrom] = playerOneTroops[countryIDAttackFrom] - 1;
+			if (playerOneTroops[countryIDAttackFrom] > 0) {
+				// else Player1 loses subtract one troop from player1's country
+				playerOneTroops[countryIDAttackFrom] = playerOneTroops[countryIDAttackFrom] - 1;
+			} else {
+				playerOneTroops[countryIDAttackFrom] = 0;
+			}
 		}
-
 	}
 
 	/**
@@ -443,8 +484,7 @@ public class RiskState extends GameState {
 	public void setHaveTroopBeenPlacedToFalse(int playerID) {
 		if (playerID == PLAYER_ONE) {
 			haveTroopsBeenPlacedPlayer1 = false;
-		}
-		else{
+		} else {
 			haveTroopsBeenPlacedPlayer2 = false;
 		}
 	}
@@ -457,8 +497,7 @@ public class RiskState extends GameState {
 	public void setHaveTroopBeenPlacedToTrue(int playerID) {
 		if (playerID == PLAYER_ONE) {
 			haveTroopsBeenPlacedPlayer1 = true;
-		}
-		else{
+		} else {
 			haveTroopsBeenPlacedPlayer2 = true;
 		}
 	}
@@ -471,8 +510,7 @@ public class RiskState extends GameState {
 	public boolean getHaveTroopBeenPlaced(int playerID) {
 		if (playerID == PLAYER_ONE) {
 			return haveTroopsBeenPlacedPlayer1;
-		}
-		else{
+		} else {
 			return haveTroopsBeenPlacedPlayer2;
 		}
 	}
@@ -496,6 +534,15 @@ public class RiskState extends GameState {
 	 */
 	public int getPlayerTurn() {
 		return playerTurn;
+	}
+	
+	public void gainTroop(int playerID, int countryMoveTo){
+		if(playerID==PLAYER_TWO){
+			playerTwoTroops[countryMoveTo] = playerTwoTroops[countryMoveTo] + 1;
+		}
+		else{
+			playerOneTroops[countryMoveTo] = playerOneTroops[countryMoveTo] + 1;
+		}
 	}
 
 	// Gets highest and 2nd highest attack roll and defend rolls for use in

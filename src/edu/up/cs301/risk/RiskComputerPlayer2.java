@@ -46,6 +46,6 @@ public class RiskComputerPlayer2 extends GameComputerPlayer implements RiskPlaye
 		
 		
 		// send the move-action to the game
-		game.sendAction(new RiskMoveTroopAction(this,false,0));
+		//game.sendAction(new RiskMoveTroopAction(this,false,0));
 	}
 }
