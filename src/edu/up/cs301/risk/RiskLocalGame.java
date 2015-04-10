@@ -66,6 +66,7 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 
 			if (gameState.getPlayerTurn() == RiskState.PLAYER_ONE) {
 				gameState.setPlayerTurn(RiskState.PLAYER_TWO);
+				gameState.setHaveTroopBeenPlacedToFalse(100);
 				return true;
 			} else {
 				gameState.setPlayerTurn(RiskState.PLAYER_ONE);

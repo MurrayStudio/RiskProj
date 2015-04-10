@@ -105,18 +105,20 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	 */
 	protected void updateDisplay() {
 		
+		//change to actual names later
+		if (state.getPlayerTurn() == RiskState.PLAYER_ONE) {
+			currentText.setText("Attacker: " + Integer.toString(RiskState.PLAYER_ONE));
+			defendText.setText("Defender: " + Integer.toString(RiskState.PLAYER_TWO));
+		}
+		else{
+			currentText.setText("Attacker: " + Integer.toString(RiskState.PLAYER_TWO));
+			defendText.setText("Defender: " + Integer.toString(RiskState.PLAYER_ONE));
+		}
+		
 		if (state.getPlayerTurn() == playerID) {
 			isItPlayerTurn = true;
+			endTurnBtnEnabled = true;
 
-			//change to actual names later
-			if (playerID == RiskState.PLAYER_ONE) {
-				currentText.setText("Attacker: " + Integer.toString(RiskState.PLAYER_ONE));
-				defendText.setText("Defender: " + Integer.toString(RiskState.PLAYER_TWO));
-			}
-			else{
-				currentText.setText("Attacker: " + Integer.toString(RiskState.PLAYER_TWO));
-				defendText.setText("Defender: " + Integer.toString(RiskState.PLAYER_ONE));
-			}
 		} else {
 			countryPressed = false;
 			country2Pressed = false;
