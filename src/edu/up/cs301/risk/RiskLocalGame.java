@@ -70,6 +70,7 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 				return true;
 			} else {
 				gameState.setPlayerTurn(RiskState.PLAYER_ONE);
+				gameState.setHaveTroopBeenPlacedToFalse(200);
 				return true;
 			}
 		}
@@ -153,7 +154,7 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 			} 
 			else 
 			{
-				if (gameState.isTerritoryAdj(attackCountryID, defendCountryID)) 
+				if (gameState.isTerritoryAdj(attackCountryID, defendCountryID) && gameState.playerInControl(attackCountryID) != gameState.playerInControl(defendCountryID)) 
 				{
 					// Roll the attack dice based on number of attacking troops (2, 3, 4+)
 					attackRoll(attackTroops);

@@ -461,6 +461,8 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		if (button.getId() == R.id.Move && moveBtnEnabled == true) {
 			country2CanBeSelected = true;
 			isMoveActionReady = true;
+			
+			createTextAlertBox("Select 2nd adjacent friendly country to move to");
 
 			updateDisplay();
 		}
