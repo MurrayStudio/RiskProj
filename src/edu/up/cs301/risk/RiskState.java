@@ -90,7 +90,7 @@ public class RiskState extends GameState {
 		// loop through and place troop in every country
 		// in top two rows of map
 		for (i = 1; i < COUNTRY_LENGTH; i++) {
-			if (i <= 15) {
+			if (i <= 8) {
 				playerOneTroops[i] = 3;
 			} else {
 				playerOneTroops[i] = 0;
@@ -102,10 +102,10 @@ public class RiskState extends GameState {
 		// loop through and place troop in every country
 		// in bottom 2 rows of map
 		for (y = 1; y < COUNTRY_LENGTH; y++) {
-			if (y > 15) {
-				playerTwoTroops[y] = 1;
+			if (y > 8) {
+				playerTwoTroops[y] = 3;
 			}
-			if (y <= 15) {
+			if (y <= 8) {
 				playerTwoTroops[y] = 0;
 			}
 		}
