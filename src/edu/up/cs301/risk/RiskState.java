@@ -39,6 +39,7 @@ public class RiskState extends GameState {
 	private boolean haveTroopsBeenPlacedPlayer1;
 	private boolean haveTroopsBeenPlacedPlayer2;
 	
+	//booleans for if player1 or player2 surrenders
 	private boolean surrenderPlayer1;
 	private boolean surrenderPlayer2;
 
@@ -111,7 +112,8 @@ public class RiskState extends GameState {
 		}
 
 		playerTurn = PLAYER_ONE;
-
+		
+		//initialize boolean variables
 		haveTroopsBeenPlacedPlayer1 = false;
 		haveTroopsBeenPlacedPlayer2 = false;
 		surrenderPlayer1 = false;
@@ -440,11 +442,9 @@ public class RiskState extends GameState {
 	}
 	
 	/**
-	 * playerInControl
+	 * setSurrenderPlayerTrue
 	 *
-	 * @param countryCode
-	 *            : id of the country
-	 * @return the player that is in control of the given country
+	 * @param the player that surrendered
 	 */
 	public void setSurrenderPlayerTrue(int playerID) {
 		if (playerID == PLAYER_ONE) {
@@ -455,11 +455,10 @@ public class RiskState extends GameState {
 	}
 	
 	/**
-	 * playerInControl
+	 * getSurrenderPlayerTrue
 	 *
-	 * @param countryCode
-	 *            : id of the country
-	 * @return the player that is in control of the given country
+	 * @param the player to check if surrendered
+	 * @return return if player has surrendered
 	 */
 	public boolean getSurrenderPlayerTrue(int playerID) {
 		if (playerID == PLAYER_ONE) {
@@ -490,9 +489,11 @@ public class RiskState extends GameState {
 	}
 
 	/**
-	 * getGameToBeOver
+	 * winnerCheck
 	 *
-	 * @return returns playerID, returns 0 if no winner
+	 * checks if a player owns all countries
+	 * 
+	 * @return player that won, returns 0 if no player has won
 	 */
 	public int winnerCheck() {
 		int count1 = 0;
@@ -506,9 +507,11 @@ public class RiskState extends GameState {
 				count2++;
 			}
 		}
+		//if player one has control of all 16 countries
 		if (count1 == 16) {
 			return PLAYER_ONE;
 		}
+		//if player two has control of all 16 countries
 		if (count2 == 16) {
 			return PLAYER_TWO;
 		}
@@ -575,25 +578,19 @@ public class RiskState extends GameState {
 		return playerTurn;
 	}
 
+	/**
+	 * gainTroop
+	 * 
+	 * add a troop to a country
+	 *
+	 * @param playerID who is gaining troop
+	 * @param country to get troop
+	 */
 	public void gainTroop(int playerID, int countryMoveTo) {
 		if (playerID == PLAYER_TWO) {
 			playerTwoTroops[countryMoveTo] = playerTwoTroops[countryMoveTo] + 1;
 		} else {
 			playerOneTroops[countryMoveTo] = playerOneTroops[countryMoveTo] + 1;
 		}
-	}
-
-	/**
-	 * init()
-	 *
-	 * store ID's/constants of countries in array countrylist from the state
-	 *
-	 */
-	private void init() {
-
-		int i;
-		RiskState.countryList = new int[RiskState.COUNTRY_LENGTH];
-		for (i = 0; i < RiskState.COUNTRY_LENGTH; i++)
-			RiskState.countryList[i] = i;
 	}
 }

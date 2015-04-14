@@ -11,6 +11,8 @@ import edu.up.cs301.game.util.Tickable;
  * 
  * @version March 2015 
  * 
+ * THIS CLASS CURRENTLY ISN'T IMPLEMENTED!!!
+ * 
  */
 public class RiskComputerPlayer2 extends GameComputerPlayer implements RiskPlayer, Tickable {
 	

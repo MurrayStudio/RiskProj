@@ -173,11 +173,11 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 				currentAction = new RiskMoveTroopAction(this, RiskState.PLAYER_TWO, countrySelectedIndexId, countrySelectedIndexId2);
 			}
 			
-			if (actionRandomizer >= 0.6 && actionRandomizer <= 0.9) {
+			if (actionRandomizer >= 0.6 && actionRandomizer <= 0.995) {
 				// send the end turn action to the game
 				currentAction = new RiskEndTurnAction(this, playerID);
 			}
-			if (actionRandomizer >= 0.9 && actionRandomizer <= 1.0) {
+			if (actionRandomizer >= 0.995 && actionRandomizer <= 1.0) {
 				// send the end turn action to the game
 				currentAction = new RiskSurrenderAction(this, playerID);
 			}

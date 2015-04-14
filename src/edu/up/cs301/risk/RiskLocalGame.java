@@ -18,13 +18,15 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 	// the game's state
 	private RiskState gameState;
 	private int playerID;
-
+	
+	//The max amounts for the attack and defender die
 	int defendMax1;
 	int defendMax2;
 	int attackMax1;
 	int attackMax2;
 	int maxAttackDie2;
-
+	
+	//All the die for attacking and defending
 	int defendDie1;
 	int defendDie2;
 	int attackDie1;
@@ -32,9 +34,10 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 	int attackDie3;
 	int tempDie;
 
+	//Variables to use for checking the number of troops in each country
 	int defendTroops;
 	int attackTroops;
-
+	//Country ids for attacking/defending
 	int attackCountryID;
 	int defendCountryID;
 
@@ -61,9 +64,10 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 	 */
 	@Override
 	public boolean makeMove(GameAction action) {
-
+		//Checking for an end turn action
 		if (action instanceof RiskEndTurnAction) {
-
+			//checking to see if it's the right player's turn
+			//And then gives access to be able to end the turn
 			if (gameState.getPlayerTurn() == RiskState.PLAYER_ONE) {
 				gameState.setPlayerTurn(RiskState.PLAYER_TWO);
 				gameState.setHaveTroopBeenPlacedToFalse(100);
@@ -74,13 +78,14 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 				return true;
 			}
 		}
-
+		//If the action is a place troop action
 		if (action instanceof RiskPlaceTroopAction) {
 
 			RiskPlaceTroopAction placeAction = (RiskPlaceTroopAction) action;
 			playerID = placeAction.getPlayerID();
 			int countrySelected = placeAction.getCountryID();
-
+			//Checks if the country selected to place troops is owned by the current player
+			//And then assign the troops to that country
 			if (gameState.playerInControl(countrySelected) == playerID) {
 				gameState.assignUnits(playerID, countrySelected);
 				gameState.setHaveTroopBeenPlacedToTrue(playerID);
@@ -90,23 +95,27 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 				return false;
 			}
 		}
-		
+		//Checks if the action is a surrender action
 		if (action instanceof RiskSurrenderAction) {
-
+			//Then surrenders the game and assigns the victor
 			RiskSurrenderAction surrenderAction = (RiskSurrenderAction) action;
 			playerID = surrenderAction.getPlayerID();
 			gameState.setSurrenderPlayerTrue(playerID);
 
 				return true;
 		}
-		
+		//Checks if the action is a moving action
 		if(action instanceof RiskMoveTroopAction){
+			//Gets the countries and the player ids for the movement action
 			RiskMoveTroopAction moveAction = (RiskMoveTroopAction) action;
 			playerID = moveAction.getPlayerID();
 			int countrySelected1 = moveAction.getCountry1();
 			int countrySelected2 = moveAction.getCountry2();
+			//Checks to make sure the move is legal
 			if(gameState.playerInControl(countrySelected1) == playerID && gameState.playerInControl(countrySelected2) == playerID 
 					&& gameState.getPlayerTroopsInCountry(playerID, countrySelected1)>1 && gameState.isTerritoryAdj(countrySelected1, countrySelected2)){
+					//This assigns the troop to the country moved to and decrements a troop from the 
+					//country moved from
 					gameState.attackLost(playerID, countrySelected1);
 					gameState.gainTroop(playerID, countrySelected2);
 					return true;
@@ -116,7 +125,7 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 			return false;
 			}
 		}
-
+		//Check to see if the action is an attack action
 		if (action instanceof RiskAttackAction) 
 		{
 
@@ -126,7 +135,8 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 			playerID = gameState.getPlayerTurn();// gets player id
 			attackCountryID = cma.getAttackCountryID();
 			defendCountryID = cma.getDefendCountryID();
-
+			
+			//Initialize all the die to 0
 			defendMax1 = 0;
 			defendMax2 = 0;
 			attackMax1 = 0;
@@ -138,7 +148,8 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 			attackDie2 = 0;
 			attackDie3 = 0;
 			tempDie = 0;
-
+			
+			//Check to see who's turn it is
 			if (playerID == gameState.PLAYER_ONE) 
 			{
 				defendTroops = gameState.getPlayerTroopsInCountry(

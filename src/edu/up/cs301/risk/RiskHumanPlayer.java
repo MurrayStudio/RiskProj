@@ -374,7 +374,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 					countrySelectedID = button.getId();
 					countrySelectedIndexID = y;
-
+					
 					switch (button.getId()) {
 					case R.id.russiaButton:
 						countrySelectedName = "Russia";
@@ -472,12 +472,13 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 					.getPlayerTurn()) {
 				createTextAlertBox("Not your country");
 			}
-			// createTextAlertBox("Select 2nd adjacent enemy country to attack");
+			
 
 			updateDisplay();
 		}
 
-		// if move is pressed
+		// if move is pressed make sure what message to send to the player depending
+		//if the move is legal or not
 		if (button.getId() == R.id.Move && moveBtnEnabled == true) {
 			if (state.playerInControl(countrySelectedIndexID) == playerID
 					&& state.getPlayerTroopsInCountry(playerID,
@@ -497,11 +498,11 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 		// if endTurn is pressed
 		if (button.getId() == R.id.EndTurn && endTurnBtnEnabled == true) {
-
+			//Set the action to be ready to do
 			isEndTurnActionReady = true;
 
 			updateDisplay();
-
+			//Send information to the End turn constructor
 			RiskEndTurnAction endAction = new RiskEndTurnAction(this, playerID);
 			createActionAlertBox("Are you sure you want to end your turn?",
 					endAction);
@@ -509,11 +510,11 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		
 		// if endTurn is pressed
 		if (button.getId() == R.id.Surrender) {
-
+			//Set the action to be ready to do
 			isEndTurnActionReady = true;
 
 			updateDisplay();
-
+			//Sends information to the surrender constructor
 			RiskSurrenderAction surrenderAction = new RiskSurrenderAction(this, RiskState.PLAYER_ONE);
 			createActionAlertBox("Are you sure you want to surrender?",
 					surrenderAction);
@@ -741,4 +742,3 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	}
 
 }// class RiskHumanPlayer
-
