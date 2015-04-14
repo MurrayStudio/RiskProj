@@ -104,17 +104,27 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	 * sets the troop value in the text view depending on the country selected
 	 */
 	protected void updateDisplay() {
-		
-		//change to actual names later
+
+		// change to actual names later
 		if (state.getPlayerTurn() == RiskState.PLAYER_ONE) {
-			currentText.setText("Attacker: " + Integer.toString(RiskState.PLAYER_ONE));
-			defendText.setText("Defender: " + Integer.toString(RiskState.PLAYER_TWO));
-		}
-		else{
-			currentText.setText("Attacker: " + Integer.toString(RiskState.PLAYER_TWO));
-			defendText.setText("Defender: " + Integer.toString(RiskState.PLAYER_ONE));
+			currentText.setText("Attacker: "
+					+ Integer.toString(RiskState.PLAYER_ONE));
+			defendText.setText("Defender: "
+					+ Integer.toString(RiskState.PLAYER_TWO));
+		} else {
+			currentText.setText("Attacker: "
+					+ Integer.toString(RiskState.PLAYER_TWO));
+			defendText.setText("Defender: "
+					+ Integer.toString(RiskState.PLAYER_ONE));
 		}
 		
+		if(state.winnerCheck() == 100){
+			createTextAlertBox("Game Over. Player " + RiskState.PLAYER_ONE + " wins!");
+		}
+		if(state.winnerCheck() == 200){
+			createTextAlertBox("Game Over. Player " + RiskState.PLAYER_TWO + " wins!");
+		}
+
 		if (state.getPlayerTurn() == playerID) {
 			isItPlayerTurn = true;
 			endTurnBtnEnabled = true;
@@ -331,9 +341,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 					// if attack was previously clicked, send attack action
 					if (isAttackActionReady) {
-						
-						
-						
+
 						GameAction attackAction = new RiskAttackAction(this,
 								countrySelectedIndexID, countrySelectedIndexID2);
 						createActionAlertBox("Attack " + countrySelectedName2
@@ -345,7 +353,9 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 								Integer.toString(countrySelectedIndexID2));
 					}
 					if (isMoveActionReady) {
-						GameAction moveAction = new RiskMoveTroopAction(this, playerID, countrySelectedIndexID,countrySelectedIndexID2);
+						GameAction moveAction = new RiskMoveTroopAction(this,
+								playerID, countrySelectedIndexID,
+								countrySelectedIndexID2);
 						createActionAlertBox("Move " + countrySelectedName
 								+ " from " + countrySelectedName2, moveAction);
 					}
@@ -434,35 +444,46 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 		// if attack is pressed
 		if (button.getId() == R.id.Attack && attackBtnEnabled == true) {
-			
+
 			int getcurrentPlayer = state.getPlayerTurn();
-			
-			//Make sure no invalid moves in first if statement then give the go to attack
-			if(state.playerInControl(countrySelectedIndexID) == state
-					.getPlayerTurn()&&state.getPlayerTroopsInCountry(getcurrentPlayer, countrySelectedIndexID)!=1){
+
+			// Make sure no invalid moves in first if statement then give the go
+			// to attack
+			if (state.playerInControl(countrySelectedIndexID) == state
+					.getPlayerTurn()
+					&& state.getPlayerTroopsInCountry(getcurrentPlayer,
+							countrySelectedIndexID) != 1) {
 				createTextAlertBox("Select 2nd adjacent enemy country to attack");
 				isAttackActionReady = true;
 				country2CanBeSelected = true;
 			}
-			//Other if statements give error messages for those invalid moves
-			if(state.getPlayerTroopsInCountry(getcurrentPlayer, countrySelectedIndexID)==1){
+			// Other if statements give error messages for those invalid moves
+			if (state.getPlayerTroopsInCountry(getcurrentPlayer,
+					countrySelectedIndexID) == 1) {
 				createTextAlertBox("Not enough troops for an attack");
-			}
-			else if(state.playerInControl(countrySelectedIndexID) != state
-					.getPlayerTurn()){
+			} else if (state.playerInControl(countrySelectedIndexID) != state
+					.getPlayerTurn()) {
 				createTextAlertBox("Not your country");
 			}
-			//createTextAlertBox("Select 2nd adjacent enemy country to attack");
-			
+			// createTextAlertBox("Select 2nd adjacent enemy country to attack");
+
 			updateDisplay();
 		}
 
 		// if move is pressed
 		if (button.getId() == R.id.Move && moveBtnEnabled == true) {
-			country2CanBeSelected = true;
-			isMoveActionReady = true;
-			
-			createTextAlertBox("Select 2nd adjacent friendly country to move to");
+			if (state.playerInControl(countrySelectedIndexID) == playerID
+					&& state.getPlayerTroopsInCountry(playerID,
+							countrySelectedIndexID) > 1) {
+				country2CanBeSelected = true;
+				isMoveActionReady = true;
+				createTextAlertBox("Select 2nd adjacent friendly country to move to");
+			} else if (state.playerInControl(countrySelectedIndexID) != playerID) {
+				createTextAlertBox("Not your country");
+			} else if (state.getPlayerTroopsInCountry(playerID,
+					countrySelectedIndexID) == 1) {
+				createTextAlertBox("Not enough troops to move!");
+			}
 
 			updateDisplay();
 		}

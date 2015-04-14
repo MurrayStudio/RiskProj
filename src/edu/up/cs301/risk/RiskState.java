@@ -33,7 +33,7 @@ public class RiskState extends GameState {
 	public int[] playerTwoTroops = new int[17];
 
 	// prints victor name
-	private String victor;
+	private int victor;
 
 	// have the 3 troops been placed
 	private boolean haveTroopsBeenPlacedPlayer1;
@@ -379,9 +379,9 @@ public class RiskState extends GameState {
 	 *            : name of the player that wins
 	 * 
 	 */
-	public void setVictor(String PLAYER) {
+	public void setVictor(int playerID) {
 
-		victor = PLAYER;
+		victor = playerID;
 	}
 
 	/**
@@ -395,7 +395,7 @@ public class RiskState extends GameState {
 	public String getVictor() {
 
 		// 100 is the playerID for playerOne
-		if (victor.equals("100")) {
+		if (victor == PLAYER_ONE) {
 			return "PLAYER 1 WINS!";
 		} else {
 			return "PLAYER 2 WINS!";
@@ -459,21 +459,29 @@ public class RiskState extends GameState {
 	}
 
 	/**
-	 * setGameToBeOver
-	 *
-	 * Set gameOver boolean to true
-	 */
-	public void setGameToBeOver() {
-		gameOver = true;
-	}
-
-	/**
 	 * getGameToBeOver
 	 *
-	 * @return gameOver boolean
+	 * @return returns playerID, returns 0 if no winner
 	 */
-	public boolean getIsGameOver() {
-		return gameOver;
+	public int winnerCheck() {
+		int count1 = 0;
+		int count2 = 0;
+		int i;
+		for (i = 1; i < COUNTRY_LENGTH; i++) {
+			if (playerOneTroops[i] >= 1) {
+				count1++;
+			}
+			if (playerTwoTroops[i] >= 1) {
+				count2++;
+			}
+		}
+		if (count1 == 16) {
+			return PLAYER_ONE;
+		}
+		if (count2 == 16) {
+			return PLAYER_TWO;
+		}
+		return 0;
 	}
 
 	/**
@@ -535,12 +543,11 @@ public class RiskState extends GameState {
 	public int getPlayerTurn() {
 		return playerTurn;
 	}
-	
-	public void gainTroop(int playerID, int countryMoveTo){
-		if(playerID==PLAYER_TWO){
+
+	public void gainTroop(int playerID, int countryMoveTo) {
+		if (playerID == PLAYER_TWO) {
 			playerTwoTroops[countryMoveTo] = playerTwoTroops[countryMoveTo] + 1;
-		}
-		else{
+		} else {
 			playerOneTroops[countryMoveTo] = playerOneTroops[countryMoveTo] + 1;
 		}
 	}

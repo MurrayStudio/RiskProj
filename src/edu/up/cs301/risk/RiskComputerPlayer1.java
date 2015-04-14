@@ -65,7 +65,7 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 
 		if (state.getPlayerTurn() == RiskState.PLAYER_TWO) {
 			// start the timer, ticking 20 times per second
-			getTimer().setInterval(500);
+			getTimer().setInterval(200);
 			getTimer().start();
 		}
 	}
@@ -130,7 +130,7 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 						for (y = 1; y < 17; y++) {
 							if (this.state.playerInControl(y) == 100
 									&& this.state.getPlayerTroopsInCountry(100,
-											y) >= 2
+											y) >= 1
 									&& this.state.isTerritoryAdj(i, y) == true) {
 								countrySelectedIndexId2 = y;
 								break;
@@ -142,7 +142,35 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 				// send the attack action to the game
 				currentAction = new RiskAttackAction(this,
 						countrySelectedIndexId, countrySelectedIndexId2);
-			} else if (actionRandomizer >= 0.8 && actionRandomizer <= 1.0) {
+			}
+			
+			//move troops
+			if (actionRandomizer >= 0.4 && actionRandomizer <= 0.6) {
+				int i;
+				// cycles through countries, selecting the first one it owns
+				for (i = 1; i < 17; i++) {
+					if (this.state.playerInControl(i) == 200
+							&& this.state.getPlayerTroopsInCountry(200, i) >= 2) {
+						countrySelectedIndexId = i;
+						int y;
+						// cycles through countries, selecting the first one it
+						// doesn't own
+						for (y = 1; y < 17; y++) {
+							if (this.state.playerInControl(y) == 200
+									&& this.state.getPlayerTroopsInCountry(200,
+											y) >= 1
+									&& this.state.isTerritoryAdj(i, y) == true) {
+								countrySelectedIndexId2 = y;
+								break;
+							}
+						}
+						break;
+					}
+				}
+				currentAction = new RiskMoveTroopAction(this, RiskState.PLAYER_TWO, countrySelectedIndexId, countrySelectedIndexId2);
+			}
+			
+			if (actionRandomizer >= 0.6 && actionRandomizer <= 1.0) {
 				// send the end turn action to the game
 				currentAction = new RiskEndTurnAction(this, playerID);
 			}
