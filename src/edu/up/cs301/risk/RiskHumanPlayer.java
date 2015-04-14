@@ -119,10 +119,17 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		}
 		
 		if(state.winnerCheck() == 100){
-			createTextAlertBox("Game Over. Player " + RiskState.PLAYER_ONE + " wins!");
+			createTextAlertBox("Game Over. Player 1 wins!");
 		}
 		if(state.winnerCheck() == 200){
-			createTextAlertBox("Game Over. Player " + RiskState.PLAYER_TWO + " wins!");
+			createTextAlertBox("Game Over. Player 2 wins!");
+		}
+		
+		if(state.getSurrenderPlayerTrue(100) == true){
+			createTextAlertBox("Game Over. Player 1 surrendered. Player 2 wins!");
+		}
+		if(state.getSurrenderPlayerTrue(200) == true){
+			createTextAlertBox("Game Over. Player 2 surrendered. Player 1 wins!");
 		}
 
 		if (state.getPlayerTurn() == playerID) {
@@ -498,6 +505,18 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			RiskEndTurnAction endAction = new RiskEndTurnAction(this, playerID);
 			createActionAlertBox("Are you sure you want to end your turn?",
 					endAction);
+		}
+		
+		// if endTurn is pressed
+		if (button.getId() == R.id.Surrender) {
+
+			isEndTurnActionReady = true;
+
+			updateDisplay();
+
+			RiskSurrenderAction surrenderAction = new RiskSurrenderAction(this, RiskState.PLAYER_ONE);
+			createActionAlertBox("Are you sure you want to surrender?",
+					surrenderAction);
 		}
 
 		// if place is pressed

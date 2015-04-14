@@ -103,15 +103,18 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 		if (state.getPlayerTurn() == RiskState.PLAYER_TWO) {
 			// place troops first
 			if (this.state.getHaveTroopBeenPlaced(200) == false) {
-				int randomNum = 1 + rand.nextInt((16 - 1) + 1);
-				Log.i("rand", Integer.toString(randomNum));
-				// cycles through countries, selecting the first one it owns
-				if (this.state.playerInControl(randomNum) == 200) {
-					RiskPlaceTroopAction placeAction = new RiskPlaceTroopAction(
-							this, randomNum, 200);
-					game.sendAction(placeAction);
-					// this.state.setHaveTroopBeenPlacedToTrue(200);
+			int i;
+			// cycles through countries, selecting the first one it owns
+			for (i = 1; i < 17; i++) {
+				if (this.state.playerInControl(i) == 200
+						&& this.state.getPlayerTroopsInCountry(200, i) >= 1) {
+					countrySelectedIndexId = i;	
+					break;
 				}
+				}
+			RiskPlaceTroopAction placeAction = new RiskPlaceTroopAction(
+					this, i, 200);
+			game.sendAction(placeAction);
 			}
 
 			actionRandomizer = Math.random();
@@ -170,12 +173,16 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 				currentAction = new RiskMoveTroopAction(this, RiskState.PLAYER_TWO, countrySelectedIndexId, countrySelectedIndexId2);
 			}
 			
-			if (actionRandomizer >= 0.6 && actionRandomizer <= 1.0) {
+			if (actionRandomizer >= 0.6 && actionRandomizer <= 0.9) {
 				// send the end turn action to the game
 				currentAction = new RiskEndTurnAction(this, playerID);
 			}
+			if (actionRandomizer >= 0.9 && actionRandomizer <= 1.0) {
+				// send the end turn action to the game
+				currentAction = new RiskSurrenderAction(this, playerID);
+			}
 
-			if (currentAction instanceof RiskEndTurnAction) {
+			if (currentAction instanceof RiskEndTurnAction || currentAction instanceof RiskSurrenderAction) {
 				game.sendAction(currentAction);
 				getTimer().stop();
 				getTimer().reset();
@@ -187,5 +194,6 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 			}
 		}
 	}
+	
 
 }

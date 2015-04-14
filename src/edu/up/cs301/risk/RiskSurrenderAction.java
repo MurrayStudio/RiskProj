@@ -19,8 +19,7 @@ public class RiskSurrenderAction extends GameAction {
 	private static final long serialVersionUID = 28062013L;
 
 	// whether this move is a plus (true) or minus (false)
-	private boolean surrenderTrue;
-	private int countryID;
+	private int playerID;
 
 	/**
 	 * Constructor for the RiskSurrenderAction class.
@@ -28,16 +27,15 @@ public class RiskSurrenderAction extends GameAction {
 	 * @param source
 	 *            the player making the move
 	 */
-	public RiskSurrenderAction(GamePlayer player, boolean surrenderTrue,
-			int countryID) {
+	public RiskSurrenderAction(GamePlayer player,
+			int playerID) {
 		super(player);
-		this.surrenderTrue = surrenderTrue;
-		this.countryID = countryID;
+		this.playerID = playerID;
 
 	}
-
-	public boolean surrenderTrue() {
-		return surrenderTrue;
+	
+	public int getPlayerID() {
+		return playerID;
 	}
 
 }

@@ -38,6 +38,9 @@ public class RiskState extends GameState {
 	// have the 3 troops been placed
 	private boolean haveTroopsBeenPlacedPlayer1;
 	private boolean haveTroopsBeenPlacedPlayer2;
+	
+	private boolean surrenderPlayer1;
+	private boolean surrenderPlayer2;
 
 	// variables to store the value of each of the die
 	private int attack1die;
@@ -45,12 +48,6 @@ public class RiskState extends GameState {
 	private int attack3die;
 	private int defend1die;
 	private int defend2die;
-
-	// holds highest roll values
-	private int attackhighestRoll;
-	private int attack2ndhighestRoll;
-	private int defendhighestRoll;
-	private int defend2ndhighestRoll;
 
 	private static int[] countryList; // array of countries on the board
 	private final static int COUNTRY_LENGTH = 17; // length of array
@@ -93,7 +90,7 @@ public class RiskState extends GameState {
 		// loop through and place troop in every country
 		// in top two rows of map
 		for (i = 1; i < COUNTRY_LENGTH; i++) {
-			if (i <= 8) {
+			if (i <= 15) {
 				playerOneTroops[i] = 3;
 			} else {
 				playerOneTroops[i] = 0;
@@ -105,10 +102,10 @@ public class RiskState extends GameState {
 		// loop through and place troop in every country
 		// in bottom 2 rows of map
 		for (y = 1; y < COUNTRY_LENGTH; y++) {
-			if (y > 8) {
-				playerTwoTroops[y] = 3;
+			if (y > 15) {
+				playerTwoTroops[y] = 1;
 			}
-			if (y <= 8) {
+			if (y <= 15) {
 				playerTwoTroops[y] = 0;
 			}
 		}
@@ -117,6 +114,8 @@ public class RiskState extends GameState {
 
 		haveTroopsBeenPlacedPlayer1 = false;
 		haveTroopsBeenPlacedPlayer2 = false;
+		surrenderPlayer1 = false;
+		surrenderPlayer2 = false;
 	}
 
 	/**
@@ -139,6 +138,8 @@ public class RiskState extends GameState {
 
 		this.haveTroopsBeenPlacedPlayer1 = orig.haveTroopsBeenPlacedPlayer1;
 		this.haveTroopsBeenPlacedPlayer2 = orig.haveTroopsBeenPlacedPlayer2;
+		this.surrenderPlayer1 = orig.surrenderPlayer1;
+		this.surrenderPlayer2 = orig.surrenderPlayer2;
 		this.playerTurn = orig.playerTurn;
 
 	}
@@ -435,6 +436,36 @@ public class RiskState extends GameState {
 			return PLAYER_ONE;
 		} else {
 			return PLAYER_TWO;
+		}
+	}
+	
+	/**
+	 * playerInControl
+	 *
+	 * @param countryCode
+	 *            : id of the country
+	 * @return the player that is in control of the given country
+	 */
+	public void setSurrenderPlayerTrue(int playerID) {
+		if (playerID == PLAYER_ONE) {
+			surrenderPlayer1 = true;
+		} else {
+			surrenderPlayer2 = true;
+		}
+	}
+	
+	/**
+	 * playerInControl
+	 *
+	 * @param countryCode
+	 *            : id of the country
+	 * @return the player that is in control of the given country
+	 */
+	public boolean getSurrenderPlayerTrue(int playerID) {
+		if (playerID == PLAYER_ONE) {
+			return surrenderPlayer1;
+		} else {
+			return surrenderPlayer2;
 		}
 	}
 

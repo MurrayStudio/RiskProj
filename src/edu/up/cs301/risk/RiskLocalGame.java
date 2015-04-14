@@ -91,6 +91,15 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 			}
 		}
 		
+		if (action instanceof RiskSurrenderAction) {
+
+			RiskSurrenderAction surrenderAction = (RiskSurrenderAction) action;
+			playerID = surrenderAction.getPlayerID();
+			gameState.setSurrenderPlayerTrue(playerID);
+
+				return true;
+		}
+		
 		if(action instanceof RiskMoveTroopAction){
 			RiskMoveTroopAction moveAction = (RiskMoveTroopAction) action;
 			playerID = moveAction.getPlayerID();
