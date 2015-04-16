@@ -38,8 +38,8 @@ public class RiskState extends GameState {
 	// have the 3 troops been placed
 	private boolean haveTroopsBeenPlacedPlayer1;
 	private boolean haveTroopsBeenPlacedPlayer2;
-	
-	//booleans for if player1 or player2 surrenders
+
+	// booleans for if player1 or player2 surrenders
 	private boolean surrenderPlayer1;
 	private boolean surrenderPlayer2;
 
@@ -72,8 +72,8 @@ public class RiskState extends GameState {
 	final public static int UKRAINE = 16;
 
 	// player ID numbers
-	public final static int PLAYER_ONE = 100;
-	public final static int PLAYER_TWO = 200;
+	public final static int PLAYER_ONE = 0;
+	public final static int PLAYER_TWO = 1;
 
 	/**
 	 * Constructor
@@ -112,8 +112,8 @@ public class RiskState extends GameState {
 		}
 
 		playerTurn = PLAYER_ONE;
-		
-		//initialize boolean variables
+
+		// initialize boolean variables
 		haveTroopsBeenPlacedPlayer1 = false;
 		haveTroopsBeenPlacedPlayer2 = false;
 		surrenderPlayer1 = false;
@@ -360,7 +360,36 @@ public class RiskState extends GameState {
 	 * 
 	 */
 	public boolean isTerritoryAdj(int country1, int country2) {
-		if (country1 + 1 == country2 || country1 - 1 == country2
+		if (country1 == 1 || country1 == 5 || country1 == 9 || country1 == 13) {
+			if (country1 + 4 == country2 || country1 - 4 == country2
+					|| country1 + 1 == country2) {
+				return true;
+			}
+
+		} else if (country2 == 1 || country2 == 5 || country2 == 9
+				|| country2 == 13) {
+			if (country2 + 4 == country1 || country2 - 4 == country1
+					|| country2 + 1 == country1) {
+				return true;
+			}
+
+		} else if (country1 == 4 || country1 == 8 || country1 == 12
+				|| country1 == 16) {
+			if (country1 + 4 == country2 || country1 - 4 == country2
+					|| country1 - 1 == country2) {
+				return true;
+			}
+
+		} else if (country2 == 4 || country2 == 8 || country2 == 12
+				|| country2 == 16) {
+			if (country2 + 4 == country1 || country2 - 4 == country1
+					|| country2 - 1 == country1) {
+				return true;
+			}
+
+		}
+
+		else if (country1 + 1 == country2 || country1 - 1 == country2
 				|| country1 + 4 == country2 || country1 - 4 == country2) {
 
 			// return true if country1 is above, below or left or right of
@@ -372,6 +401,7 @@ public class RiskState extends GameState {
 			// country2
 			return false;
 		}
+		return false;
 
 	}
 
@@ -440,11 +470,12 @@ public class RiskState extends GameState {
 			return PLAYER_TWO;
 		}
 	}
-	
+
 	/**
 	 * setSurrenderPlayerTrue
 	 *
-	 * @param the player that surrendered
+	 * @param the
+	 *            player that surrendered
 	 */
 	public void setSurrenderPlayerTrue(int playerID) {
 		if (playerID == PLAYER_ONE) {
@@ -453,11 +484,12 @@ public class RiskState extends GameState {
 			surrenderPlayer2 = true;
 		}
 	}
-	
+
 	/**
 	 * getSurrenderPlayerTrue
 	 *
-	 * @param the player to check if surrendered
+	 * @param the
+	 *            player to check if surrendered
 	 * @return return if player has surrendered
 	 */
 	public boolean getSurrenderPlayerTrue(int playerID) {
@@ -493,7 +525,7 @@ public class RiskState extends GameState {
 	 *
 	 * checks if a player owns all countries
 	 * 
-	 * @return player that won, returns 0 if no player has won
+	 * @return player that won, returns 3 if no player has won
 	 */
 	public int winnerCheck() {
 		int count1 = 0;
@@ -507,15 +539,15 @@ public class RiskState extends GameState {
 				count2++;
 			}
 		}
-		//if player one has control of all 16 countries
+		// if player one has control of all 16 countries
 		if (count1 == 16) {
 			return PLAYER_ONE;
 		}
-		//if player two has control of all 16 countries
+		// if player two has control of all 16 countries
 		if (count2 == 16) {
 			return PLAYER_TWO;
 		}
-		return 0;
+		return 3;
 	}
 
 	/**
@@ -583,8 +615,10 @@ public class RiskState extends GameState {
 	 * 
 	 * add a troop to a country
 	 *
-	 * @param playerID who is gaining troop
-	 * @param country to get troop
+	 * @param playerID
+	 *            who is gaining troop
+	 * @param country
+	 *            to get troop
 	 */
 	public void gainTroop(int playerID, int countryMoveTo) {
 		if (playerID == PLAYER_TWO) {

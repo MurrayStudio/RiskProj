@@ -22,7 +22,7 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 		RiskPlayer, Tickable {
 	
 	//instance variables
-	private int playerID;
+	//private int playerID;
 	private boolean isItPlayerTurn;
 	// the android activity that we are running
 	private GameMainActivity myActivity;
@@ -47,10 +47,11 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 	 * @param name
 	 *            the player's name
 	 */
-	public RiskComputerPlayer1(String name, int playerID) {
+	public RiskComputerPlayer1(String name) {
 		// invoke superclass constructor
 		super(name);
-		this.playerID = playerID;
+		//this.playerID = playerID;
+		//this.playerID = ((RiskLocalGame) this.game).getPlayerId(this);
 		troopsPlaced = false;
 	}
 
@@ -92,19 +93,19 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 		if (state.getPlayerTurn() == RiskState.PLAYER_TWO) {
 			// place troops first, if it has not already,
 			//before performing random actions
-			if (this.state.getHaveTroopBeenPlaced(200) == false) {
+			if (this.state.getHaveTroopBeenPlaced(RiskState.PLAYER_TWO) == false) {
 			int i;
 			// cycles through countries, selecting the first one it owns
 			for (i = 1; i < 17; i++) {
-				if (this.state.playerInControl(i) == 200
-						&& this.state.getPlayerTroopsInCountry(200, i) >= 1) {
+				if (this.state.playerInControl(i) == RiskState.PLAYER_TWO
+						&& this.state.getPlayerTroopsInCountry(RiskState.PLAYER_TWO, i) >= 1) {
 					countrySelectedIndexId = i;	
 					break;
 				}
 				}
 			//sets place troops game action and sends to  the state
 			RiskPlaceTroopAction placeAction = new RiskPlaceTroopAction(
-					this, i, 200);
+					this, i, RiskState.PLAYER_TWO);
 			game.sendAction(placeAction);
 			}
 			//int used to randomize the execution of attack, move troops, end turn, and surrender actions
@@ -115,8 +116,8 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 				int i;
 				// cycles through countries, selection the first country it owns with at least 2 troops
 				for (i = 1; i < 17; i++) {
-					if (this.state.playerInControl(i) == 200
-							&& this.state.getPlayerTroopsInCountry(200, i) >= 2) {
+					if (this.state.playerInControl(i) == RiskState.PLAYER_TWO
+							&& this.state.getPlayerTroopsInCountry(RiskState.PLAYER_TWO, i) >= 2) {
 						//assigns this country at i to its selected country
 						countrySelectedIndexId = i;
 						int y;
@@ -124,8 +125,8 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 						// doesn't own
 						for (y = 1; y < 17; y++) {
 							//checks to see if the enemy country is adjacent to its own selected country
-							if (this.state.playerInControl(y) == 100
-									&& this.state.getPlayerTroopsInCountry(100,
+							if (this.state.playerInControl(y) == RiskState.PLAYER_ONE
+									&& this.state.getPlayerTroopsInCountry(RiskState.PLAYER_ONE,
 											y) >= 1
 									&& this.state.isTerritoryAdj(i, y) == true) {
 								//assigns this country to 2nd selected, the attack destination
@@ -148,15 +149,15 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 				int i;
 				// cycles through countries, selecting the first one it owns with more than two troops
 				for (i = 1; i < 17; i++) {
-					if (this.state.playerInControl(i) == 200
-							&& this.state.getPlayerTroopsInCountry(200, i) >= 2) {
+					if (this.state.playerInControl(i) == RiskState.PLAYER_TWO
+							&& this.state.getPlayerTroopsInCountry(RiskState.PLAYER_TWO, i) >= 2) {
 						countrySelectedIndexId = i;
 						int y;
 						// cycles through countries, selecting the first country it owns that is adjacent
 						// to the previously selected one
 						for (y = 1; y < 17; y++) {
-							if (this.state.playerInControl(y) == 200
-									&& this.state.getPlayerTroopsInCountry(200,
+							if (this.state.playerInControl(y) == RiskState.PLAYER_TWO
+									&& this.state.getPlayerTroopsInCountry(RiskState.PLAYER_TWO,
 											y) >= 1
 									&& this.state.isTerritoryAdj(i, y) == true) {
 								countrySelectedIndexId2 = y;
@@ -175,13 +176,13 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 			//end turn action, 30% chance of executing
 			if (actionRandomizer >= 0.6 && actionRandomizer <= 0.995) {
 				// assigns its current game action to end turn action
-				currentAction = new RiskEndTurnAction(this, playerID);
+				currentAction = new RiskEndTurnAction(this, this.playerNum);
 			}
 			
 			//surrender action, 10% chance of executing
 			if (actionRandomizer >= 0.995 && actionRandomizer <= 1.0) {
 				//assigns its current game action to end turn action
-				currentAction = new RiskSurrenderAction(this, playerID);
+				currentAction = new RiskSurrenderAction(this, this.playerNum);
 			}
 			
 			

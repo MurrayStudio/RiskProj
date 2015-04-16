@@ -78,7 +78,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	private GameAction currentAction;
 
 	//playerID
-	private int playerID;
+	//private int playerID;
 
 	// the most recent game state, as given to us by the RiskLocalGame
 	private RiskState state;
@@ -92,9 +92,9 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	 * @param name of player
 	 * @param id of player
 	 */
-	public RiskHumanPlayer(String name, int playerID) {
+	public RiskHumanPlayer(String name) {
 		super(name);
-		this.playerID = playerID;
+		//this.playerID = playerID;
 	}
 
 	/**
@@ -115,33 +115,33 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		// change to actual names later
 		if (state.getPlayerTurn() == RiskState.PLAYER_ONE) {
 			currentText.setText("Attacker: "
-					+ Integer.toString(RiskState.PLAYER_ONE));
+					+ this.allPlayerNames[0]);
 			defendText.setText("Defender: "
-					+ Integer.toString(RiskState.PLAYER_TWO));
+					+ this.allPlayerNames[1]);
 		} else {
 			currentText.setText("Attacker: "
-					+ Integer.toString(RiskState.PLAYER_TWO));
+					+ this.allPlayerNames[1]);
 			defendText.setText("Defender: "
-					+ Integer.toString(RiskState.PLAYER_ONE));
+					+ this.allPlayerNames[0]);
 		}
 		
 		//check if player1 or player2 has won
-		if(state.winnerCheck() == 100){
+		if(state.winnerCheck() == RiskState.PLAYER_ONE){
 			createTextAlertBox("Game Over. Player 1 wins!");
 		}
-		if(state.winnerCheck() == 200){
+		if(state.winnerCheck() == RiskState.PLAYER_TWO){
 			createTextAlertBox("Game Over. Player 2 wins!");
 		}
 		//check if player1 or player2 has surrendered
-		if(state.getSurrenderPlayerTrue(100) == true){
+		if(state.getSurrenderPlayerTrue(RiskState.PLAYER_ONE) == true){
 			createTextAlertBox("Game Over. Player 1 surrendered. Player 2 wins!");
 		}
-		if(state.getSurrenderPlayerTrue(200) == true){
+		if(state.getSurrenderPlayerTrue(RiskState.PLAYER_TWO) == true){
 			createTextAlertBox("Game Over. Player 2 surrendered. Player 1 wins!");
 		}
 
 		//if player turn, allow actions
-		if (state.getPlayerTurn() == playerID) {
+		if (state.getPlayerTurn() == this.playerNum) {
 			isItPlayerTurn = true;
 			endTurnBtnEnabled = true;
 		//disable everything otherwise
@@ -158,12 +158,12 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			isAttackActionReady = false;
 			isMoveActionReady = false;
 			isEndTurnActionReady = false;
-			this.state.setHaveTroopBeenPlacedToFalse(playerID);
+			this.state.setHaveTroopBeenPlacedToFalse(this.playerNum);
 		}
 
 		// do checks for if troops have been placed and enable and disable
 		// buttons accordingly
-		if (this.state.getHaveTroopBeenPlaced(playerID) == false
+		if (this.state.getHaveTroopBeenPlaced(this.playerNum) == false
 				&& countryPressed == true) {
 
 			attackBtnEnabled = false;
@@ -171,14 +171,14 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			placeBtnEnabled = true;
 
 			attack.setBackgroundColor(attack.getContext().getResources()
-					.getColor(R.color.Yellow));
+					.getColor(R.color.Red));
 			move.setBackgroundColor(move.getContext().getResources()
-					.getColor(R.color.Yellow));
+					.getColor(R.color.Red));
 			place.setBackground(place.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
 
 		}
-		if (this.state.getHaveTroopBeenPlaced(playerID) == true
+		if (this.state.getHaveTroopBeenPlaced(this.playerNum) == true
 				&& countryPressed == true) {
 
 			attackBtnEnabled = true;
@@ -189,74 +189,74 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			move.setBackground(move.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
 		}
-		if (this.state.getHaveTroopBeenPlaced(playerID) == true
+		if (this.state.getHaveTroopBeenPlaced(this.playerNum) == true
 				&& countryPressed == false) {
 
 			attackBtnEnabled = false;
 			moveBtnEnabled = false;
 
 			attack.setBackgroundColor(attack.getContext().getResources()
-					.getColor(R.color.Yellow));
+					.getColor(R.color.Red));
 			move.setBackgroundColor(move.getContext().getResources()
-					.getColor(R.color.Yellow));
+					.getColor(R.color.Red));
 		}
 
 		//update text on countries to match troops and player
 		//ownership on gui
 		int i;
 		for (i = 1; i < 17; i++) {
-			if (this.state.playerInControl(i) == 100) {
-				countryCount[i].setTextColor(Color.BLACK);
+			if (this.state.playerInControl(i) == RiskState.PLAYER_ONE) {
+				countryCount[i].setTextColor(Color.DKGRAY);
 				String temp = Integer.toString(this.state
-						.getPlayerTroopsInCountry(100, i));
+						.getPlayerTroopsInCountry(RiskState.PLAYER_ONE, i));
 				countryCount[i].setText(temp);
 			} else {
-				countryCount[i].setTextColor(Color.YELLOW);
+				countryCount[i].setTextColor(Color.MAGENTA);
 				String temp = Integer.toString(this.state
-						.getPlayerTroopsInCountry(200, i));
+						.getPlayerTroopsInCountry(RiskState.PLAYER_TWO, i));
 				countryCount[i].setText(temp);
 			}
 		}
 
 		//check if booleans are enabled which enables buttons
 		
-		if (this.state.getHaveTroopBeenPlaced(playerID) == true) {
+		if (this.state.getHaveTroopBeenPlaced(this.playerNum) == true) {
 			place.setBackgroundColor(place.getContext().getResources()
-					.getColor(R.color.Yellow));
+					.getColor(R.color.Red));
 			placeBtnEnabled = false;
 		}
 
 		if (placeBtnEnabled == false) {
 			place.setBackgroundColor(place.getContext().getResources()
-					.getColor(R.color.Yellow));
+					.getColor(R.color.Red));
 		} else {
 			place.setBackground(place.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
 		}
 		if (moveBtnEnabled == false) {
 			move.setBackgroundColor(move.getContext().getResources()
-					.getColor(R.color.Yellow));
+					.getColor(R.color.Red));
 		} else {
 			move.setBackground(move.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
 		}
 		if (attackBtnEnabled == false) {
 			attack.setBackgroundColor(attack.getContext().getResources()
-					.getColor(R.color.Yellow));
+					.getColor(R.color.Red));
 		} else {
 			attack.setBackground(attack.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
 		}
 		if (endTurnBtnEnabled == false) {
 			endTurn.setBackgroundColor(endTurn.getContext().getResources()
-					.getColor(R.color.Yellow));
+					.getColor(R.color.Red));
 		} else {
 			endTurn.setBackground(endTurn.getContext().getResources()
 					.getDrawable(R.drawable.custombuttonshapewhite));
 		}
 		if (deselectBtnEnabled == false) {
 			deselect.setBackgroundColor(deselect.getContext().getResources()
-					.getColor(R.color.Yellow));
+					.getColor(R.color.Red));
 			deselect.setText("Country 1 Not Selected");
 		} else {
 			deselect.setBackground(place.getContext().getResources()
@@ -363,20 +363,31 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 						GameAction attackAction = new RiskAttackAction(this,
 								countrySelectedIndexID, countrySelectedIndexID2);
+						if(!state.isTerritoryAdj(countrySelectedIndexID, countrySelectedIndexID2)){
+							createTextAlertBox("Error! Countries not adjacent!");
+						}
+						else if(state.playerInControl(countrySelectedIndexID)==state.playerInControl(countrySelectedIndexID2)){
+							createTextAlertBox("Error! Cannot attack your allies!");
+						}
+						else{
 						createActionAlertBox("Attack " + countrySelectedName2
 								+ " from " + countrySelectedName, attackAction);
-
-						Log.i("countrySelectedIndexID",
-								Integer.toString(countrySelectedIndexID));
-						Log.i("countrySelectedIndexID2",
-								Integer.toString(countrySelectedIndexID2));
+						}
 					}
 					if (isMoveActionReady) {
-						GameAction moveAction = new RiskMoveTroopAction(this,
-								playerID, countrySelectedIndexID,
+						GameAction moveAction = new RiskMoveTroopAction(this, this.playerNum, countrySelectedIndexID,
 								countrySelectedIndexID2);
+						if(!state.isTerritoryAdj(countrySelectedIndexID, countrySelectedIndexID2)){
+							createTextAlertBox("Error! Countries not adjacent!");
+						}
+						else if(state.playerInControl(countrySelectedIndexID)!=state.playerInControl(countrySelectedIndexID2)){
+							createTextAlertBox("Error! Cannot move units to country you don't own!");
+
+						}
+						else{
 						createActionAlertBox("Move " + countrySelectedName
 								+ " from " + countrySelectedName2, moveAction);
+						}
 					}
 
 				} else {
@@ -456,7 +467,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			country2CanBeSelected = false;
 
 			deselect.setBackgroundColor(deselect.getContext().getResources()
-					.getColor(R.color.Yellow));
+					.getColor(R.color.Red));
 			deselect.setText("Country 1 Not Selected");
 
 			updateDisplay();
@@ -492,15 +503,15 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		// if move is pressed make sure what message to send to the player depending
 		//if the move is legal or not (country owned & has enough players in it)
 		if (button.getId() == R.id.Move && moveBtnEnabled == true) {
-			if (state.playerInControl(countrySelectedIndexID) == playerID
-					&& state.getPlayerTroopsInCountry(playerID,
+			if (state.playerInControl(countrySelectedIndexID) == this.playerNum
+					&& state.getPlayerTroopsInCountry(this.playerNum,
 							countrySelectedIndexID) > 1) {
 				country2CanBeSelected = true;
 				isMoveActionReady = true;
 				createTextAlertBox("Select 2nd adjacent friendly country to move to");
-			} else if (state.playerInControl(countrySelectedIndexID) != playerID) {
+			} else if (state.playerInControl(countrySelectedIndexID) != this.playerNum) {
 				createTextAlertBox("Not your country");
-			} else if (state.getPlayerTroopsInCountry(playerID,
+			} else if (state.getPlayerTroopsInCountry(this.playerNum,
 					countrySelectedIndexID) == 1) {
 				createTextAlertBox("Not enough troops to move!");
 			}
@@ -515,7 +526,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 			updateDisplay();
 			//Send information to the End turn constructor
-			RiskEndTurnAction endAction = new RiskEndTurnAction(this, playerID);
+			RiskEndTurnAction endAction = new RiskEndTurnAction(this, this.playerNum);
 			createActionAlertBox("Are you sure you want to end your turn?",
 					endAction);
 		}
@@ -539,7 +550,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			if (state.playerInControl(countrySelectedIndexID) == state
 					.getPlayerTurn()) {
 				RiskPlaceTroopAction action = new RiskPlaceTroopAction(this,
-						countrySelectedIndexID, playerID);
+						countrySelectedIndexID, this.playerNum);
 				createActionAlertBox("Place troops in " + countrySelectedName
 						+ "?", action);
 			} else {
@@ -745,13 +756,13 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 		//set default button and text values
 		attack.setBackgroundColor(attack.getContext().getResources()
-				.getColor(R.color.Yellow));
+				.getColor(R.color.Red));
 		move.setBackgroundColor(move.getContext().getResources()
-				.getColor(R.color.Yellow));
+				.getColor(R.color.Red));
 		place.setBackgroundColor(place.getContext().getResources()
-				.getColor(R.color.Yellow));
+				.getColor(R.color.Red));
 		deselect.setBackgroundColor(deselect.getContext().getResources()
-				.getColor(R.color.Yellow));
+				.getColor(R.color.Red));
 		deselect.setText("Country 1 Not Selected");
 
 		// if we have a game state, "simulate" that we have just received

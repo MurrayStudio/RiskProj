@@ -70,6 +70,9 @@ View.OnClickListener {
 	// whether the game is in the "configuration" stage, before the actual game
 	// has started
 	private boolean doingConfiguration = true;
+	
+	// Array to store the names of both players
+	private String[] names = null;
 
 	/**
 	 * contains the game configuration this activity will be used to initialize
@@ -276,6 +279,7 @@ View.OnClickListener {
 		int requiresGuiCount = 0; // the number of players that require a GUI
 		guiPlayer = null; // the player that will be our GUI player
 		players = new GamePlayer[config.getNumPlayers()]; // the array to contains our players
+		names = new String[config.getNumPlayers()];
 
 		// loop through each player
 		for (int i = 0; i < players.length; i++) {
@@ -289,6 +293,9 @@ View.OnClickListener {
 				// disallow an empty player name, unless it's a dummy (proxy) player
 				return "Local player name cannot be empty.";
 			}
+
+			// Set the player names in the array if they were valid
+			names[i] = name;
 
 			// if the player requires a GUI, count and mark it; otherwise, if a player
 			// supports a GUI and the "requires" count is zero, mark it
@@ -805,5 +812,6 @@ View.OnClickListener {
 	public void doFinish(View v) {
 		finish();
 	}
+
 }
 

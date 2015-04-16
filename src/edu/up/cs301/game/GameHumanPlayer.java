@@ -11,7 +11,6 @@ import edu.up.cs301.game.infoMsg.TimerInfo;
 import edu.up.cs301.game.util.GameTimer;
 import edu.up.cs301.game.util.MessageBox;
 import edu.up.cs301.game.util.Tickable;
-
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -36,9 +35,9 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 	 * instance variables
 	 */
 	protected Game game; // the game
+	protected String[] allPlayerNames; // the names of all the player
 	protected int playerNum; // my player ID
 	protected String name; // my player's name
-	protected String[] allPlayerNames; // the names of all the player
 	private Handler myHandler; // my thread's handler
 	private GameMainActivity myActivity; // the current activity
 	private GameTimer myTimer = new GameTimer(this); // my player's timer

@@ -70,11 +70,11 @@ public class RiskLocalGame extends LocalGame implements RiskGame {
 			//And then gives access to be able to end the turn
 			if (gameState.getPlayerTurn() == RiskState.PLAYER_ONE) {
 				gameState.setPlayerTurn(RiskState.PLAYER_TWO);
-				gameState.setHaveTroopBeenPlacedToFalse(100);
+				gameState.setHaveTroopBeenPlacedToFalse(RiskState.PLAYER_ONE);
 				return true;
 			} else {
 				gameState.setPlayerTurn(RiskState.PLAYER_ONE);
-				gameState.setHaveTroopBeenPlacedToFalse(200);
+				gameState.setHaveTroopBeenPlacedToFalse(RiskState.PLAYER_TWO);
 				return true;
 			}
 		}

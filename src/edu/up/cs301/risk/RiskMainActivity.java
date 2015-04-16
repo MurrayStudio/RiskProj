@@ -49,13 +49,13 @@ public class RiskMainActivity extends GameMainActivity {
 		// a human player player type (player type 0)
 		playerTypes.add(new GamePlayerType("Local Human Player") {
 			public GamePlayer createPlayer(String name) {
-				return new RiskHumanPlayer(name, RiskState.PLAYER_ONE);
+				return new RiskHumanPlayer(name);
 			}});
 		
 		// a computer player type (player type 1)
 		playerTypes.add(new GamePlayerType("Computer Player") {
 			public GamePlayer createPlayer(String name) {
-				return new RiskComputerPlayer1(name, RiskState.PLAYER_TWO);
+				return new RiskComputerPlayer1(name);
 			}});
 
 		// Create a game configuration class for Risk:
