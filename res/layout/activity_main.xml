@@ -8,48 +8,49 @@
 
     <TableLayout
         android:id="@+id/mapLayout"
-        android:layout_width="@dimen/surface_width_height"
+        android:layout_width="450dp"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="@dimen/surface_margin_left"
+        android:layout_marginLeft="5dp"
         android:gravity="center_vertical"
         tools:context="com.group3.risk.MainActivity" >
 
-        <TableRow
+        <LinearLayout
             android:id="@+id/countriesRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/button_margin_button"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/russiaButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_marginRight="@dimen/button_margin_button"
                 android:background="@drawable/russia" />
 
             <Button
                 android:id="@+id/icelandButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_marginRight="@dimen/button_margin_button"
                 android:background="@drawable/iceland" />
 
             <Button
                 android:id="@+id/italyButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_marginRight="@dimen/button_margin_button"
                 android:background="@drawable/mexico" />
 
             <Button
                 android:id="@+id/swedenButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/sweden" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow
+        <LinearLayout
             android:id="@+id/countriesRow2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,30 +59,30 @@
 
             <Button
                 android:id="@+id/atlantisButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/atlantis" />
 
             <Button
                 android:id="@+id/hogwartsButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/hogwarts" />
 
             <Button
                 android:id="@+id/narniaButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/narnia" />
 
             <Button
                 android:id="@+id/germanyButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/germany" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow
+        <LinearLayout
             android:id="@+id/countriesRow3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,33 +91,30 @@
 
             <Button
                 android:id="@+id/mordorButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_right"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/mordor1" />
 
             <Button
                 android:id="@+id/gondorButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_right"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/gondor1" />
 
             <Button
                 android:id="@+id/shireButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_right"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/shire1" />
 
             <Button
                 android:id="@+id/rohanButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/rohan" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow
+        <LinearLayout
             android:id="@+id/countriesRow4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -124,367 +122,320 @@
 
             <Button
                 android:id="@+id/bulgariaButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_right"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/bulgaria" />
 
             <Button
                 android:id="@+id/israelButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/israel" />
 
             <Button
                 android:id="@+id/switzerlandButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_right"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/switzerland" />
 
             <Button
                 android:id="@+id/ukraineButton"
-                android:layout_width="@dimen/button_width_height"
-                android:layout_height="@dimen/button_width_height"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:background="@drawable/ukraine" />
-        </TableRow>
+        </LinearLayout>
     </TableLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="@dimen/linear_layout_width"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true" >
+
+        <LinearLayout
+            android:layout_width="@dimen/linear_layout_width"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/playerTurn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/current_turn"
+                android:textColor="@color/White"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/playerNotTurn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/playerTurn"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="10dp"
+                android:text="@string/defending_turn"
+                android:textColor="@color/White"
+                android:textSize="10dp" />
+
+            <Button
+                android:id="@+id/Attack"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/button_left_right"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/button_margin_top_bottom"
+                android:layout_marginLeft="@dimen/button_left_right"
+                android:layout_marginRight="@dimen/button_left_right"
+                android:layout_marginTop="@dimen/button_margin_top_bottom"
+                android:background="@drawable/custombuttonshapewhite"
+                android:text="@string/attack"
+                android:textAllCaps="false"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/button_text_size" />
+
+            <Button
+                android:id="@+id/Move"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/button_left_right"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/button_margin_top_bottom"
+                android:layout_marginLeft="@dimen/button_left_right"
+                android:layout_marginRight="@dimen/button_left_right"
+                android:layout_marginTop="@dimen/button_margin_top_bottom"
+                android:background="@drawable/custombuttonshapewhite"
+                android:text="@string/move"
+                android:textAllCaps="false"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/button_text_size" />
+
+            <Button
+                android:id="@+id/Place"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/button_left_right"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/button_margin_top_bottom"
+                android:layout_marginLeft="@dimen/button_left_right"
+                android:layout_marginRight="@dimen/button_left_right"
+                android:layout_marginTop="@dimen/button_margin_top_bottom"
+                android:background="@drawable/custombuttonshapewhite"
+                android:text="@string/place"
+                android:textAllCaps="false"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/button_text_size" />
+
+            <Button
+                android:id="@+id/Surrender"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/button_left_right"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/button_margin_top_bottom"
+                android:layout_marginLeft="@dimen/button_left_right"
+                android:layout_marginRight="@dimen/button_left_right"
+                android:layout_marginTop="@dimen/button_margin_top_bottom"
+                android:background="@drawable/custombuttonshapewhite"
+                android:text="@string/surrender"
+                android:textAllCaps="false"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/button_text_size" />
+
+            <Button
+                android:id="@+id/Deselect"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/button_left_right"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/button_margin_top_bottom"
+                android:layout_marginLeft="@dimen/button_left_right"
+                android:layout_marginRight="@dimen/button_left_right"
+                android:layout_marginTop="@dimen/button_margin_top_bottom"
+                android:background="@drawable/custombuttonshapewhite"
+                android:text="Country 1 Not Selected"
+                android:textAllCaps="false"
+                android:textColor="@color/Black"
+                android:textSize="14dp" />
+
+            <Button
+                android:id="@+id/EndTurn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/button_margin_top_bottom"
+                android:layout_marginLeft="@dimen/button_left_right"
+                android:layout_marginRight="@dimen/button_left_right"
+                android:layout_marginTop="@dimen/button_margin_top_bottom"
+                android:background="@drawable/custombuttonshapewhite"
+                android:text="End Turn"
+                android:textAllCaps="false"
+                android:textColor="@color/Black"
+                android:textSize="36sp" />
+        </LinearLayout>
+    </ScrollView>
+    <TableLayout
+        android:id="@+id/textLayout"
+        android:layout_width="450dp"
         android:layout_height="fill_parent"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/surface_margin_left"
-        android:orientation="vertical" >
+        android:layout_marginLeft="5dp"
+        android:gravity="center_vertical"
+        tools:context="com.group3.risk.MainActivity" >
 
-        <TextView
-            android:id="@+id/playerTurn"
+        <LinearLayout
+            android:id="@+id/textRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="@string/current_turn"
-            android:textColor="@color/White"
-            android:textSize="20dp" />
+            android:layout_marginBottom="@dimen/button_margin_button"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/playerNotTurn"
+            <TextView
+                android:id="@+id/countryCount1"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Black"
+                android:textSize="50dp" />
+
+            <TextView
+                android:id="@+id/countryCount2"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Black"
+                android:textSize="50dp" />
+
+            <TextView
+                android:id="@+id/countryCount3"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Black"
+                android:textSize="50dp" />
+
+            <TextView
+                android:id="@+id/countryCount4"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Black"
+                android:textSize="50dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/textRow2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/playerTurn"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="10dp"
-            android:text="@string/defending_turn"
-            android:textColor="@color/White"
-            android:textSize="20dp" />
+            android:layout_marginBottom="@dimen/button_margin_button"
+            android:gravity="center_vertical" >
 
-        <Button
-            android:id="@+id/Attack"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/button_left_right"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/button_margin_top_bottom"
-            android:layout_marginLeft="@dimen/button_left_right"
-            android:layout_marginRight="@dimen/button_left_right"
-            android:layout_marginTop="@dimen/button_margin_top_bottom"
-            android:background="@drawable/custombuttonshapewhite"
-            android:text="@string/attack"
-            android:textAllCaps="false"
-            android:textColor="@color/Black"
-            android:textSize="@dimen/button_text_size" />
+            <TextView
+                android:id="@+id/countryCount5"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Black"
+                android:textSize="50dp" />
 
-        <Button
-            android:id="@+id/Move"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/button_left_right"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/button_margin_top_bottom"
-            android:layout_marginLeft="@dimen/button_left_right"
-            android:layout_marginRight="@dimen/button_left_right"
-            android:layout_marginTop="@dimen/button_margin_top_bottom"
-            android:background="@drawable/custombuttonshapewhite"
-            android:text="@string/move"
-            android:textAllCaps="false"
-            android:textColor="@color/Black"
-            android:textSize="@dimen/button_text_size" />
+            <TextView
+                android:id="@+id/countryCount6"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Black"
+                android:textSize="50dp" />
 
-        <Button
-            android:id="@+id/Place"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/button_left_right"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/button_margin_top_bottom"
-            android:layout_marginLeft="@dimen/button_left_right"
-            android:layout_marginRight="@dimen/button_left_right"
-            android:layout_marginTop="@dimen/button_margin_top_bottom"
-            android:background="@drawable/custombuttonshapewhite"
-            android:text="@string/place"
-            android:textAllCaps="false"
-            android:textColor="@color/Black"
-            android:textSize="@dimen/button_text_size" />
+            <TextView
+                android:id="@+id/countryCount7"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Black"
+                android:textSize="50dp" />
 
-        <Button
-            android:id="@+id/Surrender"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/button_left_right"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/button_margin_top_bottom"
-            android:layout_marginLeft="@dimen/button_left_right"
-            android:layout_marginRight="@dimen/button_left_right"
-            android:layout_marginTop="@dimen/button_margin_top_bottom"
-            android:background="@drawable/custombuttonshapewhite"
-            android:text="@string/surrender"
-            android:textAllCaps="false"
-            android:textColor="@color/Black"
-            android:textSize="@dimen/button_text_size" />
+            <TextView
+                android:id="@+id/countryCount8"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Black"
+                android:textSize="50dp" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/Deselect"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/button_left_right"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/button_margin_top_bottom"
-            android:layout_marginLeft="@dimen/button_left_right"
-            android:layout_marginRight="@dimen/button_left_right"
-            android:layout_marginTop="@dimen/button_margin_top_bottom"
-            android:background="@drawable/custombuttonshapewhite"
-            android:text="Country 1 Not Selected"
-            android:textAllCaps="false"
-            android:textColor="@color/Black"
-            android:textSize="14dp" />
-
-        <Button
-            android:id="@+id/EndTurn"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:id="@+id/textRow3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/button_margin_top_bottom"
-            android:layout_marginLeft="@dimen/button_left_right"
-            android:layout_marginRight="@dimen/button_left_right"
-            android:layout_marginTop="@dimen/button_margin_top_bottom"
-            android:background="@drawable/custombuttonshapewhite"
-            android:text="End Turn"
-            android:textAllCaps="false"
-            android:textColor="@color/Black"
-            android:textSize="36sp" />
-    </LinearLayout>
+            android:gravity="center_vertical" >
 
-    <TextView
-        android:id="@+id/countryCount1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="140dp"
-        android:layout_marginTop="60dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Black"
-        android:textSize="75dp" />
+            <TextView
+                android:id="@+id/countryCount9"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Orange"
+                android:textSize="50dp" />
 
-    <TextView
-        android:id="@+id/countryCount2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="60dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Black"
-        android:textSize="75dp" />
+            <TextView
+                android:id="@+id/countryCount10"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Orange"
+                android:textSize="50dp" />
 
-    <TextView
-        android:id="@+id/countryCount3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="460dp"
-        android:layout_marginTop="60dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Black"
-        android:textSize="75dp" />
+            <TextView
+                android:id="@+id/countryCount11"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Orange"
+                android:textSize="50dp" />
 
-    <TextView
-        android:id="@+id/countryCount4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="620dp"
-        android:layout_marginTop="60dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Black"
-        android:textSize="75dp" />
+            <TextView
+                android:id="@+id/countryCount12"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Orange"
+                android:textSize="50dp" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/countryCount5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="140dp"
-        android:layout_marginTop="210dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Black"
-        android:textSize="75dp" />
+        <LinearLayout
+            android:id="@+id/textRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" >
 
-    <TextView
-        android:id="@+id/countryCount6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="210dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Black"
-        android:textSize="75dp" />
+            <TextView
+                android:id="@+id/countryCount13"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Orange"
+                android:textSize="50dp" />
 
-    <TextView
-        android:id="@+id/countryCount7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="460dp"
-        android:layout_marginTop="210dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Black"
-        android:textSize="75dp" />
+            <TextView
+                android:id="@+id/countryCount14"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="2"
+                android:textColor="@color/Orange"
+                android:textSize="50dp" />
 
-    <TextView
-        android:id="@+id/countryCount8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="620dp"
-        android:layout_marginTop="210dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Black"
-        android:textSize="75dp" />
+            <TextView
+                android:id="@+id/countryCount15"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="9"
+                android:textColor="@color/Orange"
+                android:textSize="50dp" />
 
-    <TextView
-        android:id="@+id/countryCount9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="140dp"
-        android:layout_marginTop="380dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Orange"
-        android:textSize="75dp" />
-
-    <TextView
-        android:id="@+id/countryCount10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="380dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Orange"
-        android:textSize="75dp" />
-
-    <TextView
-        android:id="@+id/countryCount11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="460dp"
-        android:layout_marginTop="380dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Orange"
-        android:textSize="75dp" />
-
-    <TextView
-        android:id="@+id/countryCount12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="620dp"
-        android:layout_marginTop="380dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Orange"
-        android:textSize="75dp" />
-
-    <TextView
-        android:id="@+id/countryCount13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="140dp"
-        android:layout_marginTop="530dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Orange"
-        android:textSize="75dp" />
-
-    <TextView
-        android:id="@+id/countryCount14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="530dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="2"
-        android:textColor="@color/Orange"
-        android:textSize="75dp" />
-
-    <TextView
-        android:id="@+id/countryCount15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="460dp"
-        android:layout_marginTop="530dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="9"
-        android:textColor="@color/Orange"
-        android:textSize="75dp" />
-
-    <TextView
-        android:id="@+id/countryCount16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="620dp"
-        android:layout_marginTop="530dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="5"
-        android:textColor="@color/Orange"
-        android:textSize="75dp" />
-
-    <!-- <edu.up.cs301.risk.RiskSurfaceView -->
-    <!-- android:id="@+id/countriesMapDraw" -->
-    <!-- android:layout_width="@dimen/surface_width_height" -->
-    <!-- android:layout_height="@dimen/surface_width_height" -->
-    <!-- android:layout_marginLeft="@dimen/surface_margin_left" -->
-    <!-- android:layout_marginTop="@dimen/surface_margin_top" -->
-    <!-- android:background="@color/CustomTransparent" -->
-    <!-- android:gravity="center_vertical" /> -->
+            <TextView
+                android:id="@+id/countryCount16"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:text="5"
+                android:textColor="@color/Orange"
+                android:textSize="50dp" />
+        </LinearLayout>
+    </TableLayout>
 
 </RelativeLayout>

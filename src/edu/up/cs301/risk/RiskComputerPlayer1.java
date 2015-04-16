@@ -22,7 +22,6 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 		RiskPlayer, Tickable {
 	
 	//instance variables
-	//private int playerID;
 	private boolean isItPlayerTurn;
 	// the android activity that we are running
 	private GameMainActivity myActivity;
@@ -50,8 +49,6 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 	public RiskComputerPlayer1(String name) {
 		// invoke superclass constructor
 		super(name);
-		//this.playerID = playerID;
-		//this.playerID = ((RiskLocalGame) this.game).getPlayerId(this);
 		troopsPlaced = false;
 	}
 

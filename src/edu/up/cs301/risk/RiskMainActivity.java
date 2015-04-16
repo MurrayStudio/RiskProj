@@ -57,6 +57,11 @@ public class RiskMainActivity extends GameMainActivity {
 			public GamePlayer createPlayer(String name) {
 				return new RiskComputerPlayer1(name);
 			}});
+		
+		playerTypes.add(new GamePlayerType("Smart Computer Player") {
+			public GamePlayer createPlayer(String name) {
+				return new RiskComputerPlayer2(name);
+			}});
 
 		// Create a game configuration class for Risk:
 		// - player types as given above
