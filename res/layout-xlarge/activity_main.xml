@@ -14,140 +14,153 @@
         android:gravity="center_vertical"
         tools:context="com.group3.risk.MainActivity" >
 
-        <TableRow
+        <LinearLayout
             android:id="@+id/countriesRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/button_margin_button"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp" >
 
             <Button
                 android:id="@+id/russiaButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_button"
-                android:background="@drawable/russia" />
+                android:layout_marginRight="2dp"
+                android:background="@drawable/russiaun" />
 
             <Button
                 android:id="@+id/icelandButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_button"
-                android:background="@drawable/iceland" />
+                android:layout_marginRight="2dp"
+                android:background="@drawable/icelandun" />
 
             <Button
                 android:id="@+id/italyButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_button"
-                android:background="@drawable/mexico" />
+                android:layout_marginRight="2dp"
+                android:background="@drawable/italyun" />
 
             <Button
                 android:id="@+id/swedenButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:background="@drawable/sweden" />
-        </TableRow>
+                android:layout_marginRight="2dp"
+                android:background="@drawable/swedenun" />
+        </LinearLayout>
 
-        <TableRow
+        <LinearLayout
             android:id="@+id/countriesRow2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/button_margin_button"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp" >
 
             <Button
                 android:id="@+id/atlantisButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:background="@drawable/atlantis" />
+                android:layout_marginRight="2dp"
+                android:background="@drawable/atlantisun" />
 
             <Button
                 android:id="@+id/hogwartsButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:background="@drawable/hogwarts" />
+                android:layout_marginRight="2dp"
+                android:background="@drawable/hogwartsun" />
 
             <Button
                 android:id="@+id/narniaButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:background="@drawable/narnia" />
+                android:layout_marginRight="2dp"
+                android:background="@drawable/narniaun" />
 
             <Button
-                android:id="@+id/germanyButton"
+                android:id="@+id/belgiumButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:background="@drawable/germany" />
-        </TableRow>
+                android:layout_marginRight="2dp"
+                android:background="@drawable/belgiumun" />
+        </LinearLayout>
 
-        <TableRow
+        <LinearLayout
             android:id="@+id/countriesRow3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/button_margin_button"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp" >
 
             <Button
                 android:id="@+id/mordorButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_right"
-                android:background="@drawable/mordor1" />
+                android:layout_marginRight="2dp"
+                android:background="@drawable/mordorun" />
 
             <Button
                 android:id="@+id/gondorButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_right"
-                android:background="@drawable/gondor1" />
+                android:layout_marginRight="2dp"
+                android:background="@drawable/gondor1un" />
 
             <Button
                 android:id="@+id/shireButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_right"
-                android:background="@drawable/shire1" />
+                android:layout_marginRight="2dp"
+                android:background="@drawable/shireun" />
 
             <Button
                 android:id="@+id/rohanButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:background="@drawable/rohan" />
-        </TableRow>
+                android:layout_marginRight="2dp"
+                android:background="@drawable/rohanun" />
+        </LinearLayout>
 
-        <TableRow
+        <LinearLayout
             android:id="@+id/countriesRow4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp" >
 
             <Button
                 android:id="@+id/bulgariaButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_right"
-                android:background="@drawable/bulgaria" />
+                android:layout_marginRight="2dp"
+                android:background="@drawable/bulgariaun" />
 
             <Button
                 android:id="@+id/israelButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:background="@drawable/israel" />
+                android:layout_marginRight="2dp"
+                android:background="@drawable/israelun" />
 
             <Button
                 android:id="@+id/switzerlandButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:layout_marginRight="@dimen/button_margin_right"
-                android:background="@drawable/switzerland" />
+                android:layout_marginRight="2dp"
+                android:background="@drawable/switzerlandun" />
 
             <Button
                 android:id="@+id/ukraineButton"
                 android:layout_width="@dimen/button_width_height"
                 android:layout_height="@dimen/button_width_height"
-                android:background="@drawable/ukraine" />
-        </TableRow>
+                android:layout_marginRight="2dp"
+                android:background="@drawable/ukraineun" />
+        </LinearLayout>
     </TableLayout>
 
     <LinearLayout

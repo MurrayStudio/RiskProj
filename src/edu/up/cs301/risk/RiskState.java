@@ -448,10 +448,40 @@ public class RiskState extends GameState {
 	 */
 	public void assignUnits(int playerId, int countryCode) {
 
+		int i;
+		int count1 = 0;
+		int count2 = 0;
+
+		// check # of countries owned by player
+		for (i = 1; i < COUNTRY_LENGTH; i++) {
+			if (playerInControl(i) == PLAYER_ONE) {
+				count1++;
+			}
+			if (playerInControl(i) == PLAYER_TWO) {
+				count2++;
+			}
+		}
+
 		if (playerId == PLAYER_ONE) {
-			playerOneTroops[countryCode] = playerOneTroops[countryCode] + 3;
+			if (count1 >= 9 && count1 < 11) {
+				playerOneTroops[countryCode] = playerOneTroops[countryCode] + 4;
+			} else if (count1 >= 12 && count1 < 14) {
+				playerOneTroops[countryCode] = playerOneTroops[countryCode] + 5;
+			} else if (count1 >= 15) {
+				playerOneTroops[countryCode] = playerOneTroops[countryCode] + 6;
+			} else {
+				playerOneTroops[countryCode] = playerOneTroops[countryCode] + 3;
+			}
 		} else {
-			playerTwoTroops[countryCode] = playerTwoTroops[countryCode] + 3;
+			if (count2 >= 9 && count2 < 11) {
+				playerTwoTroops[countryCode] = playerTwoTroops[countryCode] + 4;
+			} else if (count2 >= 12 && count2 < 14) {
+				playerTwoTroops[countryCode] = playerTwoTroops[countryCode] + 5;
+			} else if (count2 >= 15) {
+				playerTwoTroops[countryCode] = playerTwoTroops[countryCode] + 6;
+			} else {
+				playerTwoTroops[countryCode] = playerTwoTroops[countryCode] + 3;
+			}
 		}
 
 	}

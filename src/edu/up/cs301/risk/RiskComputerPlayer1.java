@@ -62,7 +62,7 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 		//determines if it is the computers turn
 		if (state.getPlayerTurn() == RiskState.PLAYER_TWO) {
 			// starts the timer at the beginning of turn, ticking 20 times per second 
-			getTimer().setInterval(200);
+			getTimer().setInterval(500);
 			getTimer().start();
 		}
 	}
