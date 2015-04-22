@@ -10,7 +10,7 @@ import edu.up.cs301.game.actionMsg.GameAction;
  * @author Andrew M. Nuxoll
  * @author logan mealy, garrett becker, lucas burns, shamus murray, John Will
  *         Bryant
- * @version March 2015
+ * @version April 2015
  */
 public class RiskEndTurnAction extends GameAction {
 

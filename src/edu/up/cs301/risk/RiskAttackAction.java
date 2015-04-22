@@ -10,8 +10,8 @@ import edu.up.cs301.game.actionMsg.GameAction;
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
  * @author logan mealy, garrett becker, lucas burns, shamus murray, John Will
- *         Bryant
- * @version March 2015
+ *         Brian
+ * @version April 2015
  */
 public class RiskAttackAction extends GameAction {
 

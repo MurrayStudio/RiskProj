@@ -17,7 +17,7 @@ import edu.up.cs301.game.config.GamePlayerType;
  * 
  * @authors Shamus Murray, Garrett Becker, Logan Mealy, Lucas Burns, John Will Bryan 
  * 
- * @version March 2015 
+ * @version April 2015 
  */
 
 

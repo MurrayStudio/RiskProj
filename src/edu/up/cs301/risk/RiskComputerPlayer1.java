@@ -15,7 +15,7 @@ import edu.up.cs301.game.util.Tickable;
  * @authors Shamus Murray, Garrett Becker, Logan Mealy, Lucas Burns, John Will
  *          Bryan
  * 
- * @version March 2015
+ * @version April 2015
  * 
  */
 public class RiskComputerPlayer1 extends GameComputerPlayer implements

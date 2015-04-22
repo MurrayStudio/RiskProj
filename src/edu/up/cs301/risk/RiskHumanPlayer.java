@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.view.View.OnClickListener;
 
 /**
@@ -24,7 +25,7 @@ import android.view.View.OnClickListener;
  * @author Andrew M. Nuxoll
  * @author logan Mealy, Garrett Becker, Lucas Burns, Shamus Murray, John Will
  *         Bryant
- * @version July 2013
+ * @version April 2015
  */
 public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		OnClickListener {
@@ -103,7 +104,6 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	 */
 	public RiskHumanPlayer(String name) {
 		super(name);
-		// this.playerID = playerID;
 	}
 
 	/**
@@ -550,7 +550,11 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 					.getPlayerTurn()
 					&& state.getPlayerTroopsInCountry(getcurrentPlayer,
 							countrySelectedIndexID) != 1) {
-				createTextAlertBox("Select 2nd adjacent enemy country to attack");
+				//createTextAlertBox("Select 2nd adjacent enemy country to attack");
+				
+				Toast.makeText(myActivity, "Select 2nd adjacent enemy country to attack", 
+						   Toast.LENGTH_LONG).show();
+				
 				isAttackActionReady = true;
 				country2CanBeSelected = true;
 			}
@@ -576,7 +580,11 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 							countrySelectedIndexID) > 1) {
 				country2CanBeSelected = true;
 				isMoveActionReady = true;
-				createTextAlertBox("Select 2nd adjacent friendly country to move to");
+				//createTextAlertBox("Select 2nd adjacent friendly country to move to");
+				
+				Toast.makeText(myActivity, "Select 2nd adjacent friendly country to move to", 
+						   Toast.LENGTH_LONG).show();
+				
 			} else if (state.playerInControl(countrySelectedIndexID) != this.playerNum) {
 				createTextAlertBox("Not your country");
 			} else if (state.getPlayerTroopsInCountry(this.playerNum,

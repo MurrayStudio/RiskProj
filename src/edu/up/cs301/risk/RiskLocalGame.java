@@ -11,7 +11,7 @@ import android.util.Log;
  * @authors Shamus Murray, Garrett Becker, Logan Mealy, Lucas Burns, John Will
  *          Bryan
  * 
- * @version March 2015
+ * @version April 2015
  */
 public class RiskLocalGame extends LocalGame implements RiskGame {
 

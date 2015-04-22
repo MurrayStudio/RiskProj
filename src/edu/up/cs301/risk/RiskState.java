@@ -11,7 +11,7 @@ import edu.up.cs301.game.infoMsg.GameState;
  *          Risk game state that handles updating information and sending it to
  *          players.
  * 
- * @version March 2015
+ * @version April 2015
  */
 
 public class RiskState extends GameState {
@@ -49,6 +49,9 @@ public class RiskState extends GameState {
 	private int attack3die;
 	private int defend1die;
 	private int defend2die;
+	
+	//keeps track of turns
+	private int turnCount;
 
 	private static int[] countryList; // array of countries on the board
 	private final static int COUNTRY_LENGTH = 17; // length of array
@@ -638,6 +641,37 @@ public class RiskState extends GameState {
 	 */
 	public int getPlayerTurn() {
 		return playerTurn;
+	}
+	
+	/**
+	 * startTurn
+	 * 
+	 * sets the attack counter back to 0 for the smart AI
+	 */
+	public void startTurn()
+	{
+		this.turnCount = 0;
+	}
+	
+	/**
+	 * turnCountUp
+	 * 
+	 * increments the turn count for the smart AI
+	 */
+	public void turnCountUp()
+	{
+		this.turnCount++;
+	}
+	
+	/**
+	 * getTurnCount
+	 * 
+	 * @return number of turns/moves the AI has made
+	 */
+	public int getTurnCount()
+	{
+		Log.i("turnCount", "turnCount = " + this.turnCount);
+		return this.turnCount;
 	}
 
 	/**
