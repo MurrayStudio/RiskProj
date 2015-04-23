@@ -80,6 +80,7 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	private boolean isAttackActionReady = false;
 	private boolean isMoveActionReady = false;
 	private boolean isEndTurnActionReady = false;
+	private boolean isSurrenderActionReady = false;
 	private boolean isItPlayerTurn = false;
 
 	// holds current action to send
@@ -140,17 +141,17 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 		// check if player1 or player2 has won
 		if (state.winnerCheck() == RiskState.PLAYER_ONE) {
-			createTextAlertBox("Game Over. Player 1 wins!");
+			createTextAlertBox("Game Over. " + this.allPlayerNames[0] + " wins!");
 		}
 		if (state.winnerCheck() == RiskState.PLAYER_TWO) {
-			createTextAlertBox("Game Over. Player 2 wins!");
+			createTextAlertBox("Game Over. "  + this.allPlayerNames[1] + " wins!");
 		}
 		// check if player1 or player2 has surrendered
 		if (state.getSurrenderPlayerTrue(RiskState.PLAYER_ONE) == true) {
-			createTextAlertBox("Game Over. Player 1 surrendered. Player 2 wins!");
+			createTextAlertBox("Game Over. " + this.allPlayerNames[0] + " surrendered. " + this.allPlayerNames[1] + " wins!");
 		}
 		if (state.getSurrenderPlayerTrue(RiskState.PLAYER_TWO) == true) {
-			createTextAlertBox("Game Over. Player 2 surrendered. Player 1 wins!");
+			createTextAlertBox("Game Over. " + this.allPlayerNames[1] + " surrendered. " + this.allPlayerNames[0] + " wins!");
 		}
 
 		// if player turn, allow actions
@@ -407,8 +408,8 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 							createTextAlertBox("Error! Cannot move units to country you don't own!");
 
 						} else {
-							createActionAlertBox("Move " + countrySelectedName
-									+ " from " + countrySelectedName2,
+							createActionAlertBox("Move troops to " + countrySelectedName2
+									+ " from " + countrySelectedName,
 									moveAction);
 						}
 					}
@@ -528,6 +529,10 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 			countryPressed = false;
 			deselectBtnEnabled = false;
 			country2CanBeSelected = false;
+			
+			//reset these when other button clicked
+			isAttackActionReady = false;
+			isMoveActionReady = false;
 
 			deselect.setBackgroundColor(deselect.getContext().getResources()
 					.getColor(R.color.Red));
@@ -542,6 +547,9 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		// if attack is pressed
 		if (button.getId() == R.id.Attack && attackBtnEnabled == true) {
 
+			//move disabled if enabled
+			isMoveActionReady = false;
+			
 			int getcurrentPlayer = state.getPlayerTurn();
 
 			// Make sure no invalid moves in first if statement then give the go
@@ -575,6 +583,10 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		// if the move is legal or not (country owned & has enough players in
 		// it)
 		if (button.getId() == R.id.Move && moveBtnEnabled == true) {
+			
+			//attack disabled if enabled
+			isAttackActionReady = false;
+			
 			if (state.playerInControl(countrySelectedIndexID) == this.playerNum
 					&& state.getPlayerTroopsInCountry(this.playerNum,
 							countrySelectedIndexID) > 1) {
@@ -610,6 +622,8 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 		// if surrender is pressed
 		if (button.getId() == R.id.Surrender) {
+			
+			isSurrenderActionReady = true;
 
 			updateDisplay();
 			// Sends information to the surrender constructor
@@ -622,8 +636,9 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		// if place is pressed
 		if (button.getId() == R.id.Place && placeBtnEnabled == true) {
 
+			isPlaceActionReady = true;
+			
 			updateDisplay();
-
 			// check to make sure it's your country and your turn to place
 			if (state.playerInControl(countrySelectedIndexID) == state
 					.getPlayerTurn()) {
@@ -668,9 +683,6 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		alert.setCancelable(false);
 		alert.setTitle(question);
 		currentAction = action;
-		if (currentAction instanceof RiskPlaceTroopAction) {
-			isPlaceActionReady = true;
-		}
 
 		// positive button of alert box
 		alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -747,6 +759,19 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
+				//if surrender was hit or game was won or lost, exit game upon hitting okay
+				if (state.getSurrenderPlayerTrue(RiskState.PLAYER_ONE) == true) {
+					System.exit(0);
+				}
+				if (state.getSurrenderPlayerTrue(RiskState.PLAYER_TWO) == true) {
+					System.exit(0);
+				}
+				if(state.winnerCheck() == RiskState.PLAYER_ONE){
+					System.exit(0);
+				}
+				if(state.winnerCheck() == RiskState.PLAYER_TWO){
+					System.exit(0);
+				}
 			}
 		});
 

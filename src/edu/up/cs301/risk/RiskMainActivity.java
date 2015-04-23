@@ -53,14 +53,14 @@ public class RiskMainActivity extends GameMainActivity {
 			}});
 		
 		// a computer player type (player type 1)
-		playerTypes.add(new GamePlayerType("Computer Player") {
-			public GamePlayer createPlayer(String name) {
-				return new RiskComputerPlayer1(name);
-			}});
-		
-		playerTypes.add(new GamePlayerType("Smart Computer Player") {
+		playerTypes.add(new GamePlayerType("Smart AI Player") {
 			public GamePlayer createPlayer(String name) {
 				return new RiskComputerPlayer2(name);
+			}});
+		// a computer player type (player type 2)
+		playerTypes.add(new GamePlayerType("AI Player") {
+			public GamePlayer createPlayer(String name) {
+				return new RiskComputerPlayer1(name);
 			}});
 
 		// Create a game configuration class for Risk:
@@ -73,7 +73,7 @@ public class RiskMainActivity extends GameMainActivity {
 
 		// Add the default players to the configuration
 		defaultConfig.addPlayer("Human", 0); // player 1: a human player
-		defaultConfig.addPlayer("Computer", 1); // player 2: a computer player
+		defaultConfig.addPlayer("Smart AI Player", 1); // player 2: a smart computer player
 		
 		// Set the default remote-player setup:
 		// - player name: "Remote Player"
