@@ -18,6 +18,7 @@ public class RiskMoveTroopAction extends GameAction {
 	// to satisfy the serializable interface
 	private static final long serialVersionUID = 28062013L;
 
+	//ids for country and player
 	private int countryID;
 	private int countryID2;
 	private int playerID;
@@ -35,15 +36,29 @@ public class RiskMoveTroopAction extends GameAction {
 		this.playerID = playerID;
 	}
 
+	/**
+	 * getPlayerID
+	 * 
+	 * @return the ID of the player
+	 */
 	public int getPlayerID() {
 		return playerID;
 	}
 
-
+	/**
+	 * getCountry1()
+	 * 
+	 * @return the ID of the country1
+	 */
 	public int getCountry1() {
 		return countryID;
 	}
 
+	/**
+	 * getCountry2()
+	 * 
+	 * @return the ID of the country2
+	 */
 	public int getCountry2() {
 		return countryID2;
 	}

@@ -11,6 +11,7 @@ import edu.up.cs301.game.util.Tickable;
 
 /**
  * A computer-version of a risk-player.
+ * Dumb AI
  * 
  * @authors Shamus Murray, Garrett Becker, Logan Mealy, Lucas Burns, John Will
  *          Bryan
@@ -22,22 +23,29 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 		RiskPlayer, Tickable {
 	
 	//instance variables
+	
+	//boolean determing if it is the player's turn
 	private boolean isItPlayerTurn;
+	
 	// the android activity that we are running
 	private GameMainActivity myActivity;
 
 	// the most recent game state, as given to us by the RiskLocalGame
 	private RiskState state;
 
+	//the current Game action
 	private GameAction currentAction;
 
 	private double actionRandomizer;
 
+	//index Ids of the 2 countries selected
 	private int countrySelectedIndexId;
 	private int countrySelectedIndexId2;
 
+	//boolean determining if the troops have been placed
 	private boolean troopsPlaced;
 
+	//new Random object
 	private Random rand = new Random();
 
 	/**
@@ -53,7 +61,7 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 	}
 
 	/**
-	 * sets the troop value in the text view depending on the country selected
+	 * updates display based on whose turn it is
 	 */
 	protected void updateDisplay() {
 
@@ -142,7 +150,7 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 			}
 			
 			//move troops action, 20% chance of executing
-			if (actionRandomizer >= 0.4 && actionRandomizer <= 0.6) {
+			if (actionRandomizer > 0.4 && actionRandomizer <= 0.6) {
 				int i;
 				// cycles through countries, selecting the first one it owns with more than two troops
 				for (i = 1; i < 17; i++) {
@@ -170,14 +178,14 @@ public class RiskComputerPlayer1 extends GameComputerPlayer implements
 				currentAction = new RiskMoveTroopAction(this, RiskState.PLAYER_TWO, countrySelectedIndexId, countrySelectedIndexId2);
 			}
 			
-			//end turn action, 30% chance of executing
-			if (actionRandomizer >= 0.6 && actionRandomizer <= 0.995) {
+			//end turn action, 39.5% chance of executing
+			if (actionRandomizer > 0.6 && actionRandomizer <= 0.995) {
 				// assigns its current game action to end turn action
 				currentAction = new RiskEndTurnAction(this, this.playerNum);
 			}
 			
-			//surrender action, 10% chance of executing
-			if (actionRandomizer >= 0.995 && actionRandomizer <= 1.0) {
+			//surrender action, 0.5% chance of executing
+			if (actionRandomizer > 0.995 && actionRandomizer <= 1.0) {
 				//assigns its current game action to end turn action
 				currentAction = new RiskSurrenderAction(this, this.playerNum);
 			}

@@ -33,7 +33,12 @@ public class RiskSurrenderAction extends GameAction {
 		this.playerID = playerID;
 
 	}
-	
+	/**
+	 * getPlayerID
+	 * 
+	 * @return
+	 *           player ID who used action
+	 */
 	public int getPlayerID() {
 		return playerID;
 	}

@@ -31,7 +31,14 @@ public class RiskEndTurnAction extends GameAction {
 		this.playerID = playerID;
 
 	}
-
+	
+	
+	/**
+	 * getPlayerID
+	 * 
+	 * @return the id (int) of the player who is ending their turn
+	 * 
+	 */
 	public int getPlayerID() {
 		return this.playerID;
 	}

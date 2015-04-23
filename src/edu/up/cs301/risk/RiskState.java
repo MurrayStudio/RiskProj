@@ -441,7 +441,8 @@ public class RiskState extends GameState {
 	/**
 	 * assignUnits
 	 *
-	 * assigns 3 more troops to the player in the given Country
+	 * assigns 3 or more troops to the player in the given Country
+	 * depending on the number of countries owned
 	 *
 	 * @param playerId
 	 *            : id of the player

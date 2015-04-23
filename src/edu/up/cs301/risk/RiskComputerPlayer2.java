@@ -9,6 +9,7 @@ import edu.up.cs301.game.util.Tickable;
 
 /**
  * A computer-version of a risk-player.
+ * Smart AI
  * 
  * @authors Shamus Murray, Garrett Becker, Logan Mealy, Lucas Burns, John Will Bryan 
  * 
@@ -19,9 +20,10 @@ import edu.up.cs301.game.util.Tickable;
 public class RiskComputerPlayer2 extends GameComputerPlayer implements RiskPlayer, Tickable {
 	//instance variables
 
-	// the most recent game state, as given to us by the RiskLocalGame
+	//the most recent game state, as given to us by the RiskLocalGame
 	private RiskState state;
 
+	//current game action
 	private GameAction currentAction;
 
 	/**
@@ -34,7 +36,9 @@ public class RiskComputerPlayer2 extends GameComputerPlayer implements RiskPlaye
 		// invoke superclass constructor
 		super(name);
 	}
-
+	/**
+	 * updates display based on whose turn it is
+	 */
 	protected void updateDisplay() {
 
 		Log.i("player turn update", Integer.toString(state.getPlayerTurn()));

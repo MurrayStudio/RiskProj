@@ -86,8 +86,6 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	// holds current action to send
 	private GameAction currentAction;
 
-	// playerID
-	// private int playerID;
 
 	// the most recent game state, as given to us by the RiskLocalGame
 	private RiskState state;
@@ -99,8 +97,6 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 	 * constructor
 	 * 
 	 * @param name
-	 *            of player
-	 * @param id
 	 *            of player
 	 */
 	public RiskHumanPlayer(String name) {
@@ -235,7 +231,6 @@ public class RiskHumanPlayer extends GameHumanPlayer implements RiskPlayer,
 		}
 
 		// check if booleans are enabled which enables buttons
-
 		if (this.state.getHaveTroopBeenPlaced(this.playerNum) == true) {
 			place.setBackgroundColor(place.getContext().getResources()
 					.getColor(R.color.Red));
